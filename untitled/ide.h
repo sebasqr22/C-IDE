@@ -15,6 +15,9 @@ public:
     ide(QWidget *parent = nullptr);
     ~ide();
 
+private slots:
+    void on_runBut_clicked();
+
 private:
     Ui::ide *ui;
 };

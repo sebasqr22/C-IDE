@@ -32,16 +32,6 @@
    <string>ide</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTextEdit" name="editor">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>731</width>
-      <height>361</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QTextBrowser" name="stdout">
     <property name="geometry">
      <rect>
@@ -142,13 +132,23 @@ p, li { white-space: pre-wrap; }
      <string>                     RAM LIVE VIEW</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="textBrowser">
+   <widget class="QTextBrowser" name="ramView">
     <property name="geometry">
      <rect>
       <x>750</x>
       <y>30</y>
       <width>341</width>
       <height>670</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="editor">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>731</width>
+      <height>361</height>
      </rect>
     </property>
    </widget>
