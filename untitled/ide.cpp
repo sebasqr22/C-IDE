@@ -1,6 +1,7 @@
 #include "ide.h"
 #include "ui_ide.h"
 #include <QDebug>
+#include <QMessageBox>
 
 using namespace std;
 ide::ide(QWidget *parent)
@@ -15,12 +16,28 @@ ide::~ide()
     delete ui;
 }
 
-void ide::on_runBut_clicked()//basicamente esto es un adapter
-{
-    QString tmp;
+bool validarComas(QString aux){
+    int largo = aux.size();
+    bool good = true;
 
-    tmp = ui->editor->toPlainText();
-    qInfo() << tmp;
+    for(int i=0; i <= largo; i++){
+        if(aux[i] == "\n"){
+            if(aux[i-1] != ";"){
+                good = false;
+                break;
+            }
+        }
+        else if(i==largo){
+            if(aux[i] != ";"){
+                good = false;
+                break;
+            }
+        }
+    }
+   return good;
+}
+
+QStringList adapter(QString tmp){
     tmp.remove("\n");
     qInfo() << tmp;
 
@@ -51,4 +68,20 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
 
     }
     qInfo() << listaInfo;
+    return listaInfo;
+}
+
+void ide::on_runBut_clicked()//basicamente esto es un adapter
+{
+    QString original;
+
+    original = ui->editor->toPlainText();
+    qInfo() << original;
+
+    if(validarComas(original) == true){ //validacion
+        QStringList codigo = adapter(original);
+    }
+    else{
+        QMessageBox::critical(this, "ERROR", "Debe revisar los puntos y comas...");
+    }
 }
