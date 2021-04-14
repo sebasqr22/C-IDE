@@ -20,18 +20,24 @@ bool validarComas(QString aux){
     int largo = aux.size();
     bool good = true;
 
+    qInfo() << "LARGO:";
+    qInfo() << largo;
+
     for(int i=0; i <= largo; i++){
+        qInfo() << "ENTRO con i:" << i;
         if(aux[i] == "\n"){
             if(aux[i-1] != ";"){
-                good = false;
-                break;
+                if(aux[i-1] != "{" && aux[i-1] != "}" && aux[i-1] != "\n"){
+                    good = false;
+                    break;
+                }
             }
         }
-        else if(i==largo){
-            if(aux[i] != ";"){
-                good = false;
-                break;
-            }
+        else if(i==largo-1){
+           if(aux[i]!= ";" && aux[i] != "}" && aux[i] != "\n"){
+               good = false;
+               break;
+           }
         }
     }
    return good;
