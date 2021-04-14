@@ -16,10 +16,10 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -28,14 +28,14 @@ class Ui_ide
 {
 public:
     QWidget *centralwidget;
-    QTextEdit *editor;
     QTextBrowser *stdout;
     QLabel *label;
     QTextBrowser *log;
     QPushButton *runBut;
     QPushButton *clearBut;
     QLabel *label_2;
-    QTextBrowser *textBrowser;
+    QTextBrowser *ramView;
+    QPlainTextEdit *editor;
     QMenuBar *menubar;
     QMenu *menuIDE_C;
     QStatusBar *statusbar;
@@ -54,9 +54,6 @@ public:
         ide->setMaximumSize(QSize(1100, 750));
         centralwidget = new QWidget(ide);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        editor = new QTextEdit(centralwidget);
-        editor->setObjectName(QString::fromUtf8("editor"));
-        editor->setGeometry(QRect(10, 30, 731, 361));
         stdout = new QTextBrowser(centralwidget);
         stdout->setObjectName(QString::fromUtf8("stdout"));
         stdout->setGeometry(QRect(10, 400, 731, 141));
@@ -86,9 +83,12 @@ public:
         font1.setWeight(75);
         label_2->setFont(font1);
         label_2->setLayoutDirection(Qt::LeftToRight);
-        textBrowser = new QTextBrowser(centralwidget);
-        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        textBrowser->setGeometry(QRect(750, 30, 341, 670));
+        ramView = new QTextBrowser(centralwidget);
+        ramView->setObjectName(QString::fromUtf8("ramView"));
+        ramView->setGeometry(QRect(750, 30, 341, 670));
+        editor = new QPlainTextEdit(centralwidget);
+        editor->setObjectName(QString::fromUtf8("editor"));
+        editor->setGeometry(QRect(10, 30, 731, 361));
         ide->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ide);
         menubar->setObjectName(QString::fromUtf8("menubar"));

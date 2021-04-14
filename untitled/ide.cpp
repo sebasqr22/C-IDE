@@ -19,7 +19,6 @@ void ide::on_runBut_clicked()
 {
     QString tmp;
     int cantidadPuntoComa;
-    int contador = 0;
 
     tmp = ui->editor->toPlainText();
     qInfo() << tmp;
@@ -27,14 +26,33 @@ void ide::on_runBut_clicked()
     qInfo() << tmp;
     cantidadPuntoComa = tmp.count(";");
 
+    QString temp2 = "";
+    QStringList listaInfo;
+    int largo = tmp.size();
+
+    for(int i=0; i > largo; i++){
+        if(tmp[i] == ";"){
+            qInfo()<<"entrando al if";
+            listaInfo << temp2;
+            temp2 = "";
+            qInfo()<<temp2;
+        }
+        else{
+            qInfo()<<"ENtrando al else";
+            temp2.append(tmp[i]);        }
+            qInfo()<<temp2;
+    }
+    qInfo() << listaInfo;
+
     // Despues se crea el array con la info correspondiente
 
 
 
+/*
     QString arr[cantidadPuntoComa];
     QString tmp2 = "";
 
-    qInfo() << "VAriables creadas";
+    qInfo() << "Variables creadas";
 
     for(int i = 0; i == tmp.size(); i++){
         if(tmp[i] != ";"){
@@ -53,4 +71,5 @@ void ide::on_runBut_clicked()
     }
 
     qInfo() << "Termino segundo for";
+*/
 }
