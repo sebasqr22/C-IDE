@@ -172,6 +172,18 @@ bool validarTipos(QStringList tmp){
         return contador == largo;
     }
 }
+
+QStringList imprimir(QStringList lista){
+    int largo = lista.size();
+    QString tmp;
+    QStringList listaAux;
+    for(int i=0; i<largo; i++){
+        tmp = lista[i].remove("print(");
+        tmp = lista[i].remove(")");
+        listaAux << tmp;
+    }
+    return listaAux;
+}
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
     QString original;
@@ -187,6 +199,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
     QStringList longs;//listo
 
     original = ui->editor->toPlainText();
+    ui->stdout->setText("");
     qInfo() << original;
 
     if(validarComas(original) == true){ //validacion
@@ -195,7 +208,8 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
         if(validarTipos(codigo) == true){
             qInfo()<< "Todo good";
             creadorListas separador;
-            separador.organizar(codigo);
+            separador.organizar(codigo);//crea las sublistas
+
             strcs = separador.get("{");
             ints = separador.get("int");
             chars = separador.get("char");
@@ -213,6 +227,13 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             qInfo() << doubles;
             qInfo() << prints;
             qInfo() << refs;
+
+            prints = imprimir(prints);
+            int largoPrints = prints.size();
+            for(int l=0; l<largoPrints; l++){
+                ui->stdout->append(prints[l]);
+            }
+
         }
         else{
             QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");

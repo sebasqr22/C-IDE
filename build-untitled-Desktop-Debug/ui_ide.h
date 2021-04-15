@@ -20,6 +20,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -28,7 +29,6 @@ class Ui_ide
 {
 public:
     QWidget *centralwidget;
-    QTextBrowser *stdout;
     QLabel *label;
     QTextBrowser *log;
     QPushButton *runBut;
@@ -36,6 +36,7 @@ public:
     QLabel *label_2;
     QTextBrowser *ramView;
     QPlainTextEdit *editor;
+    QTextEdit *stdout;
     QMenuBar *menubar;
     QMenu *menuIDE_C;
     QStatusBar *statusbar;
@@ -44,6 +45,7 @@ public:
     {
         if (ide->objectName().isEmpty())
             ide->setObjectName(QString::fromUtf8("ide"));
+        ide->setEnabled(true);
         ide->resize(1100, 750);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
@@ -54,9 +56,6 @@ public:
         ide->setMaximumSize(QSize(1100, 750));
         centralwidget = new QWidget(ide);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        stdout = new QTextBrowser(centralwidget);
-        stdout->setObjectName(QString::fromUtf8("stdout"));
-        stdout->setGeometry(QRect(10, 400, 731, 141));
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(10, 545, 181, 21));
@@ -89,6 +88,10 @@ public:
         editor = new QPlainTextEdit(centralwidget);
         editor->setObjectName(QString::fromUtf8("editor"));
         editor->setGeometry(QRect(10, 30, 731, 361));
+        stdout = new QTextEdit(centralwidget);
+        stdout->setObjectName(QString::fromUtf8("stdout"));
+        stdout->setEnabled(false);
+        stdout->setGeometry(QRect(10, 400, 731, 141));
         ide->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ide);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -110,11 +113,6 @@ public:
     void retranslateUi(QMainWindow *ide)
     {
         ide->setWindowTitle(QCoreApplication::translate("ide", "ide", nullptr));
-        stdout->setHtml(QCoreApplication::translate("ide", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
         label->setText(QCoreApplication::translate("ide", "Aplication Log", nullptr));
         runBut->setText(QCoreApplication::translate("ide", "RUN", nullptr));
         clearBut->setText(QCoreApplication::translate("ide", "CLEAR", nullptr));
