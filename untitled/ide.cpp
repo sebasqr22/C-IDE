@@ -20,11 +20,7 @@ bool validarComas(QString aux){
     int largo = aux.size();
     bool good = true;
 
-    qInfo() << "LARGO:";
-    qInfo() << largo;
-
     for(int i=0; i <= largo; i++){
-        qInfo() << "ENTRO con i:" << i;
         if(aux[i] == "\n"){
             if(aux[i-1] != ";"){
                 if(aux[i-1] != "{" && aux[i-1] != "}" && aux[i-1] != "\n"){
@@ -76,18 +72,83 @@ QStringList adapter(QString tmp){
     qInfo() << listaInfo;
     return listaInfo;
 }
+QString agrega(QString aux, int veces){
+    QString todo = "";
+    for(int i=0; i<=veces; i++){
+        todo.append(aux[i]);
+    }
+    return todo;
+}
+bool validarTipos(QStringList tmp){
+    int largo = tmp.size();
+    int contador = 0;
+    QString analizando = "";
+
+    //validamos primero las structuras
+    for(int i=0; i<largo; i++){
+        if(tmp[i][0] == "{"){
+            contador++;
+            qInfo() << "Sumando contador por {";
+        }
+    }
+    //validamos int
+    for(int i=0; i<largo; i++){
+        analizando = agrega(tmp[i], 3);
+        if(analizando == "int "){
+            contador++;
+            qInfo() << "Sumando contador por int";
+        }
+    }
+    //validamos char y long
+    for(int i=0; i<largo; i++){
+        analizando = agrega(tmp[i], 4);
+        if(analizando == "char " || analizando == "long "){
+            contador++;
+        }
+    }
+    //validamos float
+    for(int i=0; i<largo; i++){
+        analizando = agrega(tmp[i], 5);
+        if(analizando == "float "){
+            contador++;
+            qInfo() << "Sumando contador por int";
+        }
+    }
+    //validamos double
+    for(int i=0; i<largo; i++){
+        analizando = agrega(tmp[i], 6);
+        if(analizando == "double "){
+            contador++;
+            qInfo() << "Sumando contador por int";
+        }
+    }
+    //validamos reference<
+    for(int i=0; i<largo; i++){
+        analizando = agrega(tmp[i], 9);
+        if(analizando == "reference<"){
+            contador++;
+            qInfo() << "Sumando contador por int";
+        }
+    }
+
+    return contador==largo;
+}
 
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
     QString original;
+    QStringList codigo;
 
     original = ui->editor->toPlainText();
     qInfo() << original;
 
     if(validarComas(original) == true){ //validacion
-        QStringList codigo = adapter(original);
+        codigo = adapter(original);
+        //se procede con validacion de tipos de datos
+        qInfo() << validarTipos(codigo);
     }
     else{
         QMessageBox::critical(this, "ERROR", "Debe revisar los puntos y comas...");
     }
+    //int-long-char-float-double-{-reference<
 }
