@@ -79,18 +79,8 @@ QString agrega(QString aux, int veces){
     }
     return todo;
 }
-bool validarTipos(QStringList tmp){
-    int largo = tmp.size();
+int validaResto(QStringList tmp, int largo, QString analizando){
     int contador = 0;
-    QString analizando = "";
-
-    //validamos primero las structuras
-    for(int i=0; i<largo; i++){
-        if(tmp[i][0] == "{"){
-            contador++;
-            qInfo() << "Sumando contador por {";
-        }
-    }
     //validamos int
     for(int i=0; i<largo; i++){
         analizando = agrega(tmp[i], 3);
@@ -111,7 +101,7 @@ bool validarTipos(QStringList tmp){
         analizando = agrega(tmp[i], 5);
         if(analizando == "float "){
             contador++;
-            qInfo() << "Sumando contador por int";
+            qInfo() << "Sumando contador por float";
         }
     }
     //validamos double
@@ -119,7 +109,7 @@ bool validarTipos(QStringList tmp){
         analizando = agrega(tmp[i], 6);
         if(analizando == "double "){
             contador++;
-            qInfo() << "Sumando contador por int";
+            qInfo() << "Sumando contador por double";
         }
     }
     //validamos reference<
@@ -127,11 +117,59 @@ bool validarTipos(QStringList tmp){
         analizando = agrega(tmp[i], 9);
         if(analizando == "reference<"){
             contador++;
-            qInfo() << "Sumando contador por int";
+            qInfo() << "Sumando contador por reference";
         }
     }
+    return contador;
+}
+bool validarTipos(QStringList tmp){
+    int largo = tmp.size();
+    int contador = 0;
+    int contadorEstructura = 0;
+    bool hayStruct = false;
+    bool goodStructs = false;
+    QString analizando = "";
 
-    return contador==largo;
+    //validamos primero las structuras
+    for(int i=0; i<largo; i++){
+        if(tmp[i][0] == "{"){
+            contador++;
+            qInfo() << "Sumando contador por {";
+            hayStruct = true;
+            QStringList listaAux;
+            QString stringAux = "";
+            int largoEst = tmp[i].size();
+            analizando = tmp[i];
+            for(int a=1; a<largoEst; a++){
+                if(analizando[a] != ";"){
+                    stringAux.append(analizando[a]);
+                }
+                else{
+                    listaAux << stringAux;
+                    stringAux = "";
+                }
+            }
+            largoEst = listaAux.size();
+            qInfo() << listaAux;
+            contadorEstructura = validaResto(listaAux, largoEst, "");
+            qInfo() << contadorEstructura;
+            goodStructs = contadorEstructura == largoEst;
+        }
+    }
+    int aux = validaResto(tmp, largo, "");
+    contador += aux;
+
+    if(hayStruct == true){
+        if(contador == largo && goodStructs==true){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return contador == largo;
+    }
 }
 
 void ide::on_runBut_clicked()//basicamente esto es un adapter
@@ -145,7 +183,12 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
     if(validarComas(original) == true){ //validacion
         codigo = adapter(original);
         //se procede con validacion de tipos de datos
-        qInfo() << validarTipos(codigo);
+        if(validarTipos(codigo) == true){
+            qInfo()<< "Todo good";
+        }
+        else{
+            QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
+        }
     }
     else{
         QMessageBox::critical(this, "ERROR", "Debe revisar los puntos y comas...");
