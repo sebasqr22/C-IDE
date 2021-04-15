@@ -172,11 +172,19 @@ bool validarTipos(QStringList tmp){
         return contador == largo;
     }
 }
-
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
     QString original;
     QStringList codigo;
+
+    QStringList ints; //listo
+    QStringList chars;//listo
+    QStringList floats;//listo
+    QStringList doubles;//listo
+    QStringList refs;
+    QStringList prints;//listo
+    QStringList strcs;//listo
+    QStringList longs;//listo
 
     original = ui->editor->toPlainText();
     qInfo() << original;
@@ -186,7 +194,25 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
         //se procede con validacion de tipos de datos
         if(validarTipos(codigo) == true){
             qInfo()<< "Todo good";
-            // aqui se procede a separar los datos en listas por aparte
+            creadorListas separador;
+            separador.organizar(codigo);
+            strcs = separador.get("{");
+            ints = separador.get("int");
+            chars = separador.get("char");
+            longs = separador.get("long");
+            floats = separador.get("float");
+            doubles = separador.get("double");
+            prints = separador.get("pr");
+            refs = separador.get("refsa");
+
+            qInfo() << strcs;
+            qInfo() << ints;
+            qInfo() << chars;
+            qInfo() << longs;
+            qInfo() << floats;
+            qInfo() << doubles;
+            qInfo() << prints;
+            qInfo() << refs;
         }
         else{
             QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");

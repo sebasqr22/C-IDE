@@ -19,25 +19,25 @@ public:
         int largo = lista.size();
         for(int i=0; i < largo; i++){
             QString act = lista[i];
-            if(act.contains("{")){
+            if(act[0] == "{"){
                 strcs << act;
             }
-            else if(act.contains("int")){
+            else if(act[0] == "i"){
                 ints << act;
             }
-            else if(act.contains("char")){
+            else if(act[0] == "c"){
                 chars << act;
             }
-            else if(act.contains("long")){
+            else if(act[0] == "l"){
                 longs << act;
             }
-            else if(act.contains("float")){
+            else if(act[0] == "f"){
                 floats << act;
             }
-            else if(act.contains("double")){
+            else if(act[0] == "d"){
                 doubles << act;
             }
-            else if(act.contains("print")){
+            else if(act[0] == "p"){
                 prints << act;
             }
             else{
@@ -64,7 +64,7 @@ public:
         else if(name.contains("double")){
             return doubles;
         }
-        else if(name.contains("print")){
+        else if(name.contains("pr")){
             return prints;
         }
         else{

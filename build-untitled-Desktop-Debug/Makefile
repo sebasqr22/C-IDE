@@ -389,7 +389,8 @@ main.o: ../untitled/main.cpp ../untitled/ide.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../untitled/main.cpp
 
 ide.o: ../untitled/ide.cpp ../untitled/ide.h \
-		ui_ide.h
+		ui_ide.h \
+		../untitled/creadorListas.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ide.o ../untitled/ide.cpp
 
 moc_ide.o: moc_ide.cpp 
