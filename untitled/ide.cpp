@@ -2,6 +2,7 @@
 #include "ui_ide.h"
 #include <QDebug>
 #include <QMessageBox>
+#include "creadorListas.cpp"
 
 using namespace std;
 ide::ide(QWidget *parent)
@@ -96,10 +97,10 @@ int validaResto(QStringList tmp, int largo, QString analizando){
             contador++;
         }
     }
-    //validamos float
+    //validamos float y print(
     for(int i=0; i<largo; i++){
         analizando = agrega(tmp[i], 5);
-        if(analizando == "float "){
+        if(analizando == "float " || analizando == "print("){
             contador++;
             qInfo() << "Sumando contador por float";
         }
@@ -185,6 +186,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
         //se procede con validacion de tipos de datos
         if(validarTipos(codigo) == true){
             qInfo()<< "Todo good";
+            // aqui se procede a separar los datos en listas por aparte
         }
         else{
             QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
