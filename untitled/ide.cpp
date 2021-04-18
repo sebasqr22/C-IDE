@@ -182,6 +182,12 @@ QStringList imprimir(QStringList lista){
         tmp = lista[i].remove(")");
         listaAux << tmp;
     }
+    for(int j=0; j<largo; j++){
+        if(listaAux[j][0] == '\"'){
+            listaAux[j].remove('\"');
+        }
+    }
+    qInfo() << listaAux;
     return listaAux;
 }
 void ide::on_runBut_clicked()//basicamente esto es un adapter

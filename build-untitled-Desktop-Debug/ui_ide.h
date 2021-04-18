@@ -90,7 +90,7 @@ public:
         editor->setGeometry(QRect(10, 30, 731, 361));
         stdout = new QTextEdit(centralwidget);
         stdout->setObjectName(QString::fromUtf8("stdout"));
-        stdout->setEnabled(false);
+        stdout->setEnabled(true);
         stdout->setGeometry(QRect(10, 400, 731, 141));
         ide->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ide);
