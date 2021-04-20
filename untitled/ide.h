@@ -18,6 +18,14 @@ public:
 private slots:
     void on_runBut_clicked();
 
+    void on_stop_clicked();
+
+    void on_atras_clicked();
+
+    void on_delante_clicked();
+
+    void verCorriendo(int pos);
+
 private:
     Ui::ide *ui;
 };

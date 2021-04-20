@@ -5,6 +5,12 @@
 #include "creadorListas.cpp"
 
 using namespace std;
+
+//variables globales
+bool corriendo = false;
+int depurLine = 0;
+QStringList codigo;
+//
 ide::ide(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ide)
@@ -190,10 +196,20 @@ QStringList imprimir(QStringList lista){
     qInfo() << listaAux;
     return listaAux;
 }
+void ide::verCorriendo(int pos){
+    int largo = codigo.size();
+    if(pos > largo-1){
+        pos = 0;
+    }
+    else if(pos < 0){
+        pos = largo-1;
+    }
+    ui->viendo->setText(codigo[pos]);
+}
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
     QString original;
-    QStringList codigo;
+
 
     QStringList ints; //listo
     QStringList chars;//listo
@@ -207,6 +223,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
     original = ui->editor->toPlainText();
     ui->stdout->setText("");
     qInfo() << original;
+    depurLine = 0;
 
     if(validarComas(original) == true){ //validacion
         codigo = adapter(original);
@@ -240,6 +257,13 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 ui->stdout->append(prints[l]);
             }
 
+            //comienza depuración
+            ui->atras->setEnabled(true);
+            ui->delante->setEnabled(true);
+            ui->viendo->setEnabled(true);
+            ui->stop->setEnabled(true);
+
+            verCorriendo(depurLine);
         }
         else{
             QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
@@ -249,4 +273,26 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
         QMessageBox::critical(this, "ERROR", "Debe revisar los puntos y comas...");
     }
     //int-long-char-float-double-{-reference<
+}
+
+void ide::on_stop_clicked()
+{
+    ui->viendo->setText("");
+    ui->atras->setEnabled(false);
+    ui->delante->setEnabled(false);
+    ui->viendo->setEnabled(false);
+    ui->stop->setEnabled(false);
+    depurLine = 0;
+}
+
+void ide::on_atras_clicked()
+{
+    depurLine --;
+    verCorriendo(depurLine);
+}
+
+void ide::on_delante_clicked()
+{
+    depurLine ++;
+    verCorriendo(depurLine);
 }

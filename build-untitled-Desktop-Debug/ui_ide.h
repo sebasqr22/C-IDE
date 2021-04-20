@@ -37,6 +37,10 @@ public:
     QTextBrowser *ramView;
     QPlainTextEdit *editor;
     QTextEdit *stdout;
+    QPushButton *atras;
+    QPushButton *delante;
+    QTextEdit *viendo;
+    QPushButton *stop;
     QMenuBar *menubar;
     QMenu *menuIDE_C;
     QStatusBar *statusbar;
@@ -92,6 +96,23 @@ public:
         stdout->setObjectName(QString::fromUtf8("stdout"));
         stdout->setEnabled(true);
         stdout->setGeometry(QRect(10, 400, 731, 141));
+        atras = new QPushButton(centralwidget);
+        atras->setObjectName(QString::fromUtf8("atras"));
+        atras->setEnabled(false);
+        atras->setGeometry(QRect(120, 0, 31, 31));
+        atras->setCursor(QCursor(Qt::PointingHandCursor));
+        delante = new QPushButton(centralwidget);
+        delante->setObjectName(QString::fromUtf8("delante"));
+        delante->setEnabled(false);
+        delante->setGeometry(QRect(150, 0, 31, 31));
+        viendo = new QTextEdit(centralwidget);
+        viendo->setObjectName(QString::fromUtf8("viendo"));
+        viendo->setEnabled(false);
+        viendo->setGeometry(QRect(190, 0, 451, 31));
+        stop = new QPushButton(centralwidget);
+        stop->setObjectName(QString::fromUtf8("stop"));
+        stop->setEnabled(false);
+        stop->setGeometry(QRect(660, 0, 81, 31));
         ide->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ide);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -117,6 +138,9 @@ public:
         runBut->setText(QCoreApplication::translate("ide", "RUN", nullptr));
         clearBut->setText(QCoreApplication::translate("ide", "CLEAR", nullptr));
         label_2->setText(QCoreApplication::translate("ide", "                     RAM LIVE VIEW", nullptr));
+        atras->setText(QCoreApplication::translate("ide", "<", nullptr));
+        delante->setText(QCoreApplication::translate("ide", ">", nullptr));
+        stop->setText(QCoreApplication::translate("ide", "STOP", nullptr));
         menuIDE_C->setTitle(QCoreApplication::translate("ide", "IDE - C!", nullptr));
     } // retranslateUi
 
