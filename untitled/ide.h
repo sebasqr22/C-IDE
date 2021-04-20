@@ -26,6 +26,8 @@ private slots:
 
     void verCorriendo(int pos);
 
+    void imprimirMalas();
+
 private:
     Ui::ide *ui;
 };
