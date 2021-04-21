@@ -27,12 +27,15 @@ ide::~ide()
 bool validarComas(QString aux){
     int largo = aux.size();
     bool good = true;
+    int lineNum = 0;
 
     for(int i=0; i <= largo; i++){
         if(aux[i] == "\n"){
+            lineNum += 1;
             if(aux[i-1] != ";"){
                 if(aux[i-1] != "{" && aux[i-1] != "}" && aux[i-1] != "\n"){
                     badLine << QString::number(i-1);
+                    qInfo() << "Menos 1" << QString::number(lineNum);
                     good = false;
                     break;
                 }
@@ -41,6 +44,7 @@ bool validarComas(QString aux){
         else if(i==largo-1){
            if(aux[i]!= ";" && aux[i] != "}" && aux[i] != "\n"){
                badLine << QString::number(i);
+               qInfo() << "Normal" << QString::number(i);
                good = false;
                break;
            }
@@ -92,15 +96,18 @@ QString agrega(QString aux, int veces){
 int validaResto(QStringList tmp, int largo, QString analizando){
     int contador = 0;
     QStringList incompletos;
+    QStringList correctos;
     //validamos int
     for(int i=0; i<largo; i++){
         analizando = agrega(tmp[i], 3);
         if(analizando == "int "){
             contador++;
+            correctos << QString::number(i);
             qInfo() << "Sumando contador por int";
         }
         else{
             incompletos << QString::number(i);
+            qInfo() << "INT" << incompletos;
         }
     }
     //validamos char y long
@@ -108,10 +115,11 @@ int validaResto(QStringList tmp, int largo, QString analizando){
         analizando = agrega(tmp[i], 4);
         if(analizando == "char " || analizando == "long "){
             contador++;
-            incompletos.removeAll(QString::number(i));
+            correctos << QString::number(i);
         }
         else{
             incompletos << QString::number(i);
+            qInfo() << "CHAR - LONG" << incompletos;
         }
     }
     //validamos float y print(
@@ -119,8 +127,9 @@ int validaResto(QStringList tmp, int largo, QString analizando){
         analizando = agrega(tmp[i], 5);
         if(analizando == "float " || analizando == "print("){
             contador++;
-            incompletos.removeAll(QString::number(i));
+            correctos << QString::number(i);
             qInfo() << "Sumando contador por float";
+            qInfo() << "FLOAT - PRINT" << incompletos;
         }
         else{
             incompletos << QString::number(i);
@@ -131,11 +140,12 @@ int validaResto(QStringList tmp, int largo, QString analizando){
         analizando = agrega(tmp[i], 6);
         if(analizando == "double "){
             contador++;
-            incompletos.removeAll(QString::number(i));
+            correctos << QString::number(i);
             qInfo() << "Sumando contador por double";
         }
         else{
             incompletos << QString::number(i);
+            qInfo() << "DOUBLE" << incompletos;
         }
     }
     //validamos reference<
@@ -143,16 +153,24 @@ int validaResto(QStringList tmp, int largo, QString analizando){
         analizando = agrega(tmp[i], 9);
         if(analizando == "reference<"){
             contador++;
-            incompletos.removeAll(QString::number(i));
+            correctos << QString::number(i);
             qInfo() << "Sumando contador por reference";
         }
         else{
             incompletos << QString::number(i);
+            qInfo() << "REFERENCE" << incompletos;
         }
     }
     int largoMal = incompletos.size();
-    for(int j=0; j<largoMal; j++){
-        badLine << incompletos[j];
+    QStringList bien;
+    for(int x=0; x<largoMal; x++){
+        if(correctos.contains(incompletos[x]) == false){
+            bien << incompletos[x];
+        }
+    }
+    int good = bien.size();
+    for(int j=0; j<good; j++){
+        badLine << bien[j];
     }
     return contador;
 }
@@ -247,7 +265,7 @@ void ide::imprimirMalas(){
     QString aux = "";
     for(int i=0; i < largo; i++){
         aux += "-";
-        aux += QString::number(i);
+        aux += badLine[i];
         aux+= "-";
         malas += aux;
         aux = "";
@@ -263,6 +281,16 @@ void removeAll(){
     for(int j=0; j<largo; j++){
         badLine.removeAll(aux[j]);
     }
+}
+QStringList quitarRepetidos(QStringList lista){
+    QStringList tmp;
+    int largo = lista.size();
+    for(int i=0; i<largo; i++){
+        if(tmp.contains(lista[i]) == false){
+            tmp << lista[i];
+        }
+    }
+    return tmp;
 }
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
@@ -328,12 +356,16 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
         else{
             QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
             ui->viendo->setEnabled(true);
+            badLine = quitarRepetidos(badLine);
+            qInfo() << "Sin repetidos" << badLine;
             imprimirMalas();
         }
     }
     else{
         QMessageBox::critical(this, "ERROR", "Debe revisar los puntos y comas...");
         ui->viendo->setEnabled(true);
+        badLine = quitarRepetidos(badLine);
+        qInfo() << "Sin repetidos" << badLine;
         imprimirMalas();
     }
     //int-long-char-float-double-{-reference<

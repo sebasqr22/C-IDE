@@ -73,7 +73,7 @@
      </rect>
     </property>
     <property name="cursor">
-     <cursorShape>OpenHandCursor</cursorShape>
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
      <string>RUN</string>
@@ -182,6 +182,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
     <property name="text">
      <string>&gt;</string>
     </property>
@@ -198,6 +201,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>BusyCursor</cursorShape>
+    </property>
    </widget>
    <widget class="QPushButton" name="stop">
     <property name="enabled">
@@ -210,6 +216,9 @@
       <width>81</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="text">
      <string>STOP</string>
