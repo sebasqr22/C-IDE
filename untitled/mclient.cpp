@@ -1,15 +1,10 @@
-#include <iostream>
 #include <stdio.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
-#include <fstream>
 #include "json.hpp"
 #define PORT 8080
-
-using json = nlohmann::json;
-using namespace std;
    
 int main(int argc, char const *argv[])
 {
@@ -42,11 +37,5 @@ int main(int argc, char const *argv[])
     printf("Hello message sent\n");
     valread = read( sock , buffer, 1024);
     printf("%s\n",buffer );
-
-    json j;
-    j = buffer;
-    fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
-    o << j;
-
     return 0;
 }

@@ -25,7 +25,7 @@ int main(int port, size_t size){ //size en bytes
     int *ptr;
     ptr = (int*) malloc(size);
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
+    int setsock(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
     int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
     int listen(int sockfd, int backlog);
     int new_socket = accept(int sockfd, struct sockaddr *addr, socklen_t addrlen);
@@ -34,20 +34,14 @@ int main(int port, size_t size){ //size en bytes
     return 0;
 }*/
 
-#include <iostream>
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <string.h>
-#include <fstream>
 #include "json.hpp"
 #define PORT 8080
-
-using json = nlohmann::json;
-using namespace std;
-
 int main(int argc, char const *argv[])
 {
     int server_fd, new_socket, valread;
@@ -55,19 +49,9 @@ int main(int argc, char const *argv[])
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
-
-    json j;
-    j = {
-        {"thunder", true},
-        {"sad", false}
-    };
-    //ifstream i("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
-    //i >> j;
-    string s = j.dump();
-    
-    char *hello = &s[0];
+    char *hello = "hi";
        
-    // Creating socket file descriptor 
+    // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
         perror("socket failed");
@@ -103,8 +87,6 @@ int main(int argc, char const *argv[])
         perror("accept");
         exit(EXIT_FAILURE);
     }
-
-    
     valread = read( new_socket , buffer, 1024);
     printf("%s\n",buffer );
     send(new_socket , hello , strlen(hello) , 0 );
