@@ -3,6 +3,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <iomanip>
 #include <string.h>
 #include <fstream>
 #include "json.hpp"
@@ -15,7 +16,16 @@ int main(int argc, char const *argv[])
 {
     int sock = 0, valread;
     struct sockaddr_in serv_addr;
-    char *hello = "Hello from client";
+    json j;
+    j["variable1"] = {"float", 30, 4};
+    j["variable2"] = {"double", 3120, 8};
+    j["variable3"] = {"reference<int>", 30, 4};
+    //tomar la lista de variables de QT, tal vez con for o while
+    //while(quedan elementos en la lista)
+    //j["nombre de variable"] = {{"tipo de variable","valor de la variable","maybe valor de memoria de la variable"}}
+    string s = j.dump();  
+    cout << s <<endl;  
+    char *message = &s[0];
     char buffer[1024] = {0};
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
@@ -38,15 +48,14 @@ int main(int argc, char const *argv[])
         printf("\nConnection Failed \n");
         return -1;
     }
-    send(sock , hello , strlen(hello) , 0 );
-    printf("Hello message sent\n");
-    valread = read( sock , buffer, 1024);
-    printf("%s\n",buffer );
+    send(sock , message , strlen(message) , 0 );
+    printf("Message sent to server\n");
+    //valread = read( sock , buffer, 1024);
+    //printf("%s\n",buffer );
 
-    json j;
-    j = buffer;
-    fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
-    o << j;
+    //j = buffer;
+    //fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
+    //o << setw(4) << j;
 
     return 0;
 }

@@ -1,1 +1,1 @@
-{"list":[1,0,2],"name":"Jesus","nothing":null,"object":{"pls no 1":"USD","value":69.69},"pi":3.141}
+"{\"variable1\":[\"float\",30,4],\"variable2\":[\"double\",3120,8],\"variable3\":[\"reference<int>\",30,4]}"
