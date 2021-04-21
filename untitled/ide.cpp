@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "creadorListas.cpp"
+#include "arigmetica.cpp"
 
 using namespace std;
 
@@ -352,6 +353,8 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             ui->stop->setEnabled(true);
 
             verCorriendo(depurLine);
+
+            realizarOperaciones(ints);
         }
         else{
             QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
