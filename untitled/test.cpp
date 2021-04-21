@@ -18,7 +18,7 @@ int main()
     
     json j2 = {
         {"pi", 3.141},
-        {"happy", "fucked"},
+        {"happy", "true"},
         {"name", "Jesus"},
         {"nothing", nullptr},
         {"answer", {
@@ -27,7 +27,7 @@ int main()
         {"list", {1, 0, 2}},
         {"object", {
             {"pls no 1", "USD"},
-            {"value", 69.69}
+            {"value", 318}
         }}
         };
     fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
