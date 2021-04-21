@@ -11,7 +11,8 @@ CONFIG += c++11
 SOURCES += \
     creadorListas.cpp \
     main.cpp \
-    ide.cpp
+    ide.cpp \
+    mserver.cpp
 
 HEADERS += \
     ide.h
