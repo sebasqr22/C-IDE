@@ -5,7 +5,9 @@
 
 class operaciones{
 private:
+    float num1g, num2g;
     QStringList all;
+    QStringList results;
     int operacionInt(int num1, int num2, QString simb){
         if(simb == "+"){
             return num1 + num2;
@@ -92,10 +94,50 @@ private:
                 p1a = false;
             }
         }
-        int resultado = operacionFloat(num1.toFloat(), num2.toFloat(), simb);
+        num1g = num1.toFloat();
+        num2g = num2.toFloat();
+        float resultado = operacionFloat(num1.toFloat(), num2.toFloat(), simb);
         return p1+QString::number(resultado);
     }
+    QString separacionEspe(QString str){
+        int largoList = results.size();
+        int largo = str.size();
+        QString aux;
+        QString p1;
+        QString p2;
+        bool p1a = true;
+        bool encontrado = false;
 
+        for(int i=0; i<largo; i++){
+            if(str[i] != "=" && p1a){
+                p1 += str[i];
+            }
+            else if(not p1a){
+                p2 += str[i];
+            }
+            else{
+                p1 += str[i];
+                p1a = false;
+            }
+        }
+        //tenemos la info separada, buscamos el equivalente
+        for(int j=0; j<largoList; j++){
+            if(results[j].contains(p2)){
+                int largoAux = results[j].size();
+                bool listo;
+                for(int y=0; y<largoAux; y++){
+                    if(listo){
+                        aux += results[j][y];
+                    }
+                    else if(results[j][y] == "="){
+                        listo = true;
+                    }
+                }
+                break;
+            }
+        }
+        return p1 + aux;
+    }
 
 public:
     void realizarOperacionesInt(QStringList lista){
