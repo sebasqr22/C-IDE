@@ -356,8 +356,10 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
 
             //realizar operaciones
             operaciones opr;
-            opr.realizarOperaciones(ints);
+            opr.realizarOperacionesInt(ints);
             QStringList res = opr.getAll();
+            opr.realizarOperacionesFloats(floats);
+            res << opr.getAll();
             qInfo() << res;
         }
         else{
