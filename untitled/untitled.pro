@@ -12,7 +12,8 @@ SOURCES += \
     arigmetica.cpp \
     creadorListas.cpp \
     main.cpp \
-    ide.cpp
+    ide.cpp \
+    operaciones.cpp
 
 HEADERS += \
     ide.h
