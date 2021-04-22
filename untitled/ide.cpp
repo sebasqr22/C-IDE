@@ -357,7 +357,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             //realizar operaciones
             operaciones opr;
             opr.realizarOperacionesInt(ints);
-            QStringList res = opr.getAll();
+            QStringList res;
             opr.realizarOperacionesFloats(floats);
             opr.realizarOperacionesFloats(doubles);
             opr.realizarOperacionesInt(longs);

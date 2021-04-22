@@ -5,7 +5,7 @@
 
 class operaciones{
 private:
-    float num1g, num2g;
+    QString num1g, num2g;
     QStringList all;
     QStringList results;
     int operacionInt(int num1, int num2, QString simb){
@@ -94,13 +94,11 @@ private:
                 p1a = false;
             }
         }
-        num1g = num1.toFloat();
-        num2g = num2.toFloat();
         float resultado = operacionFloat(num1.toFloat(), num2.toFloat(), simb);
         return p1+QString::number(resultado);
     }
     QString separacionEspe(QString str){
-        int largoList = results.size();
+        int largoList = all.size();
         int largo = str.size();
         QString aux;
         QString p1;
@@ -112,7 +110,7 @@ private:
             if(str[i] != "=" && p1a){
                 p1 += str[i];
             }
-            else if(not p1a){
+            else if(p1a == false){
                 p2 += str[i];
             }
             else{
@@ -120,16 +118,18 @@ private:
                 p1a = false;
             }
         }
+        num1g = p1;
+        num2g = p2;
         //tenemos la info separada, buscamos el equivalente
         for(int j=0; j<largoList; j++){
-            if(results[j].contains(p2)){
-                int largoAux = results[j].size();
+            if(all[j].contains(p2)){
+                int largoAux = all[j].size();
                 bool listo;
                 for(int y=0; y<largoAux; y++){
                     if(listo){
-                        aux += results[j][y];
+                        aux += all[j][y];
                     }
-                    else if(results[j][y] == "="){
+                    else if(all[j][y] == "="){
                         listo = true;
                     }
                 }
@@ -144,7 +144,7 @@ public:
         int largo = lista.size();
         QString curr;
         QStringList vacia;
-        all = vacia; //se limpia
+        //all = vacia; //se limpia
 
         for(int i=0; i<largo; i++){
             curr = lista[i];
@@ -161,7 +161,7 @@ public:
                 all << separar(curr, "/");
             }
             else{
-
+                all << separacionEspe(curr);
             }
         }
     }
@@ -169,7 +169,7 @@ public:
         int largo = lista.size();
         QString curr;
         QStringList vacia;
-        all = vacia; //se limpia
+        //all = vacia; //se limpia
 
         for(int i=0; i<largo; i++){
             curr = lista[i];
@@ -186,11 +186,20 @@ public:
                 all << separarFloats(curr, "/");
             }
             else{
-
+                all << separacionEspe(curr);
             }
         }
     }
+    void setResults(QStringList lista){
+        results = lista;
+    }
     QStringList getAll(){
         return all;
+    }
+    QString get1(){
+        return num1g;
+    }
+    QString get2(){
+        return num2g;
     }
 };
