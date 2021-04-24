@@ -165,6 +165,31 @@ public:
             }
         }
     }
+    void verificarEspeInt(QString str){
+        QString p1;
+        QString p2;
+        bool listo = false;
+        int largo = str.size();
+
+        for(int i=0; i<largo; i++){
+             if(str[i] != "=" && listo== false){
+                 p1 += str[i];
+             }
+             else if(str[i] != "=" && listo==true){
+                 p2 += str[i];
+             }
+             else{
+                 p1 += str[i];
+                 listo = true;
+             }
+        }
+        //try{
+          //  int num = p2.toInt();
+        //}
+        //catch(){
+
+        //}
+    }
     void realizarOperacionesFloats(QStringList lista){
         int largo = lista.size();
         QString curr;
