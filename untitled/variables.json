@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-"{\"variable1\":[[\"int\",30,4]],\"variable2\":[[\"long\",3120,8]],\"variable3\":[[\"reference<int>\",30,4]]}"
-=======
-{"list":[1,0,2],"name":"Jesus","nothing":null,"object":{"pls no 1":"USD","value":69.69},"pi":3.141}
->>>>>>> 3a20b73e61023689742d794e2955549f78e8f8eb
+{"answer":{"everything":42},"happy":true,"list":[1,0,2],"name":"Niels","nothing":null,"object":{"currency":"USD","value":42.99},"pi":3.141}1}
