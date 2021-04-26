@@ -271,9 +271,11 @@ void ide::verCorriendo(int pos){
     int largo = codigo.size();
     if(pos > largo-1){
         pos = 0;
+        depurLine =0;
     }
     else if(pos < 0){
         pos = largo-1;
+        depurLine = largo-1;
     }
     ui->viendo->setText(codigo[pos]);
 }
@@ -376,8 +378,6 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             opr.realizarOperacionesInt(longs);
             res << opr.getAll();
             qInfo() << res;
-            qInfo() << opr.get1();
-            qInfo() << opr.get2();
 
             //realizar prints
             prints = imprimir(prints, res);

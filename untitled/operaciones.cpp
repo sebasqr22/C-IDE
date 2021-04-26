@@ -5,7 +5,8 @@
 
 class operaciones{
 private:
-    QString num1g, num2g;
+    QString num1g;
+    bool num2g;
     QStringList all;
     QStringList results;
     int operacionInt(int num1, int num2, QString simb){
@@ -169,6 +170,40 @@ private:
         }
 
     }
+    void verificarEspeFloat(QString str){
+        QStringList nums;
+        QString p1;
+        QString p2;
+        nums << "0" << "1" << "2" << "3" << "4"<< "5"<< "6"<< "7"<< "8"<< "9";
+
+        bool listo = false;
+        int largo = str.size();
+
+        for(int i=0; i<largo; i++){
+             if(str[i] != "=" && listo== false){
+                 p1 += str[i];
+             }
+             else if(str[i] != "=" && listo==true){
+                 p2 += str[i];
+             }
+             else{
+                 p1 += str[i];
+                 listo = true;
+             }
+        }
+        bool ok;
+        float prueba = p2.toFloat(&ok);
+        num1g = prueba;
+        num2g = ok;
+        QString h = QString::number(prueba);
+        if(p2.contains(h)){//es un numero
+            all << str;
+        }
+        else{//es una palabra
+            all << separacionEspe(str);
+        }
+
+    }
 
 public:
     void realizarOperacionesInt(QStringList lista){
@@ -217,7 +252,7 @@ public:
                 all << separarFloats(curr, "/");
             }
             else{
-                all << separacionEspe(curr);
+                verificarEspeFloat(curr);
             }
         }
     }
@@ -230,7 +265,7 @@ public:
     QString get1(){
         return num1g;
     }
-    QString get2(){
+    bool get2(){
         return num2g;
     }
 };
