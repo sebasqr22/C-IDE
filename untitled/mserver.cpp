@@ -34,22 +34,20 @@ int main(int port, size_t size){ //size en bytes
     return 0;
 }*/
 
+#include <iostream>
 #include <unistd.h>
+#include <fstream>
 #include <stdio.h>
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <string.h>
 #include "json.hpp"
-<<<<<<< HEAD
 #include <sstream>
 
 using json = nlohmann::json;
 using namespace std;
 
-=======
-#define PORT 8080
->>>>>>> 4145356cd4a31d1798b7c72f631ba157e1fe5a65
 int main(int argc, char const *argv[])
 {
     int size;
@@ -65,7 +63,6 @@ int main(int argc, char const *argv[])
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
-<<<<<<< HEAD
 
     //json j;
     
@@ -74,9 +71,6 @@ int main(int argc, char const *argv[])
     //string s = j.dump();
     
     //char *message = &s[0];
-=======
-    char *hello = "hi";
->>>>>>> 4145356cd4a31d1798b7c72f631ba157e1fe5a65
        
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
