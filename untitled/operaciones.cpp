@@ -193,8 +193,6 @@ private:
         }
         bool ok;
         float prueba = p2.toFloat(&ok);
-        num1g = prueba;
-        num2g = ok;
         QString h = QString::number(prueba);
         if(p2.contains(h)){//es un numero
             all << str;

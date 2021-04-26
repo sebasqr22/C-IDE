@@ -314,6 +314,31 @@ QStringList quitarRepetidos(QStringList lista){
     }
     return tmp;
 }
+QStringList cambioFormatoStructs(QStringList lista){
+    int largo = lista.size();
+    QStringList buenFormato;
+    QString tmp;
+    QString actual;
+
+    for(int i=0; i<largo; i++){
+        int largoAct = lista[i].size();
+        actual = lista[i];
+
+        for(int y = 0; y<largoAct; y++){
+            if(actual[y] != "{" && actual[y] != ";" && actual[y] != "}"){
+                tmp += actual[y];
+            }
+            else if(actual[y] == ";"){
+                buenFormato << tmp;
+                tmp = "";
+            }
+            else if(actual[y] == "}"){
+               buenFormato << tmp;
+            }
+        }
+    }
+    return buenFormato;
+}
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
     ui->viendo->setEnabled(false);
@@ -352,6 +377,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             prints = separador.get("pr");
             refs = separador.get("refsa");
 
+            /*
             qInfo() << strcs;
             qInfo() << ints;
             qInfo() << chars;
@@ -360,6 +386,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             qInfo() << doubles;
             qInfo() << prints;
             qInfo() << refs;
+            */
 
             //comienza depuración
             ui->atras->setEnabled(true);
@@ -376,8 +403,27 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             opr.realizarOperacionesFloats(floats);
             opr.realizarOperacionesFloats(doubles);
             opr.realizarOperacionesInt(longs);
+
+            //estructuras
+            qInfo() << "Mal Formato" << strcs;
+            strcs = cambioFormatoStructs(strcs);
+            qInfo() << "Buen formato: " << strcs;
+            creadorListas separador2;
+            separador2.organizar(strcs);
+            QStringList intsS = separador2.get("int");
+            QStringList charsS = separador2.get("char");
+            QStringList longsS = separador2.get("long");
+            QStringList floatsS = separador2.get("float");
+            QStringList doublesS = separador2.get("double");
+            QStringList printsS = separador2.get("pr");
+            QStringList refsS = separador2.get("refsa");
+
+            opr.realizarOperacionesInt(intsS);
+            opr.realizarOperacionesFloats(floatsS);
+
             res << opr.getAll();
             qInfo() << res;
+            //una ves se terminan los casos basicos, se procede con los structs
 
             //realizar prints
             prints = imprimir(prints, res);
