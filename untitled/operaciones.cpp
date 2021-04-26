@@ -118,8 +118,6 @@ private:
                 p1a = false;
             }
         }
-        num1g = p1;
-        num2g = p2;
         //tenemos la info separada, buscamos el equivalente
         for(int j=0; j<largoList; j++){
             if(all[j].contains(p2)){
@@ -137,6 +135,39 @@ private:
             }
         }
         return p1 + aux;
+    }
+    void verificarEspeInt(QString str){
+        QStringList nums;
+        QString p1;
+        QString p2;
+        nums << "0" << "1" << "2" << "3" << "4"<< "5"<< "6"<< "7"<< "8"<< "9";
+
+        bool listo = false;
+        int largo = str.size();
+
+        for(int i=0; i<largo; i++){
+             if(str[i] != "=" && listo== false){
+                 p1 += str[i];
+             }
+             else if(str[i] != "=" && listo==true){
+                 p2 += str[i];
+             }
+             else{
+                 p1 += str[i];
+                 listo = true;
+             }
+        }
+        bool ok;
+        int prueba = p2.toInt(&ok, 10);
+        num1g = prueba;
+        QString h = QString::number(prueba);
+        if(p2.contains(h)){//es un numero
+            all << str;
+        }
+        else{//es una palabra
+            all << separacionEspe(str);
+        }
+
     }
 
 public:
@@ -161,34 +192,9 @@ public:
                 all << separar(curr, "/");
             }
             else{
-                all << separacionEspe(curr);
+                verificarEspeInt(curr);
             }
         }
-    }
-    void verificarEspeInt(QString str){
-        QString p1;
-        QString p2;
-        bool listo = false;
-        int largo = str.size();
-
-        for(int i=0; i<largo; i++){
-             if(str[i] != "=" && listo== false){
-                 p1 += str[i];
-             }
-             else if(str[i] != "=" && listo==true){
-                 p2 += str[i];
-             }
-             else{
-                 p1 += str[i];
-                 listo = true;
-             }
-        }
-        //try{
-          //  int num = p2.toInt();
-        //}
-        //catch(){
-
-        //}
     }
     void realizarOperacionesFloats(QStringList lista){
         int largo = lista.size();

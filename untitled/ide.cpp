@@ -376,6 +376,8 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             opr.realizarOperacionesInt(longs);
             res << opr.getAll();
             qInfo() << res;
+            qInfo() << opr.get1();
+            qInfo() << opr.get2();
 
             //realizar prints
             prints = imprimir(prints, res);
