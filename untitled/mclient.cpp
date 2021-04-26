@@ -4,7 +4,6 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <iomanip>
 #include <string.h>
 #include "json.hpp"
 #define PORT 8080
@@ -16,6 +15,7 @@ int main(int argc, char const *argv[])
 {
     int sock = 0, valread;
     struct sockaddr_in serv_addr;
+<<<<<<< HEAD
     json j;
     j["variable1"] = {{"int", 30}, {4}};
     j["variable2"] = {{"long", 3120, 8}};
@@ -26,6 +26,9 @@ int main(int argc, char const *argv[])
     string s = j.dump();  
     cout << s << endl;  
     char *message = &s[0];
+=======
+    char *hello = "Hello from client";
+>>>>>>> 3a20b73e61023689742d794e2955549f78e8f8eb
     char buffer[1024] = {0};
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
@@ -48,6 +51,7 @@ int main(int argc, char const *argv[])
         printf("\nConnection Failed \n");
         return -1;
     }
+<<<<<<< HEAD
     send(sock , message , strlen(message) , 0 );
     printf("Message sent to server\n");
     //valread = read( sock , buffer, 1024);
@@ -57,5 +61,11 @@ int main(int argc, char const *argv[])
     //fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
     //o << setw(4) << j;
 
+=======
+    send(sock , hello , strlen(hello) , 0 );
+    printf("Hello message sent\n");
+    valread = read( sock , buffer, 1024);
+    printf("%s\n",buffer );
+>>>>>>> 3a20b73e61023689742d794e2955549f78e8f8eb
     return 0;
 }

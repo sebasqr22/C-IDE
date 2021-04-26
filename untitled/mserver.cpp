@@ -43,26 +43,23 @@ int main(int port, size_t size){ //size en bytes
 #include <netinet/in.h>
 #include <string.h>
 #include "json.hpp"
+<<<<<<< HEAD
 #include <sstream>
 
 using json = nlohmann::json;
 using namespace std;
 
+=======
+#define PORT 8080
+>>>>>>> 3a20b73e61023689742d794e2955549f78e8f8eb
 int main(int argc, char const *argv[])
 {
-    int size;
-    int port;
-    cout << "Por favor indique la cantidad de memoria que deseas apartar en bytes"<<endl;
-    cin >> size;
-    cout << "Por favor indique el puerto en que deseas escuchar"<<endl;
-    cin >> port;
-    int *ptr;
-    ptr = (int*) malloc(size);
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
+<<<<<<< HEAD
 
     //json j;
     
@@ -71,6 +68,9 @@ int main(int argc, char const *argv[])
     //string s = j.dump();
     
     //char *message = &s[0];
+=======
+    char *hello = "hi";
+>>>>>>> 3a20b73e61023689742d794e2955549f78e8f8eb
        
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
@@ -88,7 +88,7 @@ int main(int argc, char const *argv[])
     }
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons( port );
+    address.sin_port = htons( PORT );
        
     // Forcefully attaching socket to the port 8080
     if (bind(server_fd, (struct sockaddr *)&address, 
@@ -110,18 +110,7 @@ int main(int argc, char const *argv[])
     }
     valread = read( new_socket , buffer, 1024);
     printf("%s\n",buffer );
-
-    json j;
-    string s;
-    stringstream ss;
-    ss << buffer;
-    ss >> s;
-    j = s;
-    fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
-    o << j;
-
-
-    //send(new_socket , message , strlen(message) , 0 );
-    //printf("Message sent to client\n");
+    send(new_socket , hello , strlen(hello) , 0 );
+    printf("Hello message sent\n");
     return 0;
 }

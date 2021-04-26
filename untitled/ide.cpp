@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "creadorListas.cpp"
-#include "arigmetica.cpp"
+#include "operaciones.cpp"
 
 using namespace std;
 
@@ -231,19 +231,38 @@ bool validarTipos(QStringList tmp){
     }
 }
 
-QStringList imprimir(QStringList lista){
+QStringList imprimir(QStringList lista, QStringList res){
     int largo = lista.size();
+    int largoRes = res.size();
     QString tmp;
     QStringList listaAux;
     for(int i=0; i<largo; i++){
-        tmp = lista[i].remove("print(");
-        tmp = lista[i].remove(")");
-        listaAux << tmp;
-    }
-    for(int j=0; j<largo; j++){
-        if(listaAux[j][0] == '\"'){
-            listaAux[j].remove('\"');
-        }
+         if(lista[i].contains('\"')){
+             tmp = lista[i].remove("print(");
+             tmp.remove(")");
+             tmp.remove('\"');
+             listaAux << tmp;
+         }
+         else{
+             QString curr = lista[i].remove("print(");
+             curr.remove(")");
+             for(int j=0; j<largoRes; j++){
+                 if(res[j].contains(curr)){
+                     int largoStr = res[j].size();
+                     bool listo = false;
+                     QString valor;
+                     for(int x=0; x<largoStr; x++){
+                         if(res[j][x] == "="){
+                             listo = true;
+                         }
+                         else if(listo){
+                             valor += res[j][x];
+                         }
+                     }
+                     listaAux << valor;
+                 }
+             }
+         }
     }
     qInfo() << listaAux;
     return listaAux;
@@ -252,9 +271,11 @@ void ide::verCorriendo(int pos){
     int largo = codigo.size();
     if(pos > largo-1){
         pos = 0;
+        depurLine =0;
     }
     else if(pos < 0){
         pos = largo-1;
+        depurLine = largo-1;
     }
     ui->viendo->setText(codigo[pos]);
 }
@@ -340,12 +361,6 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             qInfo() << prints;
             qInfo() << refs;
 
-            prints = imprimir(prints);
-            int largoPrints = prints.size();
-            for(int l=0; l<largoPrints; l++){
-                ui->stdout->append(prints[l]);
-            }
-
             //comienza depuración
             ui->atras->setEnabled(true);
             ui->delante->setEnabled(true);
@@ -354,7 +369,22 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
 
             verCorriendo(depurLine);
 
-            realizarOperaciones(ints);
+            //realizar operaciones
+            operaciones opr;
+            opr.realizarOperacionesInt(ints);
+            QStringList res;
+            opr.realizarOperacionesFloats(floats);
+            opr.realizarOperacionesFloats(doubles);
+            opr.realizarOperacionesInt(longs);
+            res << opr.getAll();
+            qInfo() << res;
+
+            //realizar prints
+            prints = imprimir(prints, res);
+            int largoPrints = prints.size();
+            for(int l=0; l<largoPrints; l++){
+                ui->stdout->append(prints[l]);
+            }
         }
         else{
             QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
