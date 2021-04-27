@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     creadorListas.cpp \
+    logger.cpp \
     main.cpp \
     ide.cpp \
     operaciones.cpp
