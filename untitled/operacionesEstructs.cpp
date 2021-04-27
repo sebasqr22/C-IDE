@@ -3,7 +3,7 @@
 #include <QApplication>
 #include <iostream>
 
-class operaciones{
+class operacionesEstructs{
 private:
     QString num1g;
     bool num2g;
@@ -188,7 +188,7 @@ private:
         return p1+QString::number(resultado);
     }
     QString separacionEspe(QString str){
-        int largoList = all.size();
+        int largoList = results.size();
         int largo = str.size();
         QString aux;
         QString p1;
@@ -210,14 +210,14 @@ private:
         }
         //tenemos la info separada, buscamos el equivalente
         for(int j=0; j<largoList; j++){
-            if(all[j].contains(p2)){
-                int largoAux = all[j].size();
+            if(results[j].contains(p2)){
+                int largoAux = results[j].size();
                 bool listo;
                 for(int y=0; y<largoAux; y++){
                     if(listo){
-                        aux += all[j][y];
+                        aux += results[j][y];
                     }
-                    else if(all[j][y] == "="){
+                    else if(results[j][y] == "="){
                         listo = true;
                     }
                 }
@@ -355,16 +355,16 @@ private:
 
     }
     QString encontrar(QString str){
-        int largo = all.size();
+        int largo = results.size();
         QString val;
         num1g = QString::number(largo);
 
         for(int i=0; i<largo; i++){
             //num1g = "FUCKING PENE";
-            if(all[i].contains(str) == true){
+            if(results[i].contains(str) == true){
                 Stringp1 = "SI ESTA ENTRANDO";
                 bool despuesIgual = false;
-                QString curr = all[i];
+                QString curr = results[i];
                 int largoPos = curr.size();
 
                 for(int j=0; j<largoPos; j++){

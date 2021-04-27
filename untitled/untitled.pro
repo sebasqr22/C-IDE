@@ -13,7 +13,8 @@ SOURCES += \
     logger.cpp \
     main.cpp \
     ide.cpp \
-    operaciones.cpp
+    operaciones.cpp \
+    operacionesEstructs.cpp
 
 HEADERS += \
     ide.h

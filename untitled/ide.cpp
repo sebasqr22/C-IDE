@@ -13,6 +13,7 @@
 #include <string.h>
 #include "json.hpp"
 #include "logger.cpp"
+#include "operacionesEstructs.cpp"
 
 using namespace std;
 using json = nlohmann::json;
@@ -529,6 +530,9 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             opr.realizarOperacionesFloats(floats);
             opr.realizarOperacionesLong(longs);
             opr.realizarOperacionesDouble(doubles);
+            opr.realizarOperacionesChar(chars);
+
+            res << opr.getAll(); //se ponen los primeros resultados
 
             //estructuras
             qInfo() << "Mal Formato" << strcs;
@@ -544,12 +548,17 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             QStringList printsS = separador2.get("pr");
             QStringList refsS = separador2.get("refsa");
 
-            opr.realizarOperacionesInt(intsS);
-            opr.realizarOperacionesFloats(floatsS);
-            opr.realizarOperacionesLong(longsS);
-            opr.realizarOperacionesDouble(doublesS);
+            operacionesEstructs opr2;
+            opr2.setResults(res);
 
-            res << opr.getAll();
+            opr2.realizarOperacionesInt(intsS);
+            opr2.realizarOperacionesFloats(floatsS);
+            opr2.realizarOperacionesLong(longsS);
+            opr2.realizarOperacionesDouble(doublesS);
+            opr2.realizarOperacionesChar(charsS);
+
+            res << opr2.getAll();
+
             qInfo() << res;
 
             JSON_Adapter(res);//se prepara el JSON

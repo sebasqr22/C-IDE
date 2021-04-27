@@ -393,7 +393,8 @@ ide.o: ../untitled/ide.cpp ../untitled/ide.h \
 		../untitled/creadorListas.cpp \
 		../untitled/operaciones.cpp \
 		../untitled/json.hpp \
-		../untitled/logger.cpp
+		../untitled/logger.cpp \
+		../untitled/operacionesEstructs.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ide.o ../untitled/ide.cpp
 
 moc_ide.o: moc_ide.cpp 
