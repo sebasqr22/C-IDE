@@ -53,16 +53,6 @@
      <string>Aplication Log</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="log">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>570</y>
-      <width>731</width>
-      <height>129</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="runBut">
     <property name="geometry">
      <rect>
@@ -222,6 +212,16 @@
     </property>
     <property name="text">
      <string>STOP</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="log">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>570</y>
+      <width>731</width>
+      <height>131</height>
+     </rect>
     </property>
    </widget>
   </widget>

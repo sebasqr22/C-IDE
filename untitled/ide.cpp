@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "json.hpp"
+#include "logger.cpp"
 
 using namespace std;
 using json = nlohmann::json;
@@ -22,6 +23,7 @@ int depurLine = 0;
 QStringList codigo;
 QStringList badLine;
 json j;
+logger Log;
 
 //Preparacion del socket
 int sock = 0, valread;
@@ -465,7 +467,7 @@ QStringList cambioFormatoStructs(QStringList lista){
 }
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
-    crearSocket();
+    crearSocket(); //se crea el socket entre el server y el ide
     ui->viendo->setEnabled(false);
     removeAll();
     QString original;
@@ -565,16 +567,18 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             }
         }
         else{
-            QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
-            ui->viendo->setEnabled(true);
+            ui->log->append(Log.mostrar(2, "Debe revisar los tipos de datos"));
+            //QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
+            //ui->viendo->setEnabled(true);
             badLine = quitarRepetidos(badLine);
             qInfo() << "Sin repetidos" << badLine;
             imprimirMalas();
         }
     }
     else{
-        QMessageBox::critical(this, "ERROR", "Debe revisar los puntos y comas...");
-        ui->viendo->setEnabled(true);
+        //QMessageBox::critical(this, "ERROR", "Debe revisar los puntos y comas...");
+        //ui->viendo->setEnabled(true);
+        ui->log->append(Log.mostrar(2, "Debe revisar los puntos y comas"));
         badLine = quitarRepetidos(badLine);
         qInfo() << "Sin repetidos" << badLine;
         imprimirMalas();
@@ -602,4 +606,9 @@ void ide::on_delante_clicked()
 {
     depurLine ++;
     verCorriendo(depurLine);
+}
+
+void ide::on_clearBut_clicked()
+{
+    ui->log->setText("");
 }

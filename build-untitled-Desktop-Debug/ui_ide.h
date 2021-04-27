@@ -30,7 +30,6 @@ class Ui_ide
 public:
     QWidget *centralwidget;
     QLabel *label;
-    QTextBrowser *log;
     QPushButton *runBut;
     QPushButton *clearBut;
     QLabel *label_2;
@@ -41,6 +40,7 @@ public:
     QPushButton *delante;
     QTextEdit *viendo;
     QPushButton *stop;
+    QTextEdit *log;
     QMenuBar *menubar;
     QMenu *menuIDE_C;
     QStatusBar *statusbar;
@@ -66,9 +66,6 @@ public:
         QFont font;
         font.setPointSize(14);
         label->setFont(font);
-        log = new QTextBrowser(centralwidget);
-        log->setObjectName(QString::fromUtf8("log"));
-        log->setGeometry(QRect(10, 570, 731, 129));
         runBut = new QPushButton(centralwidget);
         runBut->setObjectName(QString::fromUtf8("runBut"));
         runBut->setGeometry(QRect(10, 0, 89, 31));
@@ -116,6 +113,9 @@ public:
         stop->setEnabled(false);
         stop->setGeometry(QRect(660, 0, 81, 31));
         stop->setCursor(QCursor(Qt::PointingHandCursor));
+        log = new QTextEdit(centralwidget);
+        log->setObjectName(QString::fromUtf8("log"));
+        log->setGeometry(QRect(10, 570, 731, 131));
         ide->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ide);
         menubar->setObjectName(QString::fromUtf8("menubar"));

@@ -391,7 +391,9 @@ main.o: ../untitled/main.cpp ../untitled/ide.h
 ide.o: ../untitled/ide.cpp ../untitled/ide.h \
 		ui_ide.h \
 		../untitled/creadorListas.cpp \
-		../untitled/operaciones.cpp
+		../untitled/operaciones.cpp \
+		../untitled/json.hpp \
+		../untitled/logger.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ide.o ../untitled/ide.cpp
 
 moc_ide.o: moc_ide.cpp 

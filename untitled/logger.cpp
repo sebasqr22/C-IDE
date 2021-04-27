@@ -15,16 +15,10 @@ private:
     QString minuto;
     QString segundo;
 
-public:
-    logger(){
-        time_t actual = time(0);
-        tiempoLocaL = localtime(&actual);
-    }
-
     QString fecha(){
         dia = QString::number(tiempoLocaL->tm_mday);
-        mes = QString::number(tiempoLocaL->tm_mon);
-        year = QString::number(tiempoLocaL->tm_year);
+        mes = QString::number((tiempoLocaL->tm_mon)+1);
+        year = QString::number((tiempoLocaL->tm_year)-100);
         return dia + "//" + mes + "//" + year;
     }
     QString horaExacta(){
@@ -33,16 +27,23 @@ public:
         segundo = QString::number(tiempoLocaL->tm_sec);
         return hora + ":" + minuto + ":" + segundo;
     }
+
+
+public:
+    logger(){
+        time_t actual = time(0);
+        tiempoLocaL = localtime(&actual);
+    }
     QString mostrar(int tipo, QString mensaje){
         switch(tipo){
         case 0:{
-            return "---" + fecha() + " | " + horaExacta() + " ||| " + "[info] " + mensaje;
+            return "---" + fecha() + "---" + horaExacta() + "---" + "[info] " + "---" + mensaje + "---";
         }
         case 1:{
-            return "---" + fecha() + " | " + horaExacta() + " ||| " + "[warning] " + mensaje;
+            return "---" + fecha() + "---" + horaExacta() + "---" + "[warning] " + "---" + mensaje + "---";
         }
         case 2:{
-            return "---" + fecha() + " | " + horaExacta() + " ||| " + "[error] " + mensaje;
+            return "---" + fecha() + "---" + horaExacta() + "---" + "[error] " + "---" + mensaje + "---";
         }
         }
     }

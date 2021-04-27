@@ -28,6 +28,8 @@ private slots:
 
     void imprimirMalas();
 
+    void on_clearBut_clicked();
+
 private:
     Ui::ide *ui;
 };
