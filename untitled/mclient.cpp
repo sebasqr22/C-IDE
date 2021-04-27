@@ -22,8 +22,8 @@ int main(int argc, char const *argv[])
     //tomar la lista de variables de QT, tal vez con for o while
     //while(quedan elementos en la lista)
     //j["nombre de variable"] = {{"tipo de variable","valor de la variable","maybe valor de memoria de la variable"}}
-    string s = j.dump();  
-    cout << s << endl;  
+    string s = j.dump();
+    cout << s << endl;
     char *message = &s[0];
     char buffer[1024] = {0};
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)

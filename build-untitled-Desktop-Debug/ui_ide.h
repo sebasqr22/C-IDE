@@ -72,7 +72,7 @@ public:
         runBut = new QPushButton(centralwidget);
         runBut->setObjectName(QString::fromUtf8("runBut"));
         runBut->setGeometry(QRect(10, 0, 89, 31));
-        runBut->setCursor(QCursor(Qt::OpenHandCursor));
+        runBut->setCursor(QCursor(Qt::PointingHandCursor));
         clearBut = new QPushButton(centralwidget);
         clearBut->setObjectName(QString::fromUtf8("clearBut"));
         clearBut->setGeometry(QRect(650, 545, 89, 21));
@@ -105,14 +105,17 @@ public:
         delante->setObjectName(QString::fromUtf8("delante"));
         delante->setEnabled(false);
         delante->setGeometry(QRect(150, 0, 31, 31));
+        delante->setCursor(QCursor(Qt::PointingHandCursor));
         viendo = new QTextEdit(centralwidget);
         viendo->setObjectName(QString::fromUtf8("viendo"));
         viendo->setEnabled(false);
         viendo->setGeometry(QRect(190, 0, 451, 31));
+        viendo->viewport()->setProperty("cursor", QVariant(QCursor(Qt::BusyCursor)));
         stop = new QPushButton(centralwidget);
         stop->setObjectName(QString::fromUtf8("stop"));
         stop->setEnabled(false);
         stop->setGeometry(QRect(660, 0, 81, 31));
+        stop->setCursor(QCursor(Qt::PointingHandCursor));
         ide->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ide);
         menubar->setObjectName(QString::fromUtf8("menubar"));

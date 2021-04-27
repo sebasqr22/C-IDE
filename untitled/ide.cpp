@@ -376,7 +376,6 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             doubles = separador.get("double");
             prints = separador.get("pr");
             refs = separador.get("refsa");
-
             /*
             qInfo() << strcs;
             qInfo() << ints;
@@ -423,6 +422,9 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
 
             res << opr.getAll();
             qInfo() << res;
+            qInfo() << "VALOR: " << opr.get1();
+            qInfo() << " NUM2G: " << opr.get2();
+
             //una ves se terminan los casos basicos, se procede con los structs
 
             //realizar prints

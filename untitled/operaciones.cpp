@@ -1,12 +1,14 @@
 #include <QString>
 #include <QStringList>
-
+#include <QApplication>
 #include <iostream>
 
 class operaciones{
 private:
     QString num1g;
     bool num2g;
+    QString Stringp1;
+    bool pp2;
     QStringList all;
     QStringList results;
     int operacionInt(int num1, int num2, QString simb){
@@ -160,7 +162,6 @@ private:
         }
         bool ok;
         int prueba = p2.toInt(&ok, 10);
-        num1g = prueba;
         QString h = QString::number(prueba);
         if(p2.contains(h)){//es un numero
             all << str;
@@ -202,6 +203,86 @@ private:
         }
 
     }
+    QString encontrar(QString str){
+        int largo = all.size();
+        QString val;
+        num1g = QString::number(largo);
+
+        for(int i=0; i<largo; i++){
+            //num1g = "FUCKING PENE";
+            if(all[i].contains(str) == true){
+                Stringp1 = "SI ESTA ENTRANDO";
+                bool despuesIgual = false;
+                QString curr = all[i];
+                int largoPos = curr.size();
+
+                for(int j=0; j<largoPos; j++){
+                    if(despuesIgual == true){
+                        val += curr[j];
+                    }
+                    else if(curr[j] == "=" && despuesIgual == false){
+                        despuesIgual = true;
+                    }
+                }
+                //num1g = val;
+                break;
+            }
+        }
+        return val;
+    }
+    void verificaOperacion(QString str, QString opr){
+        QString p1; //termino1
+        QString p2; //termino2
+        QString init;
+        bool despuesIgual = false;
+        bool segunda = false;
+        int largo = str.size();
+
+        for(int i=0; i<largo; i++){
+            if(str[i] != opr && despuesIgual == true && segunda == false){
+                p1 += str[i];
+            }
+            else if(str[i] != opr && despuesIgual == true && segunda == true){
+                p2 += str[i];
+            }
+            else if(str[i] == opr){
+                segunda = true;
+            }
+            else if(str[i] == "="){
+                init += str[i];
+                despuesIgual = true;
+            }
+            else if(despuesIgual == false){
+                init += str[i];
+            }
+        }// tenemos las dos partes dividias
+        bool ok1;
+        bool ok2;
+        QString val1;
+        QString val2;
+        int p1I = p1.toInt(&ok1);
+        int p2I = p2.toInt(&ok2);
+
+        if(ok1 == false){
+            val1 = encontrar(p1);
+            if(ok2 == false){
+                val2 = encontrar(p2);
+                all << separar(init+val1+opr+val2, opr);
+            }
+            else{
+                all << separar(init+val1+opr+p2, opr);
+            }
+        }
+        else{
+            if(ok2 == false){
+                val2 = encontrar(p2);
+                all << separar(init+p1+opr+val2, opr);
+            }
+            else{
+                all << separar(init+p1+opr+p2, opr);
+            }
+        }
+    }
 
 public:
     void realizarOperacionesInt(QStringList lista){
@@ -213,16 +294,16 @@ public:
         for(int i=0; i<largo; i++){
             curr = lista[i];
             if(curr.contains("+")){
-                all << separar(curr, "+");
+                verificaOperacion(curr, "+");
             }
             else if(curr.contains("-")){
-                all << separar(curr, "-");
+                verificaOperacion(curr, "-");
             }
             else if(curr.contains("*")){
-                all << separar(curr, "*");
+                verificaOperacion(curr, "*");
             }
             else if(curr.contains("/")){
-                all << separar(curr, "/");
+                verificaOperacion(curr, "/");
             }
             else{
                 verificarEspeInt(curr);
@@ -264,6 +345,6 @@ public:
         return num1g;
     }
     bool get2(){
-        return num2g;
+        return pp2;
     }
 };
