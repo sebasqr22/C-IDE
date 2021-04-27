@@ -4,15 +4,32 @@
 #include <QMessageBox>
 #include "creadorListas.cpp"
 #include "operaciones.cpp"
+#include <iostream>
+#include <stdio.h>
+#include <fstream>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <string.h>
+#include "json.hpp"
 
 using namespace std;
+using json = nlohmann::json;
 
 //variables globales
 bool corriendo = false;
 int depurLine = 0;
 QStringList codigo;
 QStringList badLine;
-//
+json j;
+
+//Preparacion del socket
+int sock = 0, valread;
+struct sockaddr_in serv_addr;
+int port = 8080;
+char buffer[1024] = {0};
+
+
 ide::ide(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ide)
@@ -23,6 +40,113 @@ ide::ide(QWidget *parent)
 ide::~ide()
 {
     delete ui;
+}
+QStringList separadorJSON(QString str){
+    int largo = str.size();
+    QString name;
+    QString value;
+    QStringList tmp;
+    bool despuesIgual = false;
+
+    for(int i=0; i<largo; i++){
+        if(str[i] == "="){
+            despuesIgual = true;
+        }
+        else if(despuesIgual == false){
+            name += str[i];
+        }
+        else if(despuesIgual == true){
+            value += str[i];
+        }
+    }
+    tmp << name << value;
+    return tmp;
+}
+void JSON_Adapter(QStringList lista){
+    int largo = lista.size();
+    int memoria;
+    QString type;
+    QString name;
+    QString value;
+    QString curr;
+
+    for(int i=0; i<largo; i++){
+        QStringList aux;
+        curr = lista[i];
+
+        if(curr.contains("int")){
+            type = "int";
+            memoria = 4;
+            aux = separadorJSON(curr.remove("int"));
+            name = aux[0];
+            value = aux[1];
+        }
+        else if(curr.contains("float")){
+            type = "float";
+            memoria = 4;
+            aux = separadorJSON(curr.remove("float"));
+            name = aux[0];
+            value = aux[1];
+        }
+        else if(curr.contains("long")){
+            type = "long";
+            memoria = 8;
+            aux = separadorJSON(curr.remove("long"));
+            name = aux[0];
+            value = aux[1];
+        }
+        else if(curr.contains("char")){
+            type = "char";
+            memoria = 1;
+            aux = separadorJSON(curr.remove("char"));
+            name = aux[0];
+            value = aux[1];
+        }
+        else if(curr.contains("double")){
+            type = "double";
+            memoria = 8;
+            aux = separadorJSON(curr.remove("double"));
+            name = aux[0];
+            value = aux[1];
+        }
+        else if(curr.contains("struct")){
+            type = "long"; //corregir despues
+            memoria = 4;
+        }
+        else{
+            type = "reference";
+            memoria = 4;
+            curr.remove("reference<");
+            curr.remove(">");
+            aux = separadorJSON(curr);
+            name = aux[0];
+            value = aux[1];
+        }
+        j[name.toStdString()] = {{"type", type.toStdString()}, {"value", value.toStdString()}, {"memory", memoria}};
+    }
+}
+
+int crearSocket(){
+    if((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+            qInfo() << "\n Socket creation error \n";
+            return -1;
+    }
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(port);
+
+    // Convert IPv4 and IPv6 addresses from text to binary form
+    if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0)
+    {
+        qInfo() << "\nInvalid address/ Address not supported \n";
+        return -1;
+    }
+
+    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+    {
+        qInfo() << "\nConnection Failed \n";
+        return -1;
+    }
+    qInfo() << "Suck it literal";
 }
 
 bool validarComas(QString aux){
@@ -341,6 +465,7 @@ QStringList cambioFormatoStructs(QStringList lista){
 }
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
+    crearSocket();
     ui->viendo->setEnabled(false);
     removeAll();
     QString original;
@@ -422,8 +547,13 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
 
             res << opr.getAll();
             qInfo() << res;
-            qInfo() << "VALOR: " << opr.get1();
-            qInfo() << " NUM2G: " << opr.get2();
+
+            JSON_Adapter(res);//se prepara el JSON
+            string s = j.dump();
+            qInfo() << QString::fromStdString(s);
+            char *message = &s[0];
+            send(sock , message , strlen(message) , 0 );//Se envia la info
+            qInfo() << "ENVIADO";
 
             //una ves se terminan los casos basicos, se procede con los structs
 
