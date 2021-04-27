@@ -73,7 +73,7 @@ public:
         clearBut = new QPushButton(centralwidget);
         clearBut->setObjectName(QString::fromUtf8("clearBut"));
         clearBut->setGeometry(QRect(650, 545, 89, 21));
-        clearBut->setCursor(QCursor(Qt::OpenHandCursor));
+        clearBut->setCursor(QCursor(Qt::PointingHandCursor));
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(750, 0, 341, 31));

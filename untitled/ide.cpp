@@ -527,8 +527,8 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             opr.realizarOperacionesInt(ints);
             QStringList res;
             opr.realizarOperacionesFloats(floats);
-            opr.realizarOperacionesFloats(doubles);
-            opr.realizarOperacionesInt(longs);
+            opr.realizarOperacionesLong(longs);
+            opr.realizarOperacionesDouble(doubles);
 
             //estructuras
             qInfo() << "Mal Formato" << strcs;
@@ -546,6 +546,8 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
 
             opr.realizarOperacionesInt(intsS);
             opr.realizarOperacionesFloats(floatsS);
+            opr.realizarOperacionesLong(longsS);
+            opr.realizarOperacionesDouble(doublesS);
 
             res << opr.getAll();
             qInfo() << res;
