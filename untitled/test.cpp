@@ -10,11 +10,13 @@ using json = nlohmann::json;
 
 int main()
 {
+    /*
     ifstream i("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
     json j;
     i >> j;
     string s = j.dump();
     cout << s <<endl;
+    */
     
     /*json j2 = {
         {"pi", 3.141},
@@ -50,8 +52,10 @@ int main()
     j2["list"] = { 1, 0, 2 };
 
     // add another object (using an initializer list of pairs)
-    j2["object"] = { {"currency", "USD"}, {"value", 42.99} };
+    //j2["object"] = {{"currency", "USD"},{"value", 42.99}};
     fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
     o << j2;
+    cout << j2["name"] << endl;
+    cout << j2["answer"] << endl;
     return 0;
 }

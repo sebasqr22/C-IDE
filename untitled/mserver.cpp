@@ -11,15 +11,6 @@
 //lleva conteo de referencias cada cierto tiempo maneja garbage collector que elimina espacios 
 //de memoria no referenciados
 /*
-#include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <string.h>
-#include <netinet/in.h>
-
-using namespace std;
 
 int main(int port, size_t size){ //size en bytes
     int *ptr;
@@ -43,34 +34,30 @@ int main(int port, size_t size){ //size en bytes
 #include <netinet/in.h>
 #include <string.h>
 #include "json.hpp"
-#include <sstream>
 
 using json = nlohmann::json;
 using namespace std;
 
-int main(int argc, char const *argv[],int port, size_t size)
+int main(int argc, char const *argv[])
 {   
-
+    int port;
+    size_t size;
     cout << "Please indicate the amount of bytes you would like to use" << endl;
     cin >> size;
     cout << "Please indicate which port you would like to listen to" << endl;
     cin >> port;
-    int *ptr;
-    ptr = (int*) malloc(size);
+    char *ptr;
+    char *memory;
+    int i = 0;
+    ptr = (char*) malloc(size);
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
 
-    //json j;
-    
-    //ifstream i("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
-    //i >> j;
-    //string s = j.dump();
-    
-    //char *message = &s[0];
-       
+    cout << "Server is now listening" << endl;
+
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
@@ -107,9 +94,16 @@ int main(int argc, char const *argv[],int port, size_t size)
         perror("accept");
         exit(EXIT_FAILURE);
     }
+    
     valread = read( new_socket , buffer, 1024);
     printf("%s\n",buffer );
-    //send(new_socket , hello , strlen(hello) , 0 );
-    //printf("Hello message sent\n");
+    json j = buffer;
+    fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
+    o << j;
+    string s = j.dump();
+    //offsets
+    //while(s )
+    memory = ptr + 1;
+
     return 0;
 }
