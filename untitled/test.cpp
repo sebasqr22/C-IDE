@@ -2,6 +2,7 @@
 #include<fstream>
 #include<string.h>
 #include "json.hpp"
+#include<sstream>
 
 using namespace std;
 using json = nlohmann::json;
@@ -60,40 +61,33 @@ int main()
     j["fire"] = {{"type", "long"}, {"value","300000"}, {"memory", 8}};
     j["water"] = {{"type", "char"}, {"value","w"}, {"memory", 1}};
     j["leaf"] = {{"type", "float"}, {"value","30.9"}, {"memory", 4}};
+    j["vine"] = {{"type", "float"}, {"value","60.18"}, {"memory", 4}};
     j["ice"] = {{"type", "double"}, {"value","4000"}, {"memory", 8}};
     string s = j.dump();
-    //cout << s << endl;
+    
     int i = 0;
     int offset = 0;
     string name;
     char *ptr;
     ptr = (char*) malloc(8000);
-    /*
-    cout << "regular pointer" << (int*) ptr << endl;
-    cout << "pointer asterisk" << *ptr << endl;
-    cout << "pointer amperson" << &ptr << endl;
-    cout << (int*)(ptr + 1) << endl;
-
-    int *tmp_int_ptr;
-    tmp_int_ptr = (int*) ptr;
-    *tmp_int_ptr = 30;
-
-    offset += 4;
-    */
+    stringstream ss;
+    int numerical_int_value;
+    long numerical_long_value;
+    float numerical_float_value;
+    double numerical_double_value;
     
-    
-    while (s[i] != '}' and s[i+1] != ','){            
-            if (s[i] == '{'){
+    while (s[i] != '}' || s[i+1] == ','){         
+            if (s[i] == '"'){
                 string name = "";
-                i += 2;
+                i += 1;
                 while (s[i] != '"'){
                     name += s[i];
                     i += 1;
                 }
                 cout << name << endl;
+                
                 string type_value = j[name]["type"];
                 string value_in_string = j[name]["value"];
-                int numerical_value = stoi(value_in_string);
                 int memory_value = j[name]["memory"];
                 int type_value_aux;
                 if (type_value == "int"){
@@ -111,67 +105,94 @@ int main()
                 else if (type_value == "double"){
                     type_value_aux = 5;
                 } 
+                stringstream ss;
+                ostringstream get_address;
+                string str;
                 switch(type_value_aux){
-                        case 1:
+                        case 1:                                                        
+                            ss << value_in_string;
+                            ss >> numerical_int_value;
                             int *tmp_int_ptr;
-                            tmp_int_ptr = (int*) ptr;                            
-                            *tmp_int_ptr = numerical_value;                            
-                            offset += memory_value;                  
-                            cout << *(int*)ptr << endl;
-                            cout << (int*)ptr << endl;
+                            tmp_int_ptr = (int*)(ptr + offset);                            
+                            *tmp_int_ptr = numerical_int_value;  
                             cout << (int*)(ptr + offset) << endl;
-                            cout << *(int*)(ptr + offset) << endl;
+                            cout << *(int*)(ptr + offset) << endl;                    
+                            offset += memory_value;   
+                            get_address << tmp_int_ptr;
+                            str = get_address.str();
+                            j[name]["address"] = str;
+                            
                             break;
-                        case 2: 
+                        case 2:                             
+                            ss << value_in_string;
+                            ss >> numerical_long_value;
                             long *tmp_long_ptr;
-                            tmp_long_ptr = (long*) ptr;                            
-                            *tmp_long_ptr = numerical_value;                            
+                            tmp_long_ptr = (long*)(ptr + offset);                            
+                            *tmp_long_ptr = numerical_long_value;  
+                            cout << (long*)(ptr + offset) << endl;
+                            cout << *(long*)(ptr + offset) << endl;       
                             offset += memory_value;                  
-                            cout << *(int*)ptr << endl;
-                            cout << (int*)ptr << endl;
-                            cout << (int*)(ptr + offset) << endl;
-                            cout << *(int*)(ptr + offset) << endl;
-                            break;
+                            get_address << tmp_long_ptr;
+                            str = get_address.str();
+                            j[name]["address"] = str;
+                            break;                          
                         case 3:
                             char *tmp_char_ptr;
-                            tmp_char_ptr = ptr;                            
-                            *tmp_char_ptr = value_in_string[0];                            
-                            offset += memory_value;                  
-                            cout << *(int*)ptr << endl;
-                            cout << (int*)ptr << endl;
+                            tmp_char_ptr = (ptr+offset);                          
+                            *tmp_char_ptr = value_in_string[0];  
                             cout << (int*)(ptr + offset) << endl;
-                            cout << *(int*)(ptr + offset) << endl;
-                            break;
+                            cout << *(ptr + offset) << endl;                             
+                            offset += memory_value;                  
+                            get_address << (int*)(tmp_char_ptr);
+                            str = get_address.str();
+                            j[name]["address"] = str;                   
+                            break;                            
                         case 4:
+                            ss << value_in_string;
+                            ss >> numerical_float_value;
                             float *tmp_float_ptr;
-                            tmp_float_ptr = (float*) ptr;                            
-                            *tmp_float_ptr = numerical_value;                            
+                            tmp_float_ptr = (float*)(ptr + offset);                            
+                            *tmp_float_ptr = numerical_float_value;
+                            cout << (float*)(ptr + offset) << endl;
+                            cout << *(float*)(ptr + offset) << endl;                                 
                             offset += memory_value;                  
-                            cout << *(int*)ptr << endl;
-                            cout << (int*)ptr << endl;
-                            cout << (int*)(ptr + offset) << endl;
-                            cout << *(int*)(ptr + offset) << endl;
-                            break;
+                            get_address << tmp_float_ptr;
+                            str = get_address.str();
+                            j[name]["address"] = str;
+                            break;                            
                         case 5:
+                            ss << value_in_string;
+                            ss >> numerical_double_value;
                             double *tmp_double_ptr;
-                            tmp_double_ptr = (double*) ptr;                            
-                            *tmp_double_ptr = numerical_value;                            
+                            tmp_double_ptr = (double*)(ptr+offset);                            
+                            *tmp_double_ptr = numerical_double_value;    
+                            cout << (double*)(ptr + offset) << endl;
+                            cout << *(double*)(ptr + offset) << endl;                            
                             offset += memory_value;                  
-                            cout << *(int*)ptr << endl;
-                            cout << (int*)ptr << endl;
-                            cout << (int*)(ptr + offset) << endl;
-                            cout << *(int*)(ptr + offset) << endl;
+                            get_address << tmp_double_ptr;
+                            str = get_address.str();
+                            j[name]["address"] = str;                            
                             break;
+                            
                         case 6:
                             //caso struct
                             break;
                         case 7:
                             //caso reference
                             break;
+                } 
+                if (offset > 8000){
+                    cout << "error, there is no memory left"<< endl;
+                }
+            }else if (s[i] == ':'){
+                while (s[i] != '}'){
+                    i += 1;
                 }
             }
             i += 1;
         
     } 
+    s = j.dump();
+
     return 0;
 }
