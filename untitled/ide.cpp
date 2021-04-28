@@ -549,6 +549,38 @@ QStringList cambioFormatoStructs(QStringList lista){
     return buenFormato;
 }
 /**
+ * @brief hayNulos Verifica si hay variables sin valor
+ * @param lista Lista de resultados post-operaciones
+ * @return Valor de verdad, en caso de variables sin valor "true"
+ */
+bool hayNulos(QStringList lista){
+    int largo = lista.size();
+    QString curr;
+    QString p2 = "";
+    bool nulos = false;
+    bool despuesIgual = false;
+
+    for(int i=0; i<largo; i++){
+        curr = lista[i];
+        int largoCurr = curr.size();
+
+        for(int j=0; j<largoCurr; j++){
+            if(despuesIgual == true){
+                p2 += curr[j];
+            }
+            else if(curr[j] == "="){
+                despuesIgual = true;
+            }
+        }
+        if(p2 == ""){
+            nulos = true;
+            break;
+        }
+    }
+    return nulos;
+}
+
+/**
  * @brief ide::on_runBut_clicked Función que al tocar el botón RUN, lee el código y ejecuta las demás funciones
  */
 void ide::on_runBut_clicked()//basicamente esto es un adapter
@@ -646,20 +678,31 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
 
             qInfo() << res;
 
-            JSON_Adapter(res);//se prepara el JSON
-            string s = j.dump();
-            qInfo() << QString::fromStdString(s);
-            char *message = &s[0];
-            send(sock , message , strlen(message) , 0 );//Se envia la info
-            qInfo() << "ENVIADO";
+            if(hayNulos(res) == false){
+                JSON_Adapter(res);//se prepara el JSON
+                string s = j.dump();
+                qInfo() << QString::fromStdString(s);
+                char *message = &s[0];
+                send(sock , message , strlen(message) , 0 );//Se envia la info
+                qInfo() << "ENVIADO";
 
-            //una ves se terminan los casos basicos, se procede con los structs
+                //una ves se terminan los casos basicos, se procede con los structs
 
-            //realizar prints
-            prints = imprimir(prints, res);
-            int largoPrints = prints.size();
-            for(int l=0; l<largoPrints; l++){
-                ui->stdout->append(prints[l]);
+                //realizar prints
+                prints = imprimir(prints, res);
+                int largoPrints = prints.size();
+                for(int l=0; l<largoPrints; l++){
+                    ui->stdout->append(prints[l]);
+                }
+            }
+            else{
+                ui->log->append(Log.mostrar(2, "Debe revisar el valor de las variables"));
+                badLine = quitarRepetidos(badLine);
+                imprimirMalas();
+                ui->viendo->setEnabled(false);
+                ui->atras->setEnabled(false);
+                ui->delante->setEnabled(false);
+                ui->stop->setEnabled(false);
             }
         }
         else{
