@@ -64,6 +64,7 @@ int main()
     j["vine"] = {{"type", "float"}, {"value","60.18"}, {"memory", 4}};
     j["ice"] = {{"type", "double"}, {"value","4000"}, {"memory", 8}};
     string s = j.dump();
+    cout << s << endl;
     
     int i = 0;
     int offset = 0;

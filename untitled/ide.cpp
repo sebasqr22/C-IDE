@@ -691,6 +691,8 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 res = quitaEspacios(res);
                 JSON_Adapter(res);//se prepara el JSON
                 string s = j.dump();
+                ofstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
+                o << j;
                 qInfo() << QString::fromStdString(s);
                 char *message = &s[0];
                 send(sock , message , strlen(message) , 0 );//Se envia la info

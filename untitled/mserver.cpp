@@ -48,7 +48,7 @@ int main(int argc, char const *argv[])
     cout << "Please indicate which port you would like to listen to" << endl;
     cin >> port;
     char *ptr;
-    int i = 0;
+    int i = 1;
     ptr = (char*) malloc(size);
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
@@ -66,7 +66,7 @@ int main(int argc, char const *argv[])
     
 
     
-
+    cout << "Server is now listening" << endl;
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
@@ -103,30 +103,75 @@ int main(int argc, char const *argv[])
         perror("accept");
         exit(EXIT_FAILURE);
     }
-    while (true){
-        cout << "Server is now listening" << endl;
+    
+        
         valread = read( new_socket , buffer, 1024);
         printf("%s\n",buffer );
-        cout << "buffer" << buffer << endl;
-
-        json j = buffer;
-        //{" hola ":{"memory":4,"type":"int","value":" 324"}}
-        string s = j.dump();    
+        string s = buffer;
+        cout << s << endl;
         
+
+
+        /*json j;
+        string tmp_name;
+        string tmp_value;
+        string tmp_type;
+        int tmp_memory;
+        int buffer_size = sizeof(buffer);
+        for (int k = 0; k < buffer_size; k++){
+            if (buffer[k] == '"'){
+                k += 1;
+                while(buffer[k] != '"'){
+                    tmp_name += buffer[k];
+                    k += 1;
+                }
+                k += 12;
+                tmp_memory = buffer[k];
+                k += 9;
+                while(buffer[k] != '"'){
+                    tmp_type += buffer[k];
+                    k += 1;
+                }
+                k += 10;
+                while(buffer[k] != '"'){
+                    tmp_value += buffer[k];
+                    k += 1;
+                }
+                j[tmp_name] = {{"type", tmp_type}, {"value",tmp_value}, {"memory", tmp_memory}};
+            }
+        }
+
+        string s = j.dump(); 
+
+        cout << s << endl;   */
+        /*
         while (s[i] != '}' || s[i+1] == ','){         
             if (s[i] == '"'){
                     string name = "";
                     i += 1;
-                    while (s[i] != '"'){
+                    while (s[i+1] != '\"'){
                         name += s[i];
                         i += 1;
-                    }
+                    }*/
+                    /*
                     cout << name << endl;
-                    
-                    string type_value = j[name]["type"];
+                    cout << j["hola"]["type"] << endl;
+                    cout << j["hola"]["value"] << endl;
+                    cout << j["hola"]["memory"] << endl;
+                    */
+                    //string type_value = j[name]["type"];
+                    //cout << type_value << endl;
+                    /*
                     string value_in_string = j[name]["value"];
+                    cout << value_in_string << endl;
+
                     int memory_value = j[name]["memory"];
+                    cout << memory_value << endl;
+
                     int type_value_aux;
+
+                    
+
                     if (type_value == "int"){
                         type_value_aux = 1;
                     } 
@@ -141,7 +186,8 @@ int main(int argc, char const *argv[])
                     }
                     else if (type_value == "double"){
                         type_value_aux = 5;
-                    } 
+                    } /*
+                    /*
                     stringstream ss;
                     ostringstream get_address;
                     string str;
@@ -229,11 +275,12 @@ int main(int argc, char const *argv[])
                 }
                 i += 1;
             
-        } 
-        string s2 = j.dump();
-        char *send_message = &s2[0];
-        send(port , send_message , strlen(send_message) , 0);
-    }
+        } */
+        //string s2 = j.dump();
+        //cout << s2 << endl;
+        //char *send_message = &s2[0];
+        //send(port , send_message , strlen(send_message) , 0);
+    
     
     return 0;
 }
