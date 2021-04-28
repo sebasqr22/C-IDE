@@ -35,10 +35,12 @@ int main(int port, size_t size){ //size en bytes
 #include <string.h>
 #include "json.hpp"
 #include <sstream>
+#include "rapidjson/document.h"
 
 
 using json = nlohmann::json;
 using namespace std;
+using namespace rapidjson;
 
 int main(int argc, char const *argv[])
 {   
@@ -108,17 +110,6 @@ int main(int argc, char const *argv[])
         
         valread = read( new_socket , buffer, 1024);
         printf("%s\n",buffer );
-<<<<<<< HEAD
-        cout << "buffer" << buffer << endl;
-
-        json j = buffer;
-        //{" hola ":{"memory":4,"type":"int","value":" 324"}}
-        string s = j.dump(); 
-        cout << "LLEGO: " << s << endl; 
-        int largo = s.length();
-
-    
-=======
         string s = buffer;
         cout << s << endl;
         
@@ -157,7 +148,6 @@ int main(int argc, char const *argv[])
 
         cout << s << endl;   */
         /*
->>>>>>> 9f18bd6566ca3cb8c924dadd2c8514a642279789
         while (s[i] != '}' || s[i+1] == ','){         
             if (s[i] == '"'){
                     string name = "";
@@ -168,12 +158,6 @@ int main(int argc, char const *argv[])
                     }*/
                     /*
                     cout << name << endl;
-<<<<<<< HEAD
-                    s.erase(0, name.length()+2);
-                    cout << "Despues borrado" << s << endl;
-                    /* 
-                    string type_value = j[name]["type"];
-=======
                     cout << j["hola"]["type"] << endl;
                     cout << j["hola"]["value"] << endl;
                     cout << j["hola"]["memory"] << endl;
@@ -181,7 +165,6 @@ int main(int argc, char const *argv[])
                     //string type_value = j[name]["type"];
                     //cout << type_value << endl;
                     /*
->>>>>>> 9f18bd6566ca3cb8c924dadd2c8514a642279789
                     string value_in_string = j[name]["value"];
                     cout << value_in_string << endl;
 
@@ -285,7 +268,7 @@ int main(int argc, char const *argv[])
                                 //caso reference
                                 break;
                                 
-                    } */
+                    } 
                     if (offset > size){
                         cout << "error, there is no memory left"<< endl;
                     }
@@ -296,20 +279,12 @@ int main(int argc, char const *argv[])
                 }
                 i += 1;
             
-<<<<<<< HEAD
-        }
-        string s2 = j.dump();
-        char *send_message = &s2[0];
-        send(port , send_message , strlen(send_message) , 0);
-    }
-=======
         } */
         //string s2 = j.dump();
         //cout << s2 << endl;
         //char *send_message = &s2[0];
         //send(port , send_message , strlen(send_message) , 0);
     
->>>>>>> 9f18bd6566ca3cb8c924dadd2c8514a642279789
     
     return 0;
 }
