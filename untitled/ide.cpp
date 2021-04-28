@@ -579,6 +579,15 @@ bool hayNulos(QStringList lista){
     }
     return nulos;
 }
+QStringList quitaEspacios(QStringList lista){
+    int largo = lista.size();
+    QStringList tmp;
+
+    for(int i=0; i<largo; i++){
+        tmp << lista[i].replace(" ", "");
+    }
+    return tmp;
+}
 
 /**
  * @brief ide::on_runBut_clicked Función que al tocar el botón RUN, lee el código y ejecuta las demás funciones
@@ -679,6 +688,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             qInfo() << res;
 
             if(hayNulos(res) == false){
+                res = quitaEspacios(res);
                 JSON_Adapter(res);//se prepara el JSON
                 string s = j.dump();
                 qInfo() << QString::fromStdString(s);
