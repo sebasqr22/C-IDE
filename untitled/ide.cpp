@@ -180,7 +180,7 @@ int crearSocket(){
         qInfo() << "\nConnection Failed \n";
         return -1;
     }
-    qInfo() << "Suck it literal";
+    qInfo() << "SOCKET CREADO";
 }
 /**
  * @brief validarComas Metodo para validar si los puntos y comas estan puestos de forma correcta
@@ -696,8 +696,14 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 send(sock , message , strlen(message) , 0 );//Se envia la info
                 qInfo() << "ENVIADO";
 
-                //una ves se terminan los casos basicos, se procede con los structs
+                //se procede a recibir info
+                valread = read(sock, buffer, 1024);
+                qInfo() << "BUFFER: " << buffer;
+                j = buffer;
+                //j[name]["address"]
 
+
+                //una ves se terminan los casos basicos, se procede con los structs
                 //realizar prints
                 prints = imprimir(prints, res);
                 int largoPrints = prints.size();
