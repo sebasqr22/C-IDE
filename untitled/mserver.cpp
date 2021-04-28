@@ -67,7 +67,7 @@ int main(int argc, char const *argv[])
     
 
     
-
+    cout << "Server is now listening" << endl;
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
@@ -104,10 +104,11 @@ int main(int argc, char const *argv[])
         perror("accept");
         exit(EXIT_FAILURE);
     }
-    while (true){
-        cout << "Server is now listening" << endl;
+    
+        
         valread = read( new_socket , buffer, 1024);
         printf("%s\n",buffer );
+<<<<<<< HEAD
         cout << "buffer" << buffer << endl;
 
         json j = buffer;
@@ -117,6 +118,46 @@ int main(int argc, char const *argv[])
         int largo = s.length();
 
     
+=======
+        string s = buffer;
+        cout << s << endl;
+        
+
+
+        /*json j;
+        string tmp_name;
+        string tmp_value;
+        string tmp_type;
+        int tmp_memory;
+        int buffer_size = sizeof(buffer);
+        for (int k = 0; k < buffer_size; k++){
+            if (buffer[k] == '"'){
+                k += 1;
+                while(buffer[k] != '"'){
+                    tmp_name += buffer[k];
+                    k += 1;
+                }
+                k += 12;
+                tmp_memory = buffer[k];
+                k += 9;
+                while(buffer[k] != '"'){
+                    tmp_type += buffer[k];
+                    k += 1;
+                }
+                k += 10;
+                while(buffer[k] != '"'){
+                    tmp_value += buffer[k];
+                    k += 1;
+                }
+                j[tmp_name] = {{"type", tmp_type}, {"value",tmp_value}, {"memory", tmp_memory}};
+            }
+        }
+
+        string s = j.dump(); 
+
+        cout << s << endl;   */
+        /*
+>>>>>>> 9f18bd6566ca3cb8c924dadd2c8514a642279789
         while (s[i] != '}' || s[i+1] == ','){         
             if (s[i] == '"'){
                     string name = "";
@@ -124,15 +165,33 @@ int main(int argc, char const *argv[])
                     while (s[i+1] != '\"'){
                         name += s[i];
                         i += 1;
-                    }
+                    }*/
+                    /*
                     cout << name << endl;
+<<<<<<< HEAD
                     s.erase(0, name.length()+2);
                     cout << "Despues borrado" << s << endl;
                     /* 
                     string type_value = j[name]["type"];
+=======
+                    cout << j["hola"]["type"] << endl;
+                    cout << j["hola"]["value"] << endl;
+                    cout << j["hola"]["memory"] << endl;
+                    */
+                    //string type_value = j[name]["type"];
+                    //cout << type_value << endl;
+                    /*
+>>>>>>> 9f18bd6566ca3cb8c924dadd2c8514a642279789
                     string value_in_string = j[name]["value"];
+                    cout << value_in_string << endl;
+
                     int memory_value = j[name]["memory"];
+                    cout << memory_value << endl;
+
                     int type_value_aux;
+
+                    
+
                     if (type_value == "int"){
                         type_value_aux = 1;
                     } 
@@ -147,7 +206,8 @@ int main(int argc, char const *argv[])
                     }
                     else if (type_value == "double"){
                         type_value_aux = 5;
-                    } 
+                    } /*
+                    /*
                     stringstream ss;
                     ostringstream get_address;
                     string str;
@@ -236,11 +296,20 @@ int main(int argc, char const *argv[])
                 }
                 i += 1;
             
+<<<<<<< HEAD
         }
         string s2 = j.dump();
         char *send_message = &s2[0];
         send(port , send_message , strlen(send_message) , 0);
     }
+=======
+        } */
+        //string s2 = j.dump();
+        //cout << s2 << endl;
+        //char *send_message = &s2[0];
+        //send(port , send_message , strlen(send_message) , 0);
+    
+>>>>>>> 9f18bd6566ca3cb8c924dadd2c8514a642279789
     
     return 0;
 }
