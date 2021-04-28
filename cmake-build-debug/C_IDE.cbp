@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="C_IDE"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="C_IDE">
+				<Option output="/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/C_IDE" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sebas/Escritorio/P1.8/C-IDE/build-untitled-Desktop-Debug"/>
+					<Add directory="/home/sebas/Escritorio/P1.8/C-IDE/untitled"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 C_IDE"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="C_IDE/fast">
+				<Option output="/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/C_IDE" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/sebas/Escritorio/P1.8/C-IDE/build-untitled-Desktop-Debug"/>
+					<Add directory="/home/sebas/Escritorio/P1.8/C-IDE/untitled"/>
+					<Add directory="/usr/include/c++/10"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/10"/>
+					<Add directory="/usr/include/c++/10/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/10/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 C_IDE/fast"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/sebas/Escritorio/P1.8/C-IDE/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/build-untitled-Desktop-Debug/moc_ide.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/build-untitled-Desktop-Debug/moc_predefs.h">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/build-untitled-Desktop-Debug/ui_ide.h">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/Cliente.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/creadorListas.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/ide.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/ide.h">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/json.hpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/logger.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/main.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/mserver.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/operaciones.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/operacionesEstructs.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/pruebas.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/untitled/test.cpp">
+			<Option target="C_IDE"/>
+		</Unit>
+		<Unit filename="/home/sebas/Escritorio/P1.8/C-IDE/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
