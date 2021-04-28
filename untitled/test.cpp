@@ -193,6 +193,7 @@ int main()
         
     } 
     s = j.dump();
+    cout << s <<endl;
 
     return 0;
 }
