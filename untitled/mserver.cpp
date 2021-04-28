@@ -36,6 +36,7 @@ int main(int port, size_t size){ //size en bytes
 #include "json.hpp"
 #include <sstream>
 
+
 using json = nlohmann::json;
 using namespace std;
 
@@ -48,7 +49,7 @@ int main(int argc, char const *argv[])
     cout << "Please indicate which port you would like to listen to" << endl;
     cin >> port;
     char *ptr;
-    int i = 0;
+    int i = 1;
     ptr = (char*) malloc(size);
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
@@ -111,18 +112,23 @@ int main(int argc, char const *argv[])
 
         json j = buffer;
         //{" hola ":{"memory":4,"type":"int","value":" 324"}}
-        string s = j.dump();    
-        
+        string s = j.dump(); 
+        cout << "LLEGO: " << s << endl; 
+        int largo = s.length();
+
+    
         while (s[i] != '}' || s[i+1] == ','){         
             if (s[i] == '"'){
                     string name = "";
                     i += 1;
-                    while (s[i] != '"'){
+                    while (s[i+1] != '\"'){
                         name += s[i];
                         i += 1;
                     }
                     cout << name << endl;
-                    
+                    s.erase(0, name.length()+2);
+                    cout << "Despues borrado" << s << endl;
+                    /* 
                     string type_value = j[name]["type"];
                     string value_in_string = j[name]["value"];
                     int memory_value = j[name]["memory"];
@@ -218,7 +224,8 @@ int main(int argc, char const *argv[])
                             case 7:
                                 //caso reference
                                 break;
-                    } 
+                                
+                    } */
                     if (offset > size){
                         cout << "error, there is no memory left"<< endl;
                     }
@@ -229,7 +236,7 @@ int main(int argc, char const *argv[])
                 }
                 i += 1;
             
-        } 
+        }
         string s2 = j.dump();
         char *send_message = &s2[0];
         send(port , send_message , strlen(send_message) , 0);

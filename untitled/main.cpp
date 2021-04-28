@@ -1,3 +1,8 @@
+/**
+  *@file main.cpp
+  * @title main
+  * @brief Clase principal que corre todas las funciones del ide
+*/
 #include "ide.h"
 
 #include <QApplication>

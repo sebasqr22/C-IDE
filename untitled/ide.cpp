@@ -31,6 +31,7 @@ QStringList codigo;
 QStringList badLine;
 json j;
 logger Log;
+string jsonEnviar;
 
 //Preparacion del socket
 int sock = 0, valread;
@@ -68,7 +69,7 @@ void ide::mensaje(int criticalidad, QString msg){
  * @param str Recibe un string de una variable
  * @return QStringList con nombre y valor de una variable
  */
-QStringList separadorJSON(QString str){
+QStringList separadorJSON(QString str){ // hola = 45;
     int largo = str.size();
     QString name;
     QString value;
@@ -153,7 +154,10 @@ void JSON_Adapter(QStringList lista){
             name = aux[0];
             value = aux[1];
         }
-        j[name.toStdString()] = {{"type", type.toStdString()}, {"value", value.toStdString()}, {"memory", memoria}};
+        name.remove('\"');
+        type.remove('\"');
+        value.remove('\"');
+        jsonEnviar = R"({"name":")"+ name.toStdString() + R"(","type":")" + type.toStdString() + R"(","value":")" + value.toStdString() + R"(","memory":")" + std::to_string(memoria) +  "\"}";
     }
 }
 /**
@@ -585,6 +589,7 @@ QStringList quitaEspacios(QStringList lista){
 
     for(int i=0; i<largo; i++){
         tmp << lista[i].replace(" ", "");
+
     }
     return tmp;
 }
@@ -690,8 +695,17 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             if(hayNulos(res) == false){
                 res = quitaEspacios(res);
                 JSON_Adapter(res);//se prepara el JSON
-                string s = j.dump();
-                qInfo() << QString::fromStdString(s);
+                string s = jsonEnviar;
+                //cout << "ENVIADO: "<< s;
+                qInfo() <<"ENVIADO: "<< QString::fromStdString(s);
+
+                //ofstream o("/home/sebas/Escritorio/P1.12/C-IDE/untitled/variables.json");
+                //o << j;
+
+                //QString s_aux = QString::fromStdString(s);
+                //s_aux.replace("\\\\", "");
+                //s = s_aux.toStdString();
+                //qInfo() << QString::fromStdString(s);
                 char *message = &s[0];
                 send(sock , message , strlen(message) , 0 );//Se envia la info
                 qInfo() << "ENVIADO";

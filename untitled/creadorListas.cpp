@@ -1,3 +1,8 @@
+/**
+  *@file creadorListas.cpp
+  *@title creadorListas
+  *@brief Clase para separar el codigo en sublistas
+*/
 #include <QStringList>
 
 class creadorListas{
@@ -15,6 +20,10 @@ public:
     creadorListas(){
 
     }
+    /**
+     * @brief organizar Organiza el codigo en sublistas segun el tipo de dato
+     * @param lista Lista que contene todo el codigoi
+     */
     void organizar(QStringList lista){
         int largo = lista.size();
         for(int i=0; i < largo; i++){
@@ -45,6 +54,11 @@ public:
             }
         }
     }
+    /**
+     * @brief get Metodo que retorna una lista especifica
+     * @param name Variable que indica cual lista se desea retornar
+     * @return Lista de solo un tipo de dato especifico
+     */
     QStringList get(QString name){
         if(name.contains("{")){
             return strcs;
