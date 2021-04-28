@@ -42,6 +42,14 @@ using json = nlohmann::json;
 using namespace std;
 using namespace rapidjson;
 
+
+Document json_recieve(string str){
+    const char* pchar = str.c_str();
+    Document ptd;
+    ptd.Parse(pchar);
+    return ptd;
+}
+
 int main(int argc, char const *argv[])
 {   
     int port;
@@ -66,6 +74,7 @@ int main(int argc, char const *argv[])
     long numerical_long_value;
     float numerical_float_value;
     double numerical_double_value;
+    Document documentPet;
     
 
     
@@ -112,6 +121,12 @@ int main(int argc, char const *argv[])
         printf("%s\n",buffer );
         string s = buffer;
         cout << s << endl;
+        documentPet = json_recieve(s);
+        string name1 = documentPet["name"].GetString();
+        string type = documentPet["type"].GetString();
+        string value = documentPet["value"].GetString();
+        string memory = documentPet["memory"].GetString();
+        cout <<"TODO: "<< name1 << type << value << memory << endl;
         
 
 

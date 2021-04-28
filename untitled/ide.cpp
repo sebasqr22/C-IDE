@@ -158,6 +158,12 @@ void JSON_Adapter(QStringList lista){
         type.remove('\"');
         value.remove('\"');
         jsonEnviar = R"({"name":")"+ name.toStdString() + R"(","type":")" + type.toStdString() + R"(","value":")" + value.toStdString() + R"(","memory":")" + std::to_string(memoria) +  "\"}";
+        string s = jsonEnviar;
+        qInfo() <<"ENVIADO: "<< QString::fromStdString(s);
+
+        char *message = &s[0];
+        send(sock , message , strlen(message) , 0 );//Se envia la info
+        qInfo() << "ENVIADO: " << QString::fromStdString(s);
     }
 }
 /**
@@ -593,7 +599,6 @@ QStringList quitaEspacios(QStringList lista){
     }
     return tmp;
 }
-
 /**
  * @brief ide::on_runBut_clicked Función que al tocar el botón RUN, lee el código y ejecuta las demás funciones
  */
@@ -695,20 +700,6 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             if(hayNulos(res) == false){
                 res = quitaEspacios(res);
                 JSON_Adapter(res);//se prepara el JSON
-                string s = jsonEnviar;
-                //cout << "ENVIADO: "<< s;
-                qInfo() <<"ENVIADO: "<< QString::fromStdString(s);
-
-                //ofstream o("/home/sebas/Escritorio/P1.12/C-IDE/untitled/variables.json");
-                //o << j;
-
-                //QString s_aux = QString::fromStdString(s);
-                //s_aux.replace("\\\\", "");
-                //s = s_aux.toStdString();
-                //qInfo() << QString::fromStdString(s);
-                char *message = &s[0];
-                send(sock , message , strlen(message) , 0 );//Se envia la info
-                qInfo() << "ENVIADO";
 
                 //se procede a recibir info
                 valread = read(sock, buffer, 1024);
