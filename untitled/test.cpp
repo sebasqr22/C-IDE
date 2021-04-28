@@ -40,7 +40,7 @@ int main()
     j2["happy"] = true;
 
     // add a string that is stored as std::string
-    j2["name"] = "Niels";
+    j2["type"] = "Niels";
 
     // add another null object by passing nullptr
     j2["nothing"] = nullptr;
@@ -53,9 +53,125 @@ int main()
 
     // add another object (using an initializer list of pairs)
     //j2["object"] = {{"currency", "USD"},{"value", 42.99}};
-    fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
-    o << j2;
-    cout << j2["name"] << endl;
-    cout << j2["answer"] << endl;
+    //fstream o("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
+    //o << j2;
+    json j;
+    j["thunder"] = {{"type", "int"}, {"value","30"}, {"memory", 4}};
+    j["fire"] = {{"type", "long"}, {"value","300000"}, {"memory", 8}};
+    j["water"] = {{"type", "char"}, {"value","w"}, {"memory", 1}};
+    j["leaf"] = {{"type", "float"}, {"value","30.9"}, {"memory", 4}};
+    j["ice"] = {{"type", "double"}, {"value","4000"}, {"memory", 8}};
+    string s = j.dump();
+    //cout << s << endl;
+    int i = 0;
+    int offset = 0;
+    string name;
+    char *ptr;
+    ptr = (char*) malloc(8000);
+    /*
+    cout << "regular pointer" << (int*) ptr << endl;
+    cout << "pointer asterisk" << *ptr << endl;
+    cout << "pointer amperson" << &ptr << endl;
+    cout << (int*)(ptr + 1) << endl;
+
+    int *tmp_int_ptr;
+    tmp_int_ptr = (int*) ptr;
+    *tmp_int_ptr = 30;
+
+    offset += 4;
+    */
+    
+    
+    while (s[i] != '}' and s[i+1] != ','){            
+            if (s[i] == '{'){
+                string name = "";
+                i += 2;
+                while (s[i] != '"'){
+                    name += s[i];
+                    i += 1;
+                }
+                cout << name << endl;
+                string type_value = j[name]["type"];
+                string value_in_string = j[name]["value"];
+                int numerical_value = stoi(value_in_string);
+                int memory_value = j[name]["memory"];
+                int type_value_aux;
+                if (type_value == "int"){
+                    type_value_aux = 1;
+                } 
+                else if (type_value == "long"){
+                    type_value_aux = 2;
+                }
+                else if (type_value == "char"){
+                    type_value_aux = 3;
+                }
+                else if (type_value == "float"){
+                    type_value_aux = 4;
+                }
+                else if (type_value == "double"){
+                    type_value_aux = 5;
+                } 
+                switch(type_value_aux){
+                        case 1:
+                            int *tmp_int_ptr;
+                            tmp_int_ptr = (int*) ptr;                            
+                            *tmp_int_ptr = numerical_value;                            
+                            offset += memory_value;                  
+                            cout << *(int*)ptr << endl;
+                            cout << (int*)ptr << endl;
+                            cout << (int*)(ptr + offset) << endl;
+                            cout << *(int*)(ptr + offset) << endl;
+                            break;
+                        case 2: 
+                            long *tmp_long_ptr;
+                            tmp_long_ptr = (long*) ptr;                            
+                            *tmp_long_ptr = numerical_value;                            
+                            offset += memory_value;                  
+                            cout << *(int*)ptr << endl;
+                            cout << (int*)ptr << endl;
+                            cout << (int*)(ptr + offset) << endl;
+                            cout << *(int*)(ptr + offset) << endl;
+                            break;
+                        case 3:
+                            char *tmp_char_ptr;
+                            tmp_char_ptr = ptr;                            
+                            *tmp_char_ptr = value_in_string[0];                            
+                            offset += memory_value;                  
+                            cout << *(int*)ptr << endl;
+                            cout << (int*)ptr << endl;
+                            cout << (int*)(ptr + offset) << endl;
+                            cout << *(int*)(ptr + offset) << endl;
+                            break;
+                        case 4:
+                            float *tmp_float_ptr;
+                            tmp_float_ptr = (float*) ptr;                            
+                            *tmp_float_ptr = numerical_value;                            
+                            offset += memory_value;                  
+                            cout << *(int*)ptr << endl;
+                            cout << (int*)ptr << endl;
+                            cout << (int*)(ptr + offset) << endl;
+                            cout << *(int*)(ptr + offset) << endl;
+                            break;
+                        case 5:
+                            double *tmp_double_ptr;
+                            tmp_double_ptr = (double*) ptr;                            
+                            *tmp_double_ptr = numerical_value;                            
+                            offset += memory_value;                  
+                            cout << *(int*)ptr << endl;
+                            cout << (int*)ptr << endl;
+                            cout << (int*)(ptr + offset) << endl;
+                            cout << *(int*)(ptr + offset) << endl;
+                            break;
+                        case 6:
+                            //caso struct
+                            break;
+                        case 7:
+                            //caso reference
+                            break;
+                }
+            }
+            i += 1;
+        
+    } 
     return 0;
 }
