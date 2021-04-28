@@ -30,6 +30,8 @@ private slots:
 
     void on_clearBut_clicked();
 
+    void mensaje(int criticalidad, QString msg);
+
 private:
     Ui::ide *ui;
 };

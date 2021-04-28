@@ -56,8 +56,6 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(ide->sizePolicy().hasHeightForWidth());
         ide->setSizePolicy(sizePolicy);
-        ide->setMinimumSize(QSize(1100, 750));
-        ide->setMaximumSize(QSize(1100, 750));
         centralwidget = new QWidget(ide);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         label = new QLabel(centralwidget);

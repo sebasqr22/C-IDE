@@ -1,3 +1,9 @@
+/**
+  *@file ide.cpp
+  *@title IDE
+  *@brief Clase que contiene los pricipales métodos de para ser usados con la clase main.cpp
+*/
+
 #include "ide.h"
 #include "ui_ide.h"
 #include <QDebug>
@@ -32,18 +38,36 @@ struct sockaddr_in serv_addr;
 int port = 8080;
 char buffer[1024] = {0};
 
-
+/**
+ * @brief ide::ide Constructor de la clase ide.cpp
+ * @param parent
+ */
 ide::ide(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::ide)
 {
     ui->setupUi(this);
 }
-
+/**
+ * @brief ide::~ide
+ */
 ide::~ide()
 {
     delete ui;
 }
+/**
+ * @brief ide::mensaje Envia un log al logger
+ * @param criticalidad Nivel de error para el logger
+ * @param msg Mensaje que mostrará el logger
+ */
+void ide::mensaje(int criticalidad, QString msg){
+    ui->log->append(Log.mostrar(criticalidad, msg));
+}
+/**
+ * @brief separadorJSON Permite obtener el valor y el nombre de las variables para crear el JSON
+ * @param str Recibe un string de una variable
+ * @return QStringList con nombre y valor de una variable
+ */
 QStringList separadorJSON(QString str){
     int largo = str.size();
     QString name;
@@ -65,6 +89,10 @@ QStringList separadorJSON(QString str){
     tmp << name << value;
     return tmp;
 }
+/**
+ * @brief JSON_Adapter Metodo para acomdar las variables en formato JSON y ser enviadas al servidor
+ * @param lista Lista con las variables
+ */
 void JSON_Adapter(QStringList lista){
     int largo = lista.size();
     int memoria;
@@ -128,7 +156,10 @@ void JSON_Adapter(QStringList lista){
         j[name.toStdString()] = {{"type", type.toStdString()}, {"value", value.toStdString()}, {"memory", memoria}};
     }
 }
-
+/**
+ * @brief crearSocket Metodo que genera el socket entre el ide y el servidor
+ * @return numero entero en caso de error
+ */
 int crearSocket(){
     if((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
             qInfo() << "\n Socket creation error \n";
@@ -151,7 +182,11 @@ int crearSocket(){
     }
     qInfo() << "Suck it literal";
 }
-
+/**
+ * @brief validarComas Metodo para validar si los puntos y comas estan puestos de forma correcta
+ * @param aux String con informacion de una linea de codigo
+ * @return Booleano con informacion sobre validacion
+ */
 bool validarComas(QString aux){
     int largo = aux.size();
     bool good = true;
@@ -180,7 +215,11 @@ bool validarComas(QString aux){
     }
    return good;
 }
-
+/**
+ * @brief adapter Obtiene el codigo escrito y lo transforma a un formato legible por el software
+ * @param tmp String de una linea de codigo
+ * @return Lista con la informacion en formato correcto
+ */
 QStringList adapter(QString tmp){
     tmp.remove("\n");
     qInfo() << tmp;
@@ -214,6 +253,12 @@ QStringList adapter(QString tmp){
     qInfo() << listaInfo;
     return listaInfo;
 }
+/**
+ * @brief agrega Crea un QString con partes de otro QString, se repite n veces
+ * @param aux QString con la informacion necesaria
+ * @param veces Cantidad de veces que se repetira el proceso
+ * @return QString con la informacion generada
+ */
 QString agrega(QString aux, int veces){
     QString todo = "";
     for(int i=0; i<=veces; i++){
@@ -221,6 +266,13 @@ QString agrega(QString aux, int veces){
     }
     return todo;
 }
+/**
+ * @brief validaResto Metodo para validar que todo menos las estructuras tengan buen formato
+ * @param tmp QStringList con la informacion a validar
+ * @param largo Largo de la lista "tmp"
+ * @param analizando QString que se analizará
+ * @return Número entero con cantidad de datos correctos
+ */
 int validaResto(QStringList tmp, int largo, QString analizando){
     int contador = 0;
     QStringList incompletos;
@@ -302,6 +354,11 @@ int validaResto(QStringList tmp, int largo, QString analizando){
     }
     return contador;
 }
+/**
+ * @brief validarTipos Método para validar el formato del código de C!
+ * @param tmp Lista con el código generado
+ * @return Booleano que indica si el formato es correcto o no
+ */
 bool validarTipos(QStringList tmp){
     qInfo() << "Malas: " <<badLine;
     int largo = tmp.size();
@@ -357,7 +414,12 @@ bool validarTipos(QStringList tmp){
         return contador == largo;
     }
 }
-
+/**
+ * @brief imprimir Método para hacer uso de los prints de C!
+ * @param lista Lista con los prints del código generado en C!
+ * @param res Lista con todas las variables y sus valores
+ * @return Lista con los prints y valores correctos
+ */
 QStringList imprimir(QStringList lista, QStringList res){
     int largo = lista.size();
     int largoRes = res.size();
@@ -394,6 +456,10 @@ QStringList imprimir(QStringList lista, QStringList res){
     qInfo() << listaAux;
     return listaAux;
 }
+/**
+ * @brief ide::verCorriendo Método para ver una línea específica de código en debugger
+ * @param pos Posición de la lista del código
+ */
 void ide::verCorriendo(int pos){
     int largo = codigo.size();
     if(pos > largo-1){
@@ -406,6 +472,9 @@ void ide::verCorriendo(int pos){
     }
     ui->viendo->setText(codigo[pos]);
 }
+/**
+ * @brief ide::imprimirMalas Muestra las líneas en que se encuentra un error en el código
+ */
 void ide::imprimirMalas(){
     int largo = badLine.size();
     ui->viendo->setText("");
@@ -421,6 +490,9 @@ void ide::imprimirMalas(){
     }
     ui->viendo->append(malas);
 }
+/**
+ * @brief removeAll Borra la info de la lista de lineas con error
+ */
 void removeAll(){
     QStringList aux;
     int largo = badLine.size();
@@ -431,6 +503,11 @@ void removeAll(){
         badLine.removeAll(aux[j]);
     }
 }
+/**
+ * @brief quitarRepetidos Método para quitar elementos repetidos de una lista
+ * @param lista Lista a la que se le quitará los elementos repetidos
+ * @return Lista sin elementos repetidos
+ */
 QStringList quitarRepetidos(QStringList lista){
     QStringList tmp;
     int largo = lista.size();
@@ -441,6 +518,11 @@ QStringList quitarRepetidos(QStringList lista){
     }
     return tmp;
 }
+/**
+ * @brief cambioFormatoStructs Método para crear el formato correcto para las estructuras
+ * @param lista Recibe lista con las estructuras respectivas
+ * @return
+ */
 QStringList cambioFormatoStructs(QStringList lista){
     int largo = lista.size();
     QStringList buenFormato;
@@ -466,6 +548,9 @@ QStringList cambioFormatoStructs(QStringList lista){
     }
     return buenFormato;
 }
+/**
+ * @brief ide::on_runBut_clicked Función que al tocar el botón RUN, lee el código y ejecuta las demás funciones
+ */
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
     crearSocket(); //se crea el socket entre el server y el ide
@@ -596,7 +681,9 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
     }
     //int-long-char-float-double-{-reference<
 }
-
+/**
+ * @brief ide::on_stop_clicked Función
+ */
 void ide::on_stop_clicked()
 {
     ui->viendo->setText("");

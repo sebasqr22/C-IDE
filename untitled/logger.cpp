@@ -27,6 +27,10 @@ private:
         segundo = QString::number(tiempoLocaL->tm_sec);
         return hora + ":" + minuto + ":" + segundo;
     }
+    void updateTiempo(){
+        time_t actual = time(0);
+        tiempoLocaL = localtime(&actual);
+    }
 
 
 public:
@@ -35,6 +39,7 @@ public:
         tiempoLocaL = localtime(&actual);
     }
     QString mostrar(int tipo, QString mensaje){
+        updateTiempo();
         switch(tipo){
         case 0:{
             return "---" + fecha() + "---" + horaExacta() + "---" + "[info] " + "---" + mensaje + "---";
