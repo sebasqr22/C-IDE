@@ -20,9 +20,20 @@
 #include "json.hpp"
 #include "logger.cpp"
 #include "operacionesEstructs.cpp"
+#include "rapidjson/document.h"
+#include <SFML/Network.hpp>
 
 using namespace std;
 using json = nlohmann::json;
+using namespace rapidjson;
+using namespace sf;
+
+Document json_recieve(string str){
+    const char* pchar = str.c_str();
+    Document ptd;
+    ptd.Parse(pchar);
+    return ptd;
+}
 
 //variables globales
 bool corriendo = false;
@@ -32,11 +43,20 @@ QStringList badLine;
 json j;
 logger Log;
 string jsonEnviar;
+bool crearNuevo = true;
+QStringList listaRecibidos;
+Document documentPet;
+int port = 8080;
+
+IpAddress ip = IpAddress::getLocalAddress();
+TcpSocket newSocket;
+Packet llegada, envio;
+
 
 //Preparacion del socket
-int sock = 0, valread;
+int sock = 0, valread, valread2;
 struct sockaddr_in serv_addr;
-int port = 8080;
+
 char buffer[1024] = {0};
 
 /**
@@ -158,12 +178,41 @@ void JSON_Adapter(QStringList lista){
         type.remove('\"');
         value.remove('\"');
         jsonEnviar = R"({"name":")"+ name.toStdString() + R"(","type":")" + type.toStdString() + R"(","value":")" + value.toStdString() + R"(","memory":")" + std::to_string(memoria) +  "\"}";
-        string s = jsonEnviar;
-        qInfo() <<"ENVIADO: "<< QString::fromStdString(s);
+        //string s = jsonEnviar;
+        //qInfo() <<"ENVIADO: "<< QString::fromStdString(s);
+        envio <<  jsonEnviar;
+        newSocket.send(envio);
+        envio.clear();
 
-        char *message = &s[0];
-        send(sock , message , strlen(message) , 0 );//Se envia la info
-        qInfo() << "ENVIADO: " << QString::fromStdString(s);
+        //char *message = &s[0];
+        //send(sock , message , strlen(message) , 0 );//Se envia la info
+        //qInfo() << "ENVIADO: " << QString::fromStdString(s);
+
+
+        //se procede a recibir info
+
+
+        /*
+        valread2 = read(8080, buffer, 1024);
+        qInfo() << valread2;
+        //qInfo() << "BUFFER: " << QString::fromStdString(buffer);
+        string s2 = buffer;
+        qInfo() << "LLEGA: " << QString::fromStdString(s2);
+        int z = 0;
+        string new_s = "";
+        while(s2[z]!= '}'){
+            new_s += s2[z];
+            z ++;
+        }
+        new_s += '}';
+        documentPet = json_recieve(new_s);
+        string nameR = documentPet["name"].GetString();
+        string type_valueR = documentPet["type"].GetString();
+        string value_in_stringR = documentPet["value"].GetString();
+        string memory_valueR = documentPet["memory"].GetString();
+        qInfo() << "LLEGA LISTO: " << QString::fromStdString(new_s);
+        listaRecibidos << QString::fromStdString(new_s);
+        */
     }
 }
 /**
@@ -604,7 +653,11 @@ QStringList quitaEspacios(QStringList lista){
  */
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
-    crearSocket(); //se crea el socket entre el server y el ide
+    if(crearNuevo == true){
+        newSocket.connect(ip, port);
+        newSocket.setBlocking(false);
+        crearNuevo = false;
+    }
     ui->viendo->setEnabled(false);
     removeAll();
     QString original;
@@ -700,12 +753,6 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             if(hayNulos(res) == false){
                 res = quitaEspacios(res);
                 JSON_Adapter(res);//se prepara el JSON
-
-                //se procede a recibir info
-                valread = read(sock, buffer, 1024);
-                qInfo() << "BUFFER: " << buffer;
-                j = buffer;
-                //j[name]["address"]
 
 
                 //una ves se terminan los casos basicos, se procede con los structs

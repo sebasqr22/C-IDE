@@ -1,0 +1,2 @@
+/home/sebas/Escritorio/P1.12/C-IDE/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/sebas/Escritorio/P1.12/C-IDE/cmake-build-debug/CMakeFiles/edit_cache.dir
