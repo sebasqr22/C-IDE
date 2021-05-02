@@ -1,36 +1,10 @@
-//parámetros el puerto en que escucha y el tamaño en bytes de la memoria total
-
-//un malloc, cuando recibe una petición de C!, maneja offsets para determinar posicion de cada 
-//variable C! en la memoria real
-
-//escucha peticiones mandados en json, indica tipo de datos, nombre de variable, 
-//tamaño de la variable por reserver
-
-//server maneja la memoria
-
-//lleva conteo de referencias cada cierto tiempo maneja garbage collector que elimina espacios 
-//de memoria no referenciados
-/*
-
-int main(int port, size_t size){ //size en bytes
-    int *ptr;
-    ptr = (int*) malloc(size);
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    int setsock(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
-    int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
-    int listen(int sockfd, int backlog);
-    int new_socket = accept(int sockfd, struct sockaddr *addr, socklen_t addrlen);
-    //ptr + i; offset
-    
-    return 0;
-}*/
-
 #include <iostream>
 #include <unistd.h>
 #include <fstream>
 #include <stdio.h>
 #include <sys/socket.h>
 #include <stdlib.h>
+#include <cstdlib>
 #include <netinet/in.h>
 #include <string.h>
 #include "json.hpp"
@@ -59,7 +33,7 @@ int main(int argc, char const *argv[])
     cout << "Please indicate which port you would like to listen to" << endl;
     cin >> port;
     char *ptr;
-    int i = 1;
+    int i = 0;
     ptr = (char*) malloc(size);
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
@@ -68,17 +42,17 @@ int main(int argc, char const *argv[])
     char buffer[1024] = {0};
 
     int offset = 0;
-    string name;
-    stringstream ss;
     int numerical_int_value;
     long numerical_long_value;
     float numerical_float_value;
     double numerical_double_value;
     Document documentPet;
-    
+    string jsonEnviar;
+    string new_s;
 
     
     cout << "Server is now listening" << endl;
+    
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
@@ -116,190 +90,123 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
     
-        
+    while(true){
+    
         valread = read( new_socket , buffer, 1024);
         printf("%s\n",buffer );
         string s = buffer;
         cout << s << endl;
-        documentPet = json_recieve(s);
-        string name1 = documentPet["name"].GetString();
-        string type = documentPet["type"].GetString();
-        string value = documentPet["value"].GetString();
-        string memory = documentPet["memory"].GetString();
-        cout <<"TODO: "<< name1 << type << value << memory << endl;
-        
-
-
-        /*json j;
-        string tmp_name;
-        string tmp_value;
-        string tmp_type;
-        int tmp_memory;
-        int buffer_size = sizeof(buffer);
-        for (int k = 0; k < buffer_size; k++){
-            if (buffer[k] == '"'){
-                k += 1;
-                while(buffer[k] != '"'){
-                    tmp_name += buffer[k];
-                    k += 1;
-                }
-                k += 12;
-                tmp_memory = buffer[k];
-                k += 9;
-                while(buffer[k] != '"'){
-                    tmp_type += buffer[k];
-                    k += 1;
-                }
-                k += 10;
-                while(buffer[k] != '"'){
-                    tmp_value += buffer[k];
-                    k += 1;
-                }
-                j[tmp_name] = {{"type", tmp_type}, {"value",tmp_value}, {"memory", tmp_memory}};
-            }
+        i = 0;
+        new_s = "";
+        while(s[i]!= '}'){
+            new_s += s[i];
+            i += 1;
         }
+        new_s += '}';
+        documentPet = json_recieve(new_s);
+        string name = documentPet["name"].GetString();
+        string type_value = documentPet["type"].GetString();
+        string value_in_string = documentPet["value"].GetString();
+        string memory_value = documentPet["memory"].GetString();
+        cout <<"TODO: "<< name << type_value << value_in_string << memory_value << endl;
+        int type_value_aux;
+        if (type_value == "int"){
+                type_value_aux = 1;
+            } 
+            else if (type_value == "long"){
+                type_value_aux = 2;
+            }
+            else if (type_value == "char"){
+                type_value_aux = 3;
+            }
+            else if (type_value == "float"){
+                type_value_aux = 4;
+            }
+            else if (type_value == "double"){
+                type_value_aux = 5;
+            }       
 
-        string s = j.dump(); 
-
-        cout << s << endl;   */
-        /*
-        while (s[i] != '}' || s[i+1] == ','){         
-            if (s[i] == '"'){
-                    string name = "";
-                    i += 1;
-                    while (s[i+1] != '\"'){
-                        name += s[i];
-                        i += 1;
-                    }*/
-                    /*
-                    cout << name << endl;
-                    cout << j["hola"]["type"] << endl;
-                    cout << j["hola"]["value"] << endl;
-                    cout << j["hola"]["memory"] << endl;
-                    */
-                    //string type_value = j[name]["type"];
-                    //cout << type_value << endl;
-                    /*
-                    string value_in_string = j[name]["value"];
-                    cout << value_in_string << endl;
-
-                    int memory_value = j[name]["memory"];
-                    cout << memory_value << endl;
-
-                    int type_value_aux;
-
-                    
-
-                    if (type_value == "int"){
-                        type_value_aux = 1;
-                    } 
-                    else if (type_value == "long"){
-                        type_value_aux = 2;
-                    }
-                    else if (type_value == "char"){
-                        type_value_aux = 3;
-                    }
-                    else if (type_value == "float"){
-                        type_value_aux = 4;
-                    }
-                    else if (type_value == "double"){
-                        type_value_aux = 5;
-                    } /*
-                    /*
-                    stringstream ss;
-                    ostringstream get_address;
-                    string str;
-                    switch(type_value_aux){
-                            case 1:                                                        
-                                ss << value_in_string;
-                                ss >> numerical_int_value;
-                                cout << numerical_int_value<< endl;
-                                int *tmp_int_ptr;
-                                tmp_int_ptr = (int*)(ptr + offset);                            
-                                *tmp_int_ptr = numerical_int_value;  
-                                cout << (int*)(ptr + offset) << endl;
-                                cout << *(int*)(ptr + offset) << endl;                    
-                                offset += memory_value;   
-                                get_address << tmp_int_ptr;
-                                str = get_address.str();
-                                j[name]["address"] = str;
-                                
-                                break;
-                            case 2:                             
-                                ss << value_in_string;
-                                ss >> numerical_long_value;
-                                long *tmp_long_ptr;
-                                tmp_long_ptr = (long*)(ptr + offset);                            
-                                *tmp_long_ptr = numerical_long_value;  
-                                cout << (long*)(ptr + offset) << endl;
-                                cout << *(long*)(ptr + offset) << endl;       
-                                offset += memory_value;                  
-                                get_address << tmp_long_ptr;
-                                str = get_address.str();
-                                j[name]["address"] = str;
-                                break;                          
-                            case 3:
-                                char *tmp_char_ptr;
-                                tmp_char_ptr = (ptr+offset);                          
-                                *tmp_char_ptr = value_in_string[0];  
-                                cout << (int*)(ptr + offset) << endl;
-                                cout << *(ptr + offset) << endl;                             
-                                offset += memory_value;                  
-                                get_address << (int*)(tmp_char_ptr);
-                                str = get_address.str();
-                                j[name]["address"] = str;                   
-                                break;                            
-                            case 4:
-                                ss << value_in_string;
-                                ss >> numerical_float_value;
-                                float *tmp_float_ptr;
-                                tmp_float_ptr = (float*)(ptr + offset);                            
-                                *tmp_float_ptr = numerical_float_value;
-                                cout << (float*)(ptr + offset) << endl;
-                                cout << *(float*)(ptr + offset) << endl;                                 
-                                offset += memory_value;                  
-                                get_address << tmp_float_ptr;
-                                str = get_address.str();
-                                j[name]["address"] = str;
-                                break;                            
-                            case 5:
-                                ss << value_in_string;
-                                ss >> numerical_double_value;
-                                double *tmp_double_ptr;
-                                tmp_double_ptr = (double*)(ptr+offset);                            
-                                *tmp_double_ptr = numerical_double_value;    
-                                cout << (double*)(ptr + offset) << endl;
-                                cout << *(double*)(ptr + offset) << endl;                            
-                                offset += memory_value;                  
-                                get_address << tmp_double_ptr;
-                                str = get_address.str();
-                                j[name]["address"] = str;                            
-                                break;
-                                
-                            case 6:
-                                //caso struct
-                                break;
-                            case 7:
-                                //caso reference
-                                break;
-                                
-                    } 
-                    if (offset > size){
-                        cout << "error, there is no memory left"<< endl;
-                    }
-                }else if (s[i] == ':'){
-                    while (s[i] != '}'){
-                        i += 1;
-                    }
+                stringstream ss;
+                ostringstream get_address;
+                string address_str;
+                switch(type_value_aux){
+                        case 1:                                                        
+                            ss << value_in_string;
+                            ss >> numerical_int_value;
+                            cout << numerical_int_value<< endl;
+                            int *tmp_int_ptr;
+                            tmp_int_ptr = (int*)(ptr + offset);                            
+                            *tmp_int_ptr = numerical_int_value;  
+                            cout << (int*)(ptr + offset) << endl;
+                            cout << *(int*)(ptr + offset) << endl;  
+                            offset += stoi(memory_value);  
+                            get_address << tmp_int_ptr;
+                            address_str = get_address.str();                     
+                            break;
+                        case 2:                             
+                            ss << value_in_string;
+                            ss >> numerical_long_value;
+                            long *tmp_long_ptr;
+                            tmp_long_ptr = (long*)(ptr + offset);                            
+                            *tmp_long_ptr = numerical_long_value;  
+                            cout << (long*)(ptr + offset) << endl;
+                            cout << *(long*)(ptr + offset) << endl;       
+                            offset += stoi(memory_value);                  
+                            get_address << tmp_long_ptr;
+                            address_str = get_address.str();
+                            break;                          
+                        case 3:
+                            char *tmp_char_ptr;
+                            tmp_char_ptr = (ptr+offset);                          
+                            *tmp_char_ptr = value_in_string[0];  
+                            cout << (int*)(ptr + offset) << endl;
+                            cout << *(ptr + offset) << endl;                             
+                            offset += stoi(memory_value);                  
+                            get_address << (int*)(tmp_char_ptr);
+                            address_str = get_address.str();                  
+                            break;                            
+                        case 4:
+                            ss << value_in_string;
+                            ss >> numerical_float_value;
+                            float *tmp_float_ptr;
+                            tmp_float_ptr = (float*)(ptr + offset);                            
+                            *tmp_float_ptr = numerical_float_value;
+                            cout << (float*)(ptr + offset) << endl;
+                            cout << *(float*)(ptr + offset) << endl;                                 
+                            offset += stoi(memory_value);                  
+                            get_address << tmp_float_ptr;
+                            address_str = get_address.str();
+                            break;                            
+                        case 5:
+                            ss << value_in_string;
+                            ss >> numerical_double_value;
+                            double *tmp_double_ptr;
+                            tmp_double_ptr = (double*)(ptr+offset);                            
+                            *tmp_double_ptr = numerical_double_value;    
+                            cout << (double*)(ptr + offset) << endl;
+                            cout << *(double*)(ptr + offset) << endl;                            
+                            offset += stoi(memory_value);                  
+                            get_address << tmp_double_ptr;
+                            address_str = get_address.str();                          
+                            break;
+                            
+                        case 6:
+                            //caso struct
+                            break;
+                        case 7:
+                            //caso reference
+                            break;
+                            
+                } 
+                if (offset > size){
+                    cout << "error, there is no memory left"<< endl;
                 }
-                i += 1;
-            
-        } */
-        //string s2 = j.dump();
-        //cout << s2 << endl;
-        //char *send_message = &s2[0];
-        //send(port , send_message , strlen(send_message) , 0);
-    
-    
+                        
+        jsonEnviar = R"({"name":")"+ name + R"(","type":")" + type_value + R"(","value":")" + value_in_string + R"(","memory":")" + memory_value + R"(","address":")" + address_str + "\"}";
+        string string_send = jsonEnviar;
+        cout << string_send << endl;
+        //char *message = &string_send[0];
+        //send(port , message , strlen(message) , 0 );//Se envia la info
+        }
     return 0;
 }
