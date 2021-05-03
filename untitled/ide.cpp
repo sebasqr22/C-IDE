@@ -700,6 +700,9 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
 
             if(hayNulos(res) == false){
                 res = quitaEspacios(res);
+                string starting_s = "initial";
+                char *message_i = &starting_s[0];
+                send(sock , message_i , strlen(message_i) , 0 );
                 JSON_Adapter(res);//se prepara el JSON
 
                 string line;
@@ -714,7 +717,9 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                   }
 
                   else {qInfo() << "Unable to open file"; }
-
+                  string ending_s = "end";
+                  char *message_end = &ending_s[0];
+                  send(sock , message_end , strlen(message_end) , 0 );
 
 
                 //una ves se terminan los casos basicos, se procede con los structs
