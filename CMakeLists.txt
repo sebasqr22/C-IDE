@@ -1,6 +1,0 @@
-cmake_minimum_required(VERSION 3.17)
-project(C-IDE)
-set(CMAKE_CXX_STANDARD 14)
-set(EXECUTABLE_NAME "mserver")
-add_executable(${EXECUTABLE_NAME} untitled/mserver.cpp)
-target_link_libraries(mserver smfl-network)
