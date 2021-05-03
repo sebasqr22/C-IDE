@@ -1,2 +1,3 @@
 {"name":"hola","type":"int","value":"32","memory":"4","address":"0x55555557a6d0"}
-{"name":"pi","type":"float","value":"3.14","memory":"4","address":"0x55555557a6d4"}
+{"name":"funciona","type":"int","value":"100","memory":"4","address":"0x55555557a6d4"}
+{"name":"thunder","type":"double","value":"900","memory":"8","address":"0x55555557a6d8"}

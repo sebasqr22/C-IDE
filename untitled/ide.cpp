@@ -706,7 +706,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 JSON_Adapter(res);//se prepara el JSON
 
                 string line;
-                  ifstream myfile ("/home/kenichi/Documents/Github/C-IDE/untitled/example.txt");
+                  ifstream myfile ("./untitled/example.txt");
                   if (myfile.is_open())
                   {
                     while ( getline (myfile,line) )
@@ -722,7 +722,6 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                   send(sock , message_end , strlen(message_end) , 0 );
 
 
-                //una ves se terminan los casos basicos, se procede con los structs
                 //realizar prints
                 prints = imprimir(prints, res);
                 int largoPrints = prints.size();
