@@ -331,6 +331,8 @@ int main(int argc, char const *argv[])
     float *tmp_float_ptr;
     double *tmp_double_ptr;
 
+    bool loop = true;
+
     /* Start with the empty list */
     Node* head_list = NULL;
     Node* head_collector = NULL;
@@ -383,7 +385,7 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
     
-    while(true){
+    while(loop == true){
     
         valread = read( new_socket , buffer, 1024);
         printf("%s\n",buffer );
@@ -465,6 +467,7 @@ int main(int argc, char const *argv[])
                                             cout << *(long*)(ptr + offset) << endl;  
                                             list.append(name,8,offset);
                                             list.printList();      
+                                            cout << "memory long value:" << stoi(memory_value) << endl;
                                             offset += stoi(memory_value);    
                                         }
                                         else{
@@ -670,6 +673,10 @@ int main(int argc, char const *argv[])
             cout << endl;
             collector.printList();
             cout << endl;
+        }
+        if (offset > size){
+            cout << "error, there is no memory left"<< endl;
+            loop = false;
         }
     }
     return 0;

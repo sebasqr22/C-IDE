@@ -1,6 +1,2 @@
-{"name":"hoffman","type":"int","value":"9000","memory":"4","address":"0x55555557a6d0"}
-{"name":"transversal","type":"float","value":"4.10","memory":"4","address":"0x55555557a6d4"}
-{"name":"type","type":"float","value":"8000.0","memory":"4","address":"0x55555557a779"}
-{"name":"triple","type":"double","value":"3000","memory":"8","address":"0x55555557a6dc"}
-{"name":"quadruple","type":"double","value":"8500","memory":"8","address":"0x55555557a6e8"}
-{"name":"love","type":"char","value":"l","memory":"1","address":"0x55555557a740"}
+{"name":"hola","type":"int","value":"32","memory":"4","address":"0x55555557a6d0"}
+{"name":"pi","type":"float","value":"3.14","memory":"4","address":"0x55555557a6d4"}
