@@ -17,19 +17,16 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
-#include "json.hpp"
 #include "logger.cpp"
 #include "operacionesEstructs.cpp"
 
 using namespace std;
-using json = nlohmann::json;
 
 //variables globales
 bool corriendo = false;
 int depurLine = 0;
 QStringList codigo;
 QStringList badLine;
-json j;
 logger Log;
 string jsonEnviar;
 
@@ -705,11 +702,19 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 res = quitaEspacios(res);
                 JSON_Adapter(res);//se prepara el JSON
 
-                //se procede a recibir info
-                //valread = read(sock, buffer, 1024);
-                //qInfo() << "BUFFER: " << buffer;
-                //j = buffer;
-                //j[name]["address"]
+                string line;
+                  ifstream myfile ("/home/kenichi/Documents/Github/C-IDE/untitled/example.txt");
+                  if (myfile.is_open())
+                  {
+                    while ( getline (myfile,line) )
+                    {
+                      qInfo() << QString::fromStdString(line);
+                    }
+                    myfile.close();
+                  }
+
+                  else {qInfo() << "Unable to open file"; }
+
 
 
                 //una ves se terminan los casos basicos, se procede con los structs

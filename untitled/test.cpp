@@ -11,6 +11,14 @@ using json = nlohmann::json;
 
 int main()
 {
+    ofstream myfile;
+    myfile.open ("/home/kenichi/Documents/Github/C-IDE/untitled/example.txt");
+    myfile << "Writing this to a file again.\n";
+    myfile.close();
+
+    myfile.open ("/home/kenichi/Documents/Github/C-IDE/untitled/example.txt",fstream::trunc);
+    myfile << "Replaced.\n";
+    myfile.close();
     /*
     ifstream i("/home/kenichi/Documents/Github/C-IDE/untitled/variables.json");
     json j;
@@ -33,7 +41,7 @@ int main()
             {"value", 318}
         }}
         };*/
-
+    /*
     json j2;
     j2["pi"] = 3.141;
 
@@ -195,6 +203,6 @@ int main()
     } 
     s = j.dump();
     cout << s <<endl;
-
+    */
     return 0;
 }
