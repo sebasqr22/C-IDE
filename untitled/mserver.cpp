@@ -1,3 +1,9 @@
+/**
+ * @file mserver.cpp
+ * @title MServer 
+ * @brief Clase servidor
+**/
+
 #include <iostream>
 #include <unistd.h>
 #include <fstream>
@@ -39,6 +45,10 @@ class Node
 class List{
     public:
         Node* head; //El primer nodo de la lista
+        /**
+         * @brief
+         * @param
+        **/
         void set_head(Node* new_head){ //asigna un nodo recibido como el primer nodo de la lista
             head = new_head;
         }
