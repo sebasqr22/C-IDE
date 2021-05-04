@@ -26,277 +26,245 @@ Document json_recieve(string str){
 class Node
 {
     public:
-    string name;
-    int memory_value;
-    int offset;
-    int count = 0;
-    bool mark = false;
-    Node* next;
-    Node* prev;
+        string name; //nombre de la variable
+        int memory_value; //cantidad de memoria requerida para almacenar la variable
+        int offset; //el offset en donde se encuentra la memoria en la variable
+        int count; //la cantidad de runs que la variable tiene sin ser utilizado
+        bool mark; //la marca de variable indicando si se encuentra presente en cada run del cliente
+        int references; //la cantidad de veces que la variable ha estado presente
+        Node* next; //puntero hacia el nodo siguiente en la lista
+        Node* prev; //puntero hacia el nodo anterior en la lista
 };
 
 class List{
     public:
-    Node* head;
-    void set_head(Node* new_head){
-        head = new_head;
-    }
-    /* Given a reference (pointer to pointer) to the head
-    of a DLL and an int, appends a new node at the end */
-    void append(string new_name, int new_memory, int new_offset)
-    {
-        /* 1. allocate node */
-        Node* new_node = new Node();
-    
-        Node* last = head; /* used in step 5*/
-    
-        /* 2. put in the data */
-        new_node->name = new_name;
-        new_node->memory_value = new_memory;
-        new_node->offset = new_offset;
-    
-        /* 3. This new node is going to be the last node, so
-            make next of it as NULL*/
-        new_node->next = NULL;
-    
-        /* 4. If the Linked List is empty, then make the new
-            node as head */
-        if (head == NULL)
+        Node* head; //El primer nodo de la lista
+        void set_head(Node* new_head){ //asigna un nodo recibido como el primer nodo de la lista
+            head = new_head;
+        }
+        void append(string new_name, int new_memory, int new_offset, int new_count, bool new_mark, int new_references) //dado los datos, añade un nodo con los datos recibidos al final de la lista
         {
-            new_node->prev = NULL;
-            head = new_node;
+            Node* new_node = new Node();  //se crea un nodo nuevo     
+            Node* last = head;
+
+            // se asignan los valores al nuevo nodo
+            new_node->name = new_name;
+            new_node->memory_value = new_memory;
+            new_node->offset = new_offset;
+            new_node->count = new_count;
+            new_node->mark = new_mark;
+            new_node->references = new_references;
+            new_node->next = NULL;
+
+            if (head == NULL) //caso añadir nodo a una lista vacía
+            {
+                new_node->prev = NULL;
+                head = new_node;
+                return;
+            }
+            while (last->next != NULL) //while para llegar al final de la lista
+                {last = last->next;}
+            last->next = new_node; //se asigna el último nodo como el nodo nuevo
+            new_node->prev = last;        
             return;
         }
-    
-        /* 5. Else traverse till the last node */
-        while (last->next != NULL)
-            last = last->next;
-    
-        /* 6. Change the next of last node */
-        last->next = new_node;
-    
-        /* 7. Make last node as previous of new node */
-        new_node->prev = last;
-    
-        return;
-    }
 
-    /* Function to delete a node in a Doubly Linked List.
-    head_ref --> pointer to head node pointer.
-    del --> pointer to node to be deleted. */
-    Node* deleteNode(Node* del)
-    {
-        /* base case */
-        if (head == NULL || del == NULL)
-            {//return;
-            }//make sure this base case never happens
-    
-        /* If node to be deleted is head node */
-        if (head == del)
-            {head = del->next;}
-    
-        /* Change next only if node to be
-        deleted is NOT the last node */
-        if (del->next != NULL)
-            {del->next->prev = del->prev;}
-    
-        /* Change prev only if node to be
-        deleted is NOT the first node */
-        if (del->prev != NULL)
-            {del->prev->next = del->next;}
-    
-        /* Finally, free the memory occupied by del*/
-        return del;
-    }
- 
-    // This function prints contents of
-    // linked list starting from the given node
-    void printList()
-    {
-        Node* node = head;
-        cout<<"\nTraversal in forward direction \n";
-        while (node != NULL)
+        Node* deleteNode(Node* del) //función para borrar un nodo dado de la lista, este nodo es luego retornado para luego ser agregado a collector
         {
-            cout<<" "<<node->name<<" ";
-            node = node->next;
+            if (head == NULL || del == NULL) //caso particular
+                {//return;
+                }
+        
+            if (head == del) //caso cuando el nodo que será borrado es el primer nodo
+                {head = del->next;}
+        
+            if (del->next != NULL) //el nodo siguiente se cambia siempre y cuando no es el último nodo de la lista
+                {del->next->prev = del->prev;}
+        
+            if (del->prev != NULL) //el nodo anterior se cambia siempre y cuando no es el primero nodo de la lista
+                {del->prev->next = del->next;}
+        
+            //Se retorna el nodo que será borrado
+            return del;
         }
-    }
-
-    bool check_list(string input_name){
-        Node* node = head;
-        while (node != NULL)
+    
+        void printList() //Función que imprime todos los nombres de los elementos en la lista
         {
-            if (node->name == input_name){
-                node->count = 0;
-                node->mark = true;
-                return true;
-            }
-            else{
+            Node* node = head;
+            cout<<"\nEstado de la lista: \n";
+            while (node != NULL)
+            {
+                cout<<" "<<node->name<<" ";
                 node = node->next;
             }
         }
-        return false;
-    }
 
-    int find_offset(string input_name){
-        Node* node = head;
-        while (node != NULL)
-        {
-            if (node->name == input_name){
-                return node->offset;
+        bool check_list(string input_name){ //Función que revisa si el elemento dado existe en la lista
+            Node* node = head;
+            while (node != NULL)
+            {
+                if (node->name == input_name){
+                    node->count = 0; //Se resetea el conteo de no estar presente en runs
+                    node->references += 1; //se suma uno a la cantidad de veces llamado
+                    node->mark = true; //Se marca el elemento como presente
+                    return true;
+                }
+                else{
+                    node = node->next;
+                }
             }
-            else{
+            return false;
+        }
+
+        int find_offset(string input_name){ //Función que retorna el offset de un elemento indicado
+            Node* node = head;
+            while (node != NULL)
+            {
+                if (node->name == input_name){
+                    return node->offset;
+                }
+                else{
+                    node = node->next;
+                }
+            }
+            return 0;
+        }
+
+        int find_count(string input_name){ //Función que retorna el offset de un elemento indicado
+            Node* node = head;
+            while (node != NULL)
+            {
+                if (node->name == input_name){
+                    return node->references;
+                }
+                else{
+                    node = node->next;
+                }
+            }
+            return 0;
+        }
+
+        void add_counts(){ //función que suma un count a todos los elementos que no estaban presentes en el run
+            Node* node = head;
+            while (node != NULL)
+            {
+                if (node->mark == false){
+                    node->count += 1;
+                }
                 node = node->next;
             }
         }
-        return 0;
-    }
 
-    void add_counts(){
-        Node* node = head;
-        while (node != NULL)
-        {
-            if (node->mark == false){
-                node->count += 1;
+        void reset_marks(){ //función que resetea todas las marcas, preparándo la lista para el siguiente run
+            Node* node = head;
+            while (node != NULL)
+            {
+                node->mark = false;
+                node = node->next;
             }
-            node = node->next;
         }
-    }
-
-    void reset_marks(){
-        Node* node = head;
-        while (node != NULL)
-        {
-            node->mark = false;
-            node = node->next;
-        }
-    }
 
 };
 
 class Collector{
     public:
-    Node* head;
-    int length = 0;
-    void set_head(Node* new_head){
-        head = new_head;
-    }
-    /* Given a reference (pointer to pointer) to the head
-    of a DLL and an int, appends a new node at the end */
-    void append(string new_name, int new_memory, int new_offset)
-    {
-        /* 1. allocate node */
-        Node* new_node = new Node();
-    
-        Node* last = head; /* used in step 5*/
-    
-        /* 2. put in the data */
-        new_node->name = new_name;
-        new_node->memory_value = new_memory;
-        new_node->offset = new_offset;
-    
-        /* 3. This new node is going to be the last node, so
-            make next of it as NULL*/
-        new_node->next = NULL;
-    
-        /* 4. If the Linked List is empty, then make the new
-            node as head */
-        if (head == NULL)
+        Node* head; //El primer nodo del collector
+        int length = 0; //el largo de collector
+        void set_head(Node* new_head){ //asigna un nodo recibido como el primer nodo de la lista
+            head = new_head;
+        }
+        void append(string new_name, int new_memory, int new_offset, int new_count, bool new_mark, int new_references) //dado los datos, añade un nodo con los datos recibidos al final de collector
         {
-            new_node->prev = NULL;
-            head = new_node;
+            Node* new_node = new Node();  //se crea un nodo nuevo     
+            Node* last = head;
+
+            // se asignan los valores al nuevo nodo
+            new_node->name = new_name;
+            new_node->memory_value = new_memory;
+            new_node->offset = new_offset;
+            new_node->count = new_count;
+            new_node->mark = new_mark;
+            new_node->references = new_references;
+            new_node->next = NULL;
+
+            if (head == NULL) //caso añadir nodo a una lista vacía
+            {
+                new_node->prev = NULL;
+                head = new_node;
+                return;
+            }
+            while (last->next != NULL) //while para llegar al final de la lista
+                {last = last->next;}
+            last->next = new_node; //se asigna el último nodo como el nodo nuevo
+            new_node->prev = last;        
             return;
         }
-    
-        /* 5. Else traverse till the last node */
-        while (last->next != NULL)
-            last = last->next;
-    
-        /* 6. Change the next of last node */
-        last->next = new_node;
-    
-        /* 7. Make last node as previous of new node */
-        new_node->prev = last;
-        length += 1;
-        return;
-    }
 
-    /* Function to delete a node in a Doubly Linked List.
-    head_ref --> pointer to head node pointer.
-    del --> pointer to node to be deleted. */
-    Node* deleteNode(Node* del)
-    {
-        /* base case */
-        if (head == NULL || del == NULL)
-            {//return;
-            }//make sure this base case never happens
-    
-        /* If node to be deleted is head node */
-        if (head == del)
-            {head = del->next;}
-    
-        /* Change next only if node to be
-        deleted is NOT the last node */
-        if (del->next != NULL)
-            {del->next->prev = del->prev;}
-    
-        /* Change prev only if node to be
-        deleted is NOT the first node */
-        if (del->prev != NULL)
-            {del->prev->next = del->next;}
-    
-        length -= 1;
-        /* Finally, free the memory occupied by del*/
-        return del;
-    }
- 
-    // This function prints contents of
-    // linked list starting from the given node
-    void printList()
-    {
-        Node* node = head;
-        cout<<"\nTraversal in forward direction \n";
-        while (node != NULL)
+        Node* deleteNode(Node* del) //función para borrar un nodo dado del collector, este nodo es luego retornado para luego ser agregado a lista
         {
-            cout<<" "<<node->name<<" ";
-            node = node->next;
+            if (head == NULL || del == NULL) //caso particular
+                {//return;
+                }
+        
+            if (head == del) //caso cuando el nodo que será borrado es el primer nodo
+                {head = del->next;}
+        
+            if (del->next != NULL) //el nodo siguiente se cambia siempre y cuando no es el último nodo de la lista
+                {del->next->prev = del->prev;}
+        
+            if (del->prev != NULL) //el nodo anterior se cambia siempre y cuando no es el primero nodo de la lista
+                {del->prev->next = del->next;}
+        
+            //Se retorna el nodo que será borrado
+            return del;
         }
-    }
-    bool verify_recycled_one(){
-        Node* node = head;
-        while (node != NULL)
+    
+        void printList() //Función que imprime todos los nombres de los elementos en el collector
         {
-            if(node->memory_value == 1){
-                return true;
+            Node* node = head;
+            cout<<"\nEstado de collector: \n";
+            while (node != NULL)
+            {
+                cout<<" "<<node->name<<" ";
+                node = node->next;
             }
-            node = node->next;
         }
-        return false;
-    }
 
-    bool verify_recycled_four(){
-        Node* node = head;
-        while (node != NULL)
-        {
-            if(node->memory_value == 4){
-                return true;
+        bool verify_recycled_one(){ //verifica si hay algún nodo presente donde se puede almacenar una variable de 1 byte
+            Node* node = head;
+            while (node != NULL)
+            {
+                if(node->memory_value == 1){
+                    return true;
+                }
+                node = node->next;
             }
-            node = node->next;
+            return false;
         }
-        return false;
-    }
 
-    bool verify_recycled_eight(){
-        Node* node = head;
-        while (node != NULL)
-        {
-            if(node->memory_value == 8){
-                return true;
+        bool verify_recycled_four(){ //verifica si hay algún nodo presente donde se puede almacenar una variable de 4 bytes
+            Node* node = head;
+            while (node != NULL)
+            {
+                if(node->memory_value == 4){
+                    return true;
+                }
+                node = node->next;
             }
-            node = node->next;
+            return false;
         }
-        return false;
-    }
+
+        bool verify_recycled_eight(){ //verifica si hay algún nodo presente donde se puede almacenar una variable de 8 bytes
+            Node* node = head;
+            while (node != NULL)
+            {
+                if(node->memory_value == 8){
+                    return true;
+                }
+                node = node->next;
+            }
+            return false;
+        }
 };
 
 int main(int argc, char const *argv[])
@@ -330,6 +298,8 @@ int main(int argc, char const *argv[])
     char *tmp_char_ptr;
     float *tmp_float_ptr;
     double *tmp_double_ptr;
+    int *tmp_ref_ptr;
+    int *tmp_ref_ptr_value;
 
     bool loop = true;
 
@@ -406,6 +376,8 @@ int main(int argc, char const *argv[])
                 string value_in_string = documentPet["value"].GetString();
                 string memory_value = documentPet["memory"].GetString();
                 string address_str;
+                int ref_count_int;
+                string ref_count_string;
                 ostringstream get_address;
                 stringstream ss;
                 cout <<"TODO: "<< name << type_value << value_in_string << memory_value << endl;
@@ -425,6 +397,9 @@ int main(int argc, char const *argv[])
                         else if (type_value == "double"){
                             type_value_aux = 5;
                         } 
+                        else if (type_value == "reference"){ //confirmar con partner
+                            type_value_aux = 6;
+                        } 
                 if (list.check_list(name) != true){              
                             switch(type_value_aux){
                                     case 1:                                                        
@@ -435,9 +410,8 @@ int main(int argc, char const *argv[])
                                             *tmp_int_ptr = numerical_int_value;  
                                             cout << (int*)(ptr + offset) << endl;
                                             cout << *(int*)(ptr + offset) << endl; 
-                                            list.append(name,4,offset);
-                                            list.printList(); 
-                                            cout << endl;
+                                            list.append(name,4,offset,0,true,0);                                          
+                                            list.printList();  
                                             offset += stoi(memory_value);  
                                         }
                                         else{
@@ -445,7 +419,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 4){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,4,tmp_node->offset); 
+                                                    list.append(name,4,tmp_node->offset,0,true,0); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -465,9 +439,8 @@ int main(int argc, char const *argv[])
                                             *tmp_long_ptr = numerical_long_value;  
                                             cout << (long*)(ptr + offset) << endl;
                                             cout << *(long*)(ptr + offset) << endl;  
-                                            list.append(name,8,offset);
-                                            list.printList();      
-                                            cout << "memory long value:" << stoi(memory_value) << endl;
+                                            list.append(name,8,offset,0,true,0);
+                                            list.printList();                                            
                                             offset += stoi(memory_value);    
                                         }
                                         else{
@@ -475,7 +448,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 8){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,8,tmp_node->offset); 
+                                                    list.append(name,8,tmp_node->offset,0,true,0); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -491,7 +464,7 @@ int main(int argc, char const *argv[])
                                             *tmp_char_ptr = value_in_string[0];  
                                             cout << (int*)(ptr + offset) << endl;
                                             cout << *(ptr + offset) << endl;     
-                                            list.append(name,1,offset);
+                                            list.append(name,1,offset,0,true,0);
                                             list.printList();                         
                                             offset += stoi(memory_value);          
                                         }         
@@ -500,7 +473,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 1){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,1,tmp_node->offset); 
+                                                    list.append(name,1,tmp_node->offset,0,true,0); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -518,7 +491,7 @@ int main(int argc, char const *argv[])
                                             *tmp_float_ptr = numerical_float_value;
                                             cout << (float*)(ptr + offset) << endl;
                                             cout << *(float*)(ptr + offset) << endl; 
-                                            list.append(name,4,offset);
+                                            list.append(name,4,offset,0,true,0);
                                             list.printList();                                 
                                             offset += stoi(memory_value);    
                                         }
@@ -527,7 +500,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 4){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,4,tmp_node->offset); 
+                                                    list.append(name,4,tmp_node->offset,0,true,0); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -547,7 +520,7 @@ int main(int argc, char const *argv[])
                                             *tmp_double_ptr = numerical_double_value;    
                                             cout << (double*)(ptr + offset) << endl;
                                             cout << *(double*)(ptr + offset) << endl; 
-                                            list.append(name,8,offset);
+                                            list.append(name,8,offset,0,true,0);
                                             list.printList();                            
                                             offset += stoi(memory_value);      
                                         } 
@@ -556,7 +529,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 8){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,8,tmp_node->offset); 
+                                                    list.append(name,8,tmp_node->offset,0,true,0); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -568,10 +541,30 @@ int main(int argc, char const *argv[])
                                         break;
                                         
                                     case 6:
-                                        //caso struct
-                                        break;
-                                    case 7:
-                                        //caso reference
+                                        if(collector.verify_recycled_four() == false){ 
+                                            tmp_ref_ptr = (int*)(ptr+offset);   
+                                            //tmp_ref_ptr_value = (int*)(ptr + (list.find_offset(value_in_string)));                       
+                                            //*tmp_ref_ptr = to_string(tmp_ref_ptr_value);  
+                                            cout << (int*)(ptr + offset) << endl;
+                                            cout << *(ptr + offset) << endl;     
+                                            list.append(name,4,offset,0,true,0);
+                                            list.printList();                         
+                                            offset += stoi(memory_value);          
+                                        }         
+                                        else{
+                                            current_node = collector.head;
+                                            while (current_node != NULL){
+                                                if (current_node->memory_value == 4){ 
+                                                    tmp_node = collector.deleteNode(current_node);
+                                                    list.append(name,4,tmp_node->offset,0,true,0); 
+                                                }
+                                                current_node = current_node->next;
+                                            }
+                                            //tmp_ref_ptr = (ptr + tmp_node->offset);                            
+                                            //*tmp_ref_ptr = value_in_string[0];   
+                                        }   
+                                        get_address << (int*)(tmp_ref_ptr);
+                                        address_str = get_address.str();                   
                                         break;
                                         
                             } 
@@ -579,7 +572,7 @@ int main(int argc, char const *argv[])
                                 cout << "error, there is no memory left"<< endl;
                             }
                                     
-                    jsonEnviar = R"({"name":")"+ name + R"(","type":")" + type_value + R"(","value":")" + value_in_string + R"(","memory":")" + memory_value + R"(","address":")" + address_str + "\"}";
+                    jsonEnviar = R"({"name":")"+ name + R"(","type":")" + type_value + R"(","value":")" + value_in_string + R"(","memory":")" + memory_value + R"(","address":")" + address_str + R"(","count":")" + "0" + "\"}";
                     string string_send = jsonEnviar;
                     cout << string_send << endl;
                     ofstream myfile;
@@ -595,7 +588,9 @@ int main(int argc, char const *argv[])
                                 tmp_int_ptr = (int*)(ptr + list.find_offset(name));                            
                                 *tmp_int_ptr = numerical_int_value;  
                                 get_address << tmp_int_ptr;
-                                address_str = get_address.str();                     
+                                address_str = get_address.str();     
+                                ref_count_int = list.find_count(name);
+                                ref_count_string = to_string(ref_count_int);
                                 break;
                             case 2:    
                                 ss << value_in_string;
@@ -604,12 +599,16 @@ int main(int argc, char const *argv[])
                                 *tmp_long_ptr = numerical_long_value;                   
                                 get_address << tmp_long_ptr;
                                 address_str = get_address.str();
+                                ref_count_int = list.find_count(name);
+                                ref_count_string = to_string(ref_count_int);
                                 break;                          
                             case 3:                                                                
                                 tmp_char_ptr = (ptr + list.find_offset(name));                          
                                 *tmp_char_ptr = value_in_string[0];                   
                                 get_address << (int*)(tmp_char_ptr);
-                                address_str = get_address.str();                  
+                                address_str = get_address.str(); 
+                                ref_count_int = list.find_count(name);
+                                ref_count_string = to_string(ref_count_int);                 
                                 break;                            
                             case 4:
                                 ss << value_in_string;
@@ -619,6 +618,8 @@ int main(int argc, char const *argv[])
                                 offset += stoi(memory_value);                  
                                 get_address << tmp_float_ptr;
                                 address_str = get_address.str();
+                                ref_count_int = list.find_count(name);
+                                ref_count_string = to_string(ref_count_int);
                                 break;                            
                             case 5:
                                 ss << value_in_string;
@@ -627,18 +628,17 @@ int main(int argc, char const *argv[])
                                 *tmp_double_ptr = numerical_double_value;                               
                                 offset += stoi(memory_value);                  
                                 get_address << tmp_double_ptr;
-                                address_str = get_address.str();                          
+                                address_str = get_address.str();  
+                                ref_count_int = list.find_count(name);
+                                ref_count_string = to_string(ref_count_int);                        
                                 break;
                                 
                             case 6:
-                                //caso struct
-                                break;
-                            case 7:
-                                //caso reference
+                                //caso ref
                                 break;
                                 
                             } 
-                    jsonEnviar = R"({"name":")"+ name + R"(","type":")" + type_value + R"(","value":")" + value_in_string + R"(","memory":")" + memory_value + R"(","address":")" + address_str + "\"}";
+                    jsonEnviar = R"({"name":")"+ name + R"(","type":")" + type_value + R"(","value":")" + value_in_string + R"(","memory":")" + memory_value + R"(","address":")" + address_str + R"(","count":")" + ref_count_string + "\"}";
                     string string_send = jsonEnviar;
                     cout << string_send << endl;
                     ofstream myfile;
@@ -656,13 +656,12 @@ int main(int argc, char const *argv[])
         }
         else{          
             cout << "end entered else" << endl;  
-            list.add_counts(); //add variables count that werent used
-            cout << "passed add counts" << endl;
+            list.add_counts(); //add variables count that werent use
             current_node = list.head;
             while (current_node != NULL){
                 if (current_node->count >= 3){ //deletes variables with counts higher than 2
                     tmp_node = list.deleteNode(current_node);
-                    collector.append(tmp_node->name,tmp_node->memory_value,tmp_node->offset); //adds the deleted node to collector
+                    collector.append(tmp_node->name,tmp_node->memory_value,tmp_node->offset,0,true,0); //adds the deleted node to collector
                 }
                 current_node = current_node->next;
             }

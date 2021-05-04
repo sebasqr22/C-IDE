@@ -722,7 +722,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 JSON_Adapter(res);//se prepara el JSON
 
                 string line;
-                  ifstream myfile ("/home/sebas/Escritorio/P1.13/C-IDE/untitled/example.txt");
+                  ifstream myfile ("/home/kenichi/Documents/Github/C-IDE/untitled/example.txt");
                   QStringList listaRecibidos;
                   if (myfile.is_open())
                   {
@@ -754,15 +754,15 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 QString name;
                 QString dir;
                 QString value;
-                //QString ref;
+                QString ref;
                 for(int r = 0; r<largoRecibo; r++){
                     curr = listaRecibidos[r];
                     documentPet = json_recieve(curr.toStdString());
                     name = documentPet["name"].GetString();
                     dir = documentPet["address"].GetString();
                     value = documentPet["value"].GetString();
-                    //ref = documentPet["count"].GetString();
-                    ui->ramLiveView->append(dir + " | " + value + " | " + name);
+                    ref = documentPet["count"].GetString();
+                    ui->ramLiveView->append(dir + " | " + value + " | " + name + " | " + ref);
                 }
             }
             else{

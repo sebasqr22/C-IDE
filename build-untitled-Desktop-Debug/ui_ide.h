@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ide.ui'
 **
-** Created by: Qt User Interface Compiler version 5.14.2
+** Created by: Qt User Interface Compiler version 5.12.8
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -137,15 +137,15 @@ public:
 
     void retranslateUi(QMainWindow *ide)
     {
-        ide->setWindowTitle(QCoreApplication::translate("ide", "ide", nullptr));
-        label->setText(QCoreApplication::translate("ide", "Aplication Log", nullptr));
-        runBut->setText(QCoreApplication::translate("ide", "RUN", nullptr));
-        clearBut->setText(QCoreApplication::translate("ide", "CLEAR", nullptr));
-        label_2->setText(QCoreApplication::translate("ide", "                     RAM LIVE VIEW", nullptr));
-        atras->setText(QCoreApplication::translate("ide", "<", nullptr));
-        delante->setText(QCoreApplication::translate("ide", ">", nullptr));
-        stop->setText(QCoreApplication::translate("ide", "STOP", nullptr));
-        menuIDE_C->setTitle(QCoreApplication::translate("ide", "IDE - C!", nullptr));
+        ide->setWindowTitle(QApplication::translate("ide", "ide", nullptr));
+        label->setText(QApplication::translate("ide", "Aplication Log", nullptr));
+        runBut->setText(QApplication::translate("ide", "RUN", nullptr));
+        clearBut->setText(QApplication::translate("ide", "CLEAR", nullptr));
+        label_2->setText(QApplication::translate("ide", "                     RAM LIVE VIEW", nullptr));
+        atras->setText(QApplication::translate("ide", "<", nullptr));
+        delante->setText(QApplication::translate("ide", ">", nullptr));
+        stop->setText(QApplication::translate("ide", "STOP", nullptr));
+        menuIDE_C->setTitle(QApplication::translate("ide", "IDE - C!", nullptr));
     } // retranslateUi
 
 };

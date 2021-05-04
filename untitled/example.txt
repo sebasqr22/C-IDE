@@ -1,4 +1,6 @@
-{"name":"tuMama","type":"int","value":"69","memory":"4","address":"0x55555557b6d0"}
-{"name":"sdf","type":"int","value":"54","memory":"4","address":"0x55555557b6d4"}
-{"name":"suma","type":"int","value":"3726","memory":"4","address":"0x55555557b6d8"}
-{"name":"fsdfsdsdg","type":"int","value":"5","memory":"4","address":"0x55555557b6d4"}
+{"name":"hola","type":"int","value":"900","memory":"4","address":"0x55555557c6d0","count":"15"}
+{"name":"lol","type":"int","value":"10","memory":"4","address":"0x55555557c6d4","count":"8"}
+{"name":"huh","type":"int","value":"80","memory":"4","address":"0x55555557c720","count":"1"}
+{"name":"pi","type":"float","value":"3.14","memory":"4","address":"0x55555557c6d8","count":"10"}
+{"name":"uh","type":"float","value":"99.4","memory":"4","address":"0x55555557c6f4","count":"6"}
+{"name":"day","type":"long","value":"300","memory":"8","address":"0x55555557c6e8","count":"0"}
