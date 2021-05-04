@@ -108,16 +108,6 @@
      <string>                     RAM LIVE VIEW</string>
     </property>
    </widget>
-   <widget class="QTextBrowser" name="ramView">
-    <property name="geometry">
-     <rect>
-      <x>750</x>
-      <y>30</y>
-      <width>341</width>
-      <height>670</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPlainTextEdit" name="editor">
     <property name="geometry">
      <rect>
@@ -222,6 +212,22 @@
       <width>731</width>
       <height>131</height>
      </rect>
+    </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>ForbiddenCursor</cursorShape>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="ramLiveView">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>30</y>
+      <width>341</width>
+      <height>671</height>
+     </rect>
+    </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>WaitCursor</cursorShape>
     </property>
    </widget>
   </widget>

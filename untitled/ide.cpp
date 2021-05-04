@@ -19,8 +19,10 @@
 #include <string.h>
 #include "logger.cpp"
 #include "operacionesEstructs.cpp"
+#include "rapidjson/document.h"
 
 using namespace std;
+using namespace rapidjson;
 
 //variables globales
 bool corriendo = false;
@@ -36,6 +38,18 @@ struct sockaddr_in serv_addr;
 int port = 8080;
 char buffer[1024] = {0};
 bool socket_exists = false;
+
+/**
+ * @brief json_recieve Hace los parse respectivos para JSON
+ * @param str Recibe un string
+ * @return Un Document con el parse
+ */
+Document json_recieve(string str){
+    const char* pchar = str.c_str();
+    Document ptd;
+    ptd.Parse(pchar);
+    return ptd;
+}
 
 /**
  * @brief ide::ide Constructor de la clase ide.cpp
@@ -606,7 +620,9 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
         crearSocket(); //se crea el socket entre el server y el ide
         socket_exists = true;
     }
+    Document documentPet;
     ui->viendo->setEnabled(false);
+    ui->ramLiveView->setText("");
     removeAll();
     QString original;
 
@@ -706,27 +722,47 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 JSON_Adapter(res);//se prepara el JSON
 
                 string line;
-                  ifstream myfile ("./untitled/example.txt");
+                  ifstream myfile ("/home/sebas/Escritorio/P1.13/C-IDE/untitled/example.txt");
+                  QStringList listaRecibidos;
                   if (myfile.is_open())
                   {
                     while ( getline (myfile,line) )
                     {
                       qInfo() << QString::fromStdString(line);
+                      listaRecibidos << QString::fromStdString(line);
                     }
                     myfile.close();
                   }
 
-                  else {qInfo() << "Unable to open file"; }
+                  else {
+                      ui->stdout->append(Log.mostrar(1, "No es posible leer las variables enviadas por SERVER-PORT-8080"));
+                  }
                   string ending_s = "end";
                   char *message_end = &ending_s[0];
                   send(sock , message_end , strlen(message_end) , 0 );
-
+                   // termina envio, comienza desempaquetacion
 
                 //realizar prints
                 prints = imprimir(prints, res);
                 int largoPrints = prints.size();
                 for(int l=0; l<largoPrints; l++){
                     ui->stdout->append(prints[l]);
+                }
+                //proceder a utilizar el ram live view
+                int largoRecibo = listaRecibidos.size();
+                QString curr;
+                QString name;
+                QString dir;
+                QString value;
+                //QString ref;
+                for(int r = 0; r<largoRecibo; r++){
+                    curr = listaRecibidos[r];
+                    documentPet = json_recieve(curr.toStdString());
+                    name = documentPet["name"].GetString();
+                    dir = documentPet["address"].GetString();
+                    value = documentPet["value"].GetString();
+                    //ref = documentPet["count"].GetString();
+                    ui->ramLiveView->append(dir + " | " + value + " | " + name);
                 }
             }
             else{

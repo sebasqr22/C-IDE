@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ide.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.8
+** Created by: Qt User Interface Compiler version 5.14.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -19,7 +19,6 @@
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QWidget>
 
@@ -33,7 +32,6 @@ public:
     QPushButton *runBut;
     QPushButton *clearBut;
     QLabel *label_2;
-    QTextBrowser *ramView;
     QPlainTextEdit *editor;
     QTextEdit *stdout;
     QPushButton *atras;
@@ -41,6 +39,7 @@ public:
     QTextEdit *viendo;
     QPushButton *stop;
     QTextEdit *log;
+    QTextEdit *ramLiveView;
     QMenuBar *menubar;
     QMenu *menuIDE_C;
     QStatusBar *statusbar;
@@ -83,9 +82,6 @@ public:
         font1.setWeight(75);
         label_2->setFont(font1);
         label_2->setLayoutDirection(Qt::LeftToRight);
-        ramView = new QTextBrowser(centralwidget);
-        ramView->setObjectName(QString::fromUtf8("ramView"));
-        ramView->setGeometry(QRect(750, 30, 341, 670));
         editor = new QPlainTextEdit(centralwidget);
         editor->setObjectName(QString::fromUtf8("editor"));
         editor->setGeometry(QRect(10, 30, 731, 361));
@@ -116,6 +112,11 @@ public:
         log = new QTextEdit(centralwidget);
         log->setObjectName(QString::fromUtf8("log"));
         log->setGeometry(QRect(10, 570, 731, 131));
+        log->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ForbiddenCursor)));
+        ramLiveView = new QTextEdit(centralwidget);
+        ramLiveView->setObjectName(QString::fromUtf8("ramLiveView"));
+        ramLiveView->setGeometry(QRect(750, 30, 341, 671));
+        ramLiveView->viewport()->setProperty("cursor", QVariant(QCursor(Qt::WaitCursor)));
         ide->setCentralWidget(centralwidget);
         menubar = new QMenuBar(ide);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -136,15 +137,15 @@ public:
 
     void retranslateUi(QMainWindow *ide)
     {
-        ide->setWindowTitle(QApplication::translate("ide", "ide", nullptr));
-        label->setText(QApplication::translate("ide", "Aplication Log", nullptr));
-        runBut->setText(QApplication::translate("ide", "RUN", nullptr));
-        clearBut->setText(QApplication::translate("ide", "CLEAR", nullptr));
-        label_2->setText(QApplication::translate("ide", "                     RAM LIVE VIEW", nullptr));
-        atras->setText(QApplication::translate("ide", "<", nullptr));
-        delante->setText(QApplication::translate("ide", ">", nullptr));
-        stop->setText(QApplication::translate("ide", "STOP", nullptr));
-        menuIDE_C->setTitle(QApplication::translate("ide", "IDE - C!", nullptr));
+        ide->setWindowTitle(QCoreApplication::translate("ide", "ide", nullptr));
+        label->setText(QCoreApplication::translate("ide", "Aplication Log", nullptr));
+        runBut->setText(QCoreApplication::translate("ide", "RUN", nullptr));
+        clearBut->setText(QCoreApplication::translate("ide", "CLEAR", nullptr));
+        label_2->setText(QCoreApplication::translate("ide", "                     RAM LIVE VIEW", nullptr));
+        atras->setText(QCoreApplication::translate("ide", "<", nullptr));
+        delante->setText(QCoreApplication::translate("ide", ">", nullptr));
+        stop->setText(QCoreApplication::translate("ide", "STOP", nullptr));
+        menuIDE_C->setTitle(QCoreApplication::translate("ide", "IDE - C!", nullptr));
     } // retranslateUi
 
 };

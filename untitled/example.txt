@@ -1,3 +1,4 @@
-{"name":"hola","type":"int","value":"32","memory":"4","address":"0x55555557a6d0"}
-{"name":"funciona","type":"int","value":"100","memory":"4","address":"0x55555557a6d4"}
-{"name":"thunder","type":"double","value":"900","memory":"8","address":"0x55555557a6d8"}
+{"name":"tuMama","type":"int","value":"69","memory":"4","address":"0x55555557b6d0"}
+{"name":"sdf","type":"int","value":"54","memory":"4","address":"0x55555557b6d4"}
+{"name":"suma","type":"int","value":"3726","memory":"4","address":"0x55555557b6d8"}
+{"name":"fsdfsdsdg","type":"int","value":"5","memory":"4","address":"0x55555557b6d4"}
