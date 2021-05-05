@@ -480,6 +480,8 @@ int main(int argc, char const *argv[])
                 string type_value = documentPet["type"].GetString();
                 string value_in_string = documentPet["value"].GetString();
                 string memory_value = documentPet["memory"].GetString();
+
+                //se preparan variables adicionales 
                 string address_str;
                 string pointer_address_str;
                 int ref_count_int;
@@ -488,6 +490,8 @@ int main(int argc, char const *argv[])
                 ostringstream get_pointer_address;
                 stringstream ss;
                 cout <<"TODO: "<< name << type_value << value_in_string << memory_value << endl;
+
+                //se identifica qué tipo de variable fue recibida
                 int type_value_aux;
                 if (type_value == "int"){
                             type_value_aux = 1;
@@ -507,12 +511,12 @@ int main(int argc, char const *argv[])
                         else if (type_value == "reference"){ //confirmar con partner
                             type_value_aux = 6;
                         } 
-                if (list.check_list(name) != true){              
+                if (list.check_list(name) != true){     //caso la variable no está ya presente en la lista          
                             switch(type_value_aux){
-                                    case 1:                                                        
+                                    case 1:  //caso la variable es un int                                                      
                                         ss << value_in_string;
                                         ss >> numerical_int_value;
-                                        if(collector.verify_recycled_four() == false){                                        
+                                        if(collector.verify_recycled_four() == false){  //caso no hay un espacio de memoria de 4 bytes disponible en collector                                      
                                             tmp_int_ptr = (int*)(ptr + offset);                            
                                             *tmp_int_ptr = numerical_int_value;  
                                             cout << (int*)(ptr + offset) << endl;
@@ -521,7 +525,7 @@ int main(int argc, char const *argv[])
                                             list.printList();  
                                             offset += stoi(memory_value);  
                                         }
-                                        else{
+                                        else{ //caso sí hay un espacio de memoria de 4 bytes disponible en collector que será reutilizado
                                             current_node = collector.head;
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 4){ 
@@ -538,10 +542,10 @@ int main(int argc, char const *argv[])
                                         get_address << tmp_int_ptr;
                                         address_str = get_address.str();                     
                                         break;
-                                    case 2:                             
+                                    case 2:     //caso la variable es un long                        
                                         ss << value_in_string;
                                         ss >> numerical_long_value;
-                                        if(collector.verify_recycled_eight() == false){      
+                                        if(collector.verify_recycled_eight() == false){  //caso no hay un espacio de memoria de 8 bytes disponible en collector     
                                             tmp_long_ptr = (long*)(ptr + offset);                            
                                             *tmp_long_ptr = numerical_long_value;  
                                             cout << (long*)(ptr + offset) << endl;
@@ -550,7 +554,7 @@ int main(int argc, char const *argv[])
                                             list.printList();                                            
                                             offset += stoi(memory_value);    
                                         }
-                                        else{
+                                        else{ //caso sí hay un espacio de memoria de 4 bytes disponible en collector 
                                             current_node = collector.head;
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 8){ 
@@ -565,8 +569,8 @@ int main(int argc, char const *argv[])
                                         get_address << tmp_long_ptr;
                                         address_str = get_address.str();
                                         break;                          
-                                    case 3:
-                                        if(collector.verify_recycled_one() == false){ 
+                                    case 3: //caso la variable es un char
+                                        if(collector.verify_recycled_one() == false){ //caso no hay un espacio de memoria de 1 byte disponible en collector 
                                             tmp_char_ptr = (ptr+offset);                          
                                             *tmp_char_ptr = value_in_string[0];  
                                             cout << (int*)(ptr + offset) << endl;
@@ -575,7 +579,7 @@ int main(int argc, char const *argv[])
                                             list.printList();                         
                                             offset += stoi(memory_value);          
                                         }         
-                                        else{
+                                        else{  //caso sí hay un espacio de memoria de 1 byte disponible en collector 
                                             current_node = collector.head;
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 1){ 
@@ -590,10 +594,10 @@ int main(int argc, char const *argv[])
                                         get_address << (int*)(tmp_char_ptr);
                                         address_str = get_address.str();                  
                                         break;                            
-                                    case 4:
+                                    case 4:  //caso la variable es un float
                                         ss << value_in_string;
                                         ss >> numerical_float_value;
-                                        if(collector.verify_recycled_four() == false){
+                                        if(collector.verify_recycled_four() == false){  //caso no hay un espacio de memoria de 4 bytes disponible en collector 
                                             tmp_float_ptr = (float*)(ptr + offset);                            
                                             *tmp_float_ptr = numerical_float_value;
                                             cout << (float*)(ptr + offset) << endl;
@@ -602,7 +606,7 @@ int main(int argc, char const *argv[])
                                             list.printList();                                 
                                             offset += stoi(memory_value);    
                                         }
-                                        else{
+                                        else{  //caso sí hay un espacio de memoria de 4 bytes disponible en collector 
                                             current_node = collector.head;
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 4){ 
@@ -619,10 +623,10 @@ int main(int argc, char const *argv[])
                                         get_address << tmp_float_ptr;
                                         address_str = get_address.str();
                                         break;                            
-                                    case 5:
+                                    case 5: //caso la variable es un double
                                         ss << value_in_string;
                                         ss >> numerical_double_value;
-                                        if(collector.verify_recycled_eight() == false){
+                                        if(collector.verify_recycled_eight() == false){  //caso no hay un espacio de memoria de 8 bytes disponible en collector 
                                             tmp_double_ptr = (double*)(ptr+offset);                            
                                             *tmp_double_ptr = numerical_double_value;    
                                             cout << (double*)(ptr + offset) << endl;
@@ -631,7 +635,7 @@ int main(int argc, char const *argv[])
                                             list.printList();                            
                                             offset += stoi(memory_value);      
                                         } 
-                                        else{
+                                        else{  //caso sí hay un espacio de memoria de 8 bytes disponible en collector 
                                             current_node = collector.head;
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 8){ 
@@ -647,8 +651,8 @@ int main(int argc, char const *argv[])
                                         address_str = get_address.str();                          
                                         break;
                                         
-                                    case 6:
-                                        if(collector.verify_recycled_four() == false){ 
+                                    case 6: //caso la variable es un reference
+                                        if(collector.verify_recycled_four() == false){ //caso no hay un espacio de memoria de 4 bytes disponible en collector 
                                             tmp_ref_ptr = (int*)(ptr+offset);   
                                             tmp_ref_ptr_value = (int*)(ptr + (list.find_offset(value_in_string)));  
                                                                
@@ -656,7 +660,7 @@ int main(int argc, char const *argv[])
                                             list.printList();                         
                                             offset += stoi(memory_value);          
                                         }         
-                                        else{
+                                        else{  //caso sí hay un espacio de memoria de 4 bytes disponible en collector 
                                             current_node = collector.head;
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 4){ 
@@ -676,10 +680,11 @@ int main(int argc, char const *argv[])
                                         break;
                                         
                             } 
-                            if (offset > size){
+                            if (offset > size){ //caso se llenó la memoria
                                 cout << "error, there is no memory left"<< endl;
                             }
-                                    
+
+                    //Se procede a tomar los datos procesados y se escriben en un documento .txt        
                     jsonEnviar = R"({"name":")"+ name + R"(","type":")" + type_value + R"(","value":")" + value_in_string + R"(","memory":")" + memory_value + R"(","address":")" + address_str + R"(","count":")" + "1" + "\"}";
                     string string_send = jsonEnviar;
                     cout << string_send << endl;
@@ -688,9 +693,9 @@ int main(int argc, char const *argv[])
                     myfile << string_send + "\n";
                     myfile.close();
                 }
-                else{
+                else{  //caso la variable ya existe en la lista
                     switch(type_value_aux){
-                            case 1:     
+                            case 1:     //caso la variable es un int
                                 ss << value_in_string;
                                 ss >> numerical_int_value;                                                                                                                                 
                                 tmp_int_ptr = (int*)(ptr + list.find_offset(name));                            
@@ -700,7 +705,7 @@ int main(int argc, char const *argv[])
                                 ref_count_int = list.find_count(name);
                                 ref_count_string = to_string(ref_count_int);
                                 break;
-                            case 2:    
+                            case 2:    //caso la variable es un long
                                 ss << value_in_string;
                                 ss >> numerical_long_value;                                              
                                 tmp_long_ptr = (long*)(ptr + list.find_offset(name));                            
@@ -710,7 +715,7 @@ int main(int argc, char const *argv[])
                                 ref_count_int = list.find_count(name);
                                 ref_count_string = to_string(ref_count_int);
                                 break;                          
-                            case 3:                                                                
+                            case 3:          //caso la variable es un char                                                      
                                 tmp_char_ptr = (ptr + list.find_offset(name));                          
                                 *tmp_char_ptr = value_in_string[0];                   
                                 get_address << (int*)(tmp_char_ptr);
@@ -718,7 +723,7 @@ int main(int argc, char const *argv[])
                                 ref_count_int = list.find_count(name);
                                 ref_count_string = to_string(ref_count_int);                 
                                 break;                            
-                            case 4:
+                            case 4:   //caso la variable es un float
                                 ss << value_in_string;
                                 ss >> numerical_float_value;                                 
                                 tmp_float_ptr = (float*)(ptr + list.find_offset(name));                            
@@ -728,7 +733,7 @@ int main(int argc, char const *argv[])
                                 ref_count_int = list.find_count(name);
                                 ref_count_string = to_string(ref_count_int);
                                 break;                            
-                            case 5:
+                            case 5:  //caso la variable es un double
                                 ss << value_in_string;
                                 ss >> numerical_double_value;                                
                                 tmp_double_ptr = (double*)(ptr + list.find_offset(name));                            
@@ -739,7 +744,7 @@ int main(int argc, char const *argv[])
                                 ref_count_string = to_string(ref_count_int);                        
                                 break;
                                 
-                            case 6:
+                            case 6:  //caso la variable es un reference
                                 tmp_ref_ptr = (int*)(ptr+list.find_offset(name));   
                                 tmp_ref_ptr_value = (int*)(ptr + (list.find_offset(value_in_string)));                                    
                                 get_address << (int*)(tmp_ref_ptr);
@@ -752,6 +757,7 @@ int main(int argc, char const *argv[])
                                 break;
                                 
                             } 
+                    //Se procede a tomar los datos procesados y se escriben en un documento .txt
                     jsonEnviar = R"({"name":")"+ name + R"(","type":")" + type_value + R"(","value":")" + value_in_string + R"(","memory":")" + memory_value + R"(","address":")" + address_str + R"(","count":")" + ref_count_string + "\"}";
                     string string_send = jsonEnviar;
                     cout << string_send << endl;
@@ -762,32 +768,32 @@ int main(int argc, char const *argv[])
                 }
                 
             }
-            else{
+            else{ //caso inicio de un run 
                 file.open ("./untitled/info.txt");
                 file << "";
                 file.close();
             }
         }
-        else{          
+        else{       //caso final de un run   
             cout << "end entered else" << endl;  
-            list.add_counts(); //add variables count that werent use
+            list.add_counts(); //se suma uno a los counts de las variables no referenciadas que están en lista
             current_node = list.head;
             while (current_node != NULL){
-                if (current_node->count >= 3){ //deletes variables with counts higher than 2
+                if (current_node->count >= 3){ //se borran las variables que tienen 3 runs sin ser referenciados
                     tmp_node = list.deleteNode(current_node);
                     collector.append(tmp_node->name,tmp_node->memory_value,tmp_node->offset,0,true,0); //adds the deleted node to collector
                 }
                 current_node = current_node->next;
             }
 
-            list.reset_marks(); //set all marks to false
+            list.reset_marks(); //todos los marks se vuelven false
             cout << "final list" << endl;
             list.printList();
             cout << endl;
             collector.printList();
             cout << endl;
         }
-        if (offset > size){
+        if (offset > size){ //caso se llenó la memoria
             cout << "error, there is no memory left"<< endl;
             loop = false;
         }
