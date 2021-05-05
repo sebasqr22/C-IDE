@@ -515,9 +515,15 @@ void ide::verCorriendo(int pos){
     int largo = codigo.size();
     if(pos == largo-1){
         ui->delante->setEnabled(false);
+        if(largo == 2){
+            ui->atras->setEnabled(true);
+        }
     }
     else if(pos == 0){
         ui->atras->setEnabled(false);
+        if(largo == 2){
+            ui->delante->setEnabled(true);
+        }
     }
     else{
         ui->atras->setEnabled(true);
@@ -693,6 +699,47 @@ bool validaRefs(QStringList lista, QStringList listaVerificar){
     }
     return correcto;
 }
+QStringList ordenarRam(QStringList codigo, QStringList aOrdenar){
+    int largoCod = codigo.size();
+    int largoRam = aOrdenar.size();
+    QString nombre;
+    QString curr;
+    QStringList ordenada;
+
+    for(int i=0; i<largoCod; i++){
+        curr = codigo[i];
+        curr.remove("int");
+        curr.remove("long");
+        curr.remove("char");
+        curr.remove("float");
+        curr.remove("double");
+        curr.remove("reference<");
+        curr.remove(">");
+        curr.remove(" ");
+        int largoDentro = curr.size();
+
+        for(int j=0; j<largoDentro; j++){
+            if(curr[j] == "="){
+                break;
+            }
+            else{
+                nombre += curr[j];
+            }
+        }
+        for(int r=0; r<largoRam; r++){
+            if(aOrdenar[r].contains(nombre)){
+                ordenada << aOrdenar[r];
+                break;
+            }
+        }
+
+    }
+    return ordenada;
+}
+/**
+ * @brief avanzarRam Imprimir elementos de la lista
+ * @param lineaCodigo String con linea de codigo
+ */
 void avanzarRam(QString lineaCodigo){
     qInfo() << "LINEA= " << lineaCodigo;
     int largoLista = recibidos.size();
@@ -706,6 +753,7 @@ void avanzarRam(QString lineaCodigo){
     lineaCodigo.remove("double");
     lineaCodigo.remove("reference<");
     lineaCodigo.remove(">");
+    lineaCodigo.remove("{");
 
     for(int j=0; j<largo; j++){
         if(lineaCodigo[j] != "="){
@@ -734,210 +782,229 @@ void avanzarRam(QString lineaCodigo){
 void limpiarRam(){
     QStringList listaVacia;
     mostrarRam = listaVacia;
-    recibidos = listaVacia;
 }
 /**
  * @brief ide::on_runBut_clicked Función que al tocar el botón RUN, lee el código y ejecuta las demás funciones
  */
 void ide::on_runBut_clicked()//basicamente esto es un adapter
 {
-    if (socket_exists == false){
-        crearSocket(); //se crea el socket entre el server y el ide
-        socket_exists = true;
-    }
-    Document documentPet;
-    ui->viendo->setEnabled(false);
-    ui->ramLiveView->setText("");
-    removeAll();
-    limpiarRam();
-    QString original;
+    if(ui->editor->toPlainText() != ""){
+        try{
 
 
-    QStringList ints; //listo
-    QStringList chars;//listo
-    QStringList floats;//listo
-    QStringList doubles;//listo
-    QStringList refs;
-    QStringList prints;//listo
-    QStringList strcs;//listo
-    QStringList longs;//listo
+            if (socket_exists == false){
+                crearSocket(); //se crea el socket entre el server y el ide
+                socket_exists = true;
+            }
+            Document documentPet;
+            ui->viendo->setEnabled(false);
+            ui->ramLiveView->setText("");
+            removeAll();
+            limpiarRam();
+            QString original;
 
-    original = ui->editor->toPlainText();
-    ui->stdout->setText("");
-    qInfo() << original;
-    depurLine = 0;
 
-    if(validarComas(original) == true){ //validacion
-        codigo = adapter(original);
-        //se procede con validacion de tipos de datos
-        if(validarTipos(codigo) == true){
-            qInfo()<< "Todo good";
-            creadorListas separador;
-            separador.organizar(codigo);//crea las sublistas
+            QStringList ints; //listo
+            QStringList chars;//listo
+            QStringList floats;//listo
+            QStringList doubles;//listo
+            QStringList refs;
+            QStringList prints;//listo
+            QStringList strcs;//listo
+            QStringList longs;//listo
 
-            strcs = separador.get("{");
-            ints = separador.get("int");
-            chars = separador.get("char");
-            longs = separador.get("long");
-            floats = separador.get("float");
-            doubles = separador.get("double");
-            prints = separador.get("pr");
-            refs = separador.get("refsa");
-            /*
-            qInfo() << strcs;
-            qInfo() << ints;
-            qInfo() << chars;
-            qInfo() << longs;
-            qInfo() << floats;
-            qInfo() << doubles;
-            qInfo() << prints;
-            */
-            qInfo() << refs;
+            original = ui->editor->toPlainText();
+            ui->stdout->setText("");
+            qInfo() << original;
+            depurLine = 0;
 
-            //validar refs completamente
+            if(validarComas(original) == true){ //validacion
+                codigo = adapter(original);
+                //se procede con validacion de tipos de datos
+                if(validarTipos(codigo) == true){
+                    qInfo()<< "Todo good";
+                    creadorListas separador;
+                    separador.organizar(codigo);//crea las sublistas
 
-            //comienza depuración
-            ui->atras->setEnabled(true);
-            ui->delante->setEnabled(true);
-            ui->viendo->setEnabled(true);
-            ui->stop->setEnabled(true);
+                    strcs = separador.get("{");
+                    ints = separador.get("int");
+                    chars = separador.get("char");
+                    longs = separador.get("long");
+                    floats = separador.get("float");
+                    doubles = separador.get("double");
+                    prints = separador.get("pr");
+                    refs = separador.get("refsa");
+                    /*
+                    qInfo() << strcs;
+                    qInfo() << ints;
+                    qInfo() << chars;
+                    qInfo() << longs;
+                    qInfo() << floats;
+                    qInfo() << doubles;
+                    qInfo() << prints;
+                    */
+                    qInfo() << refs;
 
-            verCorriendo(depurLine);
+                    //validar refs completamente
 
-            //realizar operaciones
-            operaciones opr;
-            opr.realizarOperacionesInt(ints);
-            QStringList res;
-            opr.realizarOperacionesFloats(floats);
-            opr.realizarOperacionesLong(longs);
-            opr.realizarOperacionesDouble(doubles);
-            opr.realizarOperacionesChar(chars);
-            opr.realizarOperacionesReference(refs);
+                    //comienza depuración
+                    ui->atras->setEnabled(true);
+                    ui->delante->setEnabled(true);
+                    ui->viendo->setEnabled(true);
+                    ui->stop->setEnabled(true);
 
-            res << opr.getAll(); //se ponen los primeros resultados
+                    verCorriendo(depurLine);
 
-            //estructuras
-            qInfo() << "Mal Formato" << strcs;
-            strcs = cambioFormatoStructs(strcs);
-            qInfo() << "Buen formato: " << strcs;
-            creadorListas separador2;
-            separador2.organizar(strcs);
-            QStringList intsS = separador2.get("int");
-            QStringList charsS = separador2.get("char");
-            QStringList longsS = separador2.get("long");
-            QStringList floatsS = separador2.get("float");
-            QStringList doublesS = separador2.get("double");
-            QStringList printsS = separador2.get("pr");
-            QStringList refsS = separador2.get("refsa");
+                    //realizar operaciones
+                    operaciones opr;
+                    opr.realizarOperacionesInt(ints);
+                    QStringList res;
+                    opr.realizarOperacionesFloats(floats);
+                    opr.realizarOperacionesLong(longs);
+                    opr.realizarOperacionesDouble(doubles);
+                    opr.realizarOperacionesChar(chars);
+                    opr.realizarOperacionesReference(refs);
 
-            operacionesEstructs opr2;
-            opr2.setResults(res);
+                    res << opr.getAll(); //se ponen los primeros resultados
 
-            opr2.realizarOperacionesInt(intsS);
-            opr2.realizarOperacionesFloats(floatsS);
-            opr2.realizarOperacionesLong(longsS);
-            opr2.realizarOperacionesDouble(doublesS);
-            opr2.realizarOperacionesChar(charsS);
+                    //estructuras
+                    qInfo() << "Mal Formato" << strcs;
+                    strcs = cambioFormatoStructs(strcs);
+                    qInfo() << "Buen formato: " << strcs;
+                    creadorListas separador2;
+                    separador2.organizar(strcs);
+                    QStringList intsS = separador2.get("int");
+                    QStringList charsS = separador2.get("char");
+                    QStringList longsS = separador2.get("long");
+                    QStringList floatsS = separador2.get("float");
+                    QStringList doublesS = separador2.get("double");
+                    QStringList printsS = separador2.get("pr");
+                    QStringList refsS = separador2.get("refsa");
 
-            res << opr2.getAll();
+                    operacionesEstructs opr2;
+                    opr2.setResults(res);
 
-            qInfo() << res;
+                    opr2.realizarOperacionesInt(intsS);
+                    opr2.realizarOperacionesFloats(floatsS);
+                    opr2.realizarOperacionesLong(longsS);
+                    opr2.realizarOperacionesDouble(doublesS);
+                    opr2.realizarOperacionesChar(charsS);
 
-            if(hayNulos(res) == false){
-                res = quitaEspacios(res);
-                string starting_s = "initial";
-                char *message_i = &starting_s[0];
-                send(sock , message_i , strlen(message_i) , 0 );
-                JSON_Adapter(res);//se prepara el JSON
+                    res << opr2.getAll();
 
-                string line;
-                  ifstream myfile ("./untitled/info.txt");
-                  QStringList listaRecibidos;
-                  if (myfile.is_open())
-                  {
-                    while ( getline (myfile,line) )
-                    {
-                      qInfo() << QString::fromStdString(line);
-                      listaRecibidos << QString::fromStdString(line);
+                    qInfo() << res;
+
+                    if(hayNulos(res) == false){
+                        res = quitaEspacios(res);
+                        string starting_s = "initial";
+                        char *message_i = &starting_s[0];
+                        send(sock , message_i , strlen(message_i) , 0 );
+                        JSON_Adapter(res);//se prepara el JSON
+                        qInfo() << "Termina envio...";
+
+                        string line;
+                          ifstream myfile ("/home/sebas/Escritorio/P1.15/C-IDE/untitled/info.txt");
+                          QStringList listaRecibidos;
+                          if (myfile.is_open())
+                          {
+                            while ( getline (myfile,line) )
+                            {
+                              qInfo() << QString::fromStdString(line);
+                              listaRecibidos << QString::fromStdString(line);
+                            }
+                            myfile.close();
+                            ofstream file;
+                            file.open("/home/sebas/Escritorio/P1.15/C-IDE/untitled/info.txt");
+                            file << "";
+                            file.close();
+                            recibidos = listaRecibidos;
+                            ui->atras->setEnabled(false);
+                          }
+
+                          else {
+                              ui->stdout->append(Log.mostrar(1, "No es posible leer las variables enviadas por SERVER-PORT-8080"));
+                          }
+                          string ending_s = "end";
+                          char *message_end = &ending_s[0];
+                          send(sock , message_end , strlen(message_end) , 0 );
+                           // termina envio, comienza desempaquetacion
+
+                        //realizar prints
+                        prints = imprimir(prints, res);
+                        int largoPrints = prints.size();
+                        if(malosPrints == true){
+                            imprimirMalas(2, 1, "Variables no encontradas en los prints");
+                            malosPrints = false;
+                        }
+                        for(int l=0; l<largoPrints; l++){
+                            ui->stdout->append(prints[l]);
+                        }
+                        //qInfo() << "RAM ORDENADA: " << ordenarRam(codigo, listaRecibidos);
+                        //mostrarRam = ordenarRam(codigo, mostrarRam);
+                        mostrarRam << listaRecibidos[0];
+
+                        //proceder a utilizar el ram live view
+                        //int largoRecibo = listaRecibidos.size();
+                        QString curr = listaRecibidos[0];
+                        QString name;
+                        QString dir;
+                        QString value;
+                        QString ref;
+                        documentPet = json_recieve(curr.toStdString());
+                        name = documentPet["name"].GetString();
+                        dir = documentPet["address"].GetString();
+                        value = documentPet["value"].GetString();
+                        ref = documentPet["count"].GetString();
+                        ui->ramLiveView->append(dir + " | " + value + " | " + name + " | " + ref);
+                        /*
+                        for(int r = 0; r<largoRecibo; r++){
+                            curr = listaRecibidos[r];
+                            documentPet = json_recieve(curr.toStdString());
+                            name = documentPet["name"].GetString();
+                            dir = documentPet["address"].GetString();
+                            value = documentPet["value"].GetString();
+                            ref = documentPet["count"].GetString();
+                            ui->ramLiveView->append(dir + " | " + value + " | " + name + " | " + ref);
+                        }
+                        */
                     }
-                    myfile.close();
-                    recibidos = listaRecibidos;
-                    ui->atras->setEnabled(false);
-                  }
-
-                  else {
-                      ui->stdout->append(Log.mostrar(1, "No es posible leer las variables enviadas por SERVER-PORT-8080"));
-                  }
-                  string ending_s = "end";
-                  char *message_end = &ending_s[0];
-                  send(sock , message_end , strlen(message_end) , 0 );
-                   // termina envio, comienza desempaquetacion
-
-                //realizar prints
-                prints = imprimir(prints, res);
-                int largoPrints = prints.size();
-                if(malosPrints == true){
-                    imprimirMalas(2, 1, "Variables no encontradas en los prints");
-                    malosPrints = false;
+                    else{
+                        ui->log->append(Log.mostrar(2, "Debe revisar el valor de las variables"));
+                        badLine = quitarRepetidos(badLine);
+                        imprimirMalas(1, 1, "");
+                        ui->viendo->setEnabled(false);
+                        ui->atras->setEnabled(false);
+                        ui->delante->setEnabled(false);
+                        ui->stop->setEnabled(false);
+                    }
                 }
-                for(int l=0; l<largoPrints; l++){
-                    ui->stdout->append(prints[l]);
+                else{
+                    ui->log->append(Log.mostrar(2, "Debe revisar los tipos de datos"));
+                    //QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
+                    //ui->viendo->setEnabled(true);
+                    badLine = quitarRepetidos(badLine);
+                    qInfo() << "Sin repetidos" << badLine;
+                    imprimirMalas(1, 1, "");
                 }
-                mostrarRam << listaRecibidos[0];
-
-                //proceder a utilizar el ram live view
-                //int largoRecibo = listaRecibidos.size();
-                QString curr = listaRecibidos[0];
-                QString name;
-                QString dir;
-                QString value;
-                QString ref;
-                documentPet = json_recieve(curr.toStdString());
-                name = documentPet["name"].GetString();
-                dir = documentPet["address"].GetString();
-                value = documentPet["value"].GetString();
-                ref = documentPet["count"].GetString();
-                ui->ramLiveView->append(dir + " | " + value + " | " + name + " | " + ref);
-                /*
-                for(int r = 0; r<largoRecibo; r++){
-                    curr = listaRecibidos[r];
-                    documentPet = json_recieve(curr.toStdString());
-                    name = documentPet["name"].GetString();
-                    dir = documentPet["address"].GetString();
-                    value = documentPet["value"].GetString();
-                    ref = documentPet["count"].GetString();
-                    ui->ramLiveView->append(dir + " | " + value + " | " + name + " | " + ref);
-                }
-                */
             }
             else{
-                ui->log->append(Log.mostrar(2, "Debe revisar el valor de las variables"));
+                //QMessageBox::critical(this, "ERROR", "Debe revisar los puntos y comas...");
+                //ui->viendo->setEnabled(true);
+                ui->log->append(Log.mostrar(2, "Debe revisar los puntos y comas"));
                 badLine = quitarRepetidos(badLine);
+                qInfo() << "Sin repetidos" << badLine;
                 imprimirMalas(1, 1, "");
-                ui->viendo->setEnabled(false);
-                ui->atras->setEnabled(false);
-                ui->delante->setEnabled(false);
-                ui->stop->setEnabled(false);
             }
+            //int-long-char-float-double-{-reference<
         }
-        else{
-            ui->log->append(Log.mostrar(2, "Debe revisar los tipos de datos"));
-            //QMessageBox::critical(this, "ERROR", "Debe revisar los tipos de datos...");
-            //ui->viendo->setEnabled(true);
-            badLine = quitarRepetidos(badLine);
-            qInfo() << "Sin repetidos" << badLine;
-            imprimirMalas(1, 1, "");
+        catch(int e){
+            ui->log->append(Log.mostrar(2, "Error de comunicación del socket PORT-8080"));
         }
     }
     else{
-        //QMessageBox::critical(this, "ERROR", "Debe revisar los puntos y comas...");
-        //ui->viendo->setEnabled(true);
-        ui->log->append(Log.mostrar(2, "Debe revisar los puntos y comas"));
-        badLine = quitarRepetidos(badLine);
-        qInfo() << "Sin repetidos" << badLine;
-        imprimirMalas(1, 1, "");
+        ui->log->append(Log.mostrar(0, "Debe escribir código de C!"));
     }
-    //int-long-char-float-double-{-reference<
+
 }
 /**
  * @brief ide::on_stop_clicked Función
@@ -985,6 +1052,7 @@ void ide::on_delante_clicked()
     depurLine ++;
     verCorriendo(depurLine);
     avanzarRam(getLine(depurLine));
+    //mostrarRam = ordenarRam(codigo, mostrarRam);
     int largo = mostrarRam.size();
     ui->ramLiveView->setText("");
     for(int i=0; i<largo; i++){
