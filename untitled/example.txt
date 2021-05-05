@@ -1,6 +1,3 @@
-{"name":"hola","type":"int","value":"900","memory":"4","address":"0x55555557c6d0","count":"15"}
-{"name":"lol","type":"int","value":"10","memory":"4","address":"0x55555557c6d4","count":"8"}
-{"name":"huh","type":"int","value":"80","memory":"4","address":"0x55555557c720","count":"1"}
-{"name":"pi","type":"float","value":"3.14","memory":"4","address":"0x55555557c6d8","count":"10"}
-{"name":"uh","type":"float","value":"99.4","memory":"4","address":"0x55555557c6f4","count":"6"}
-{"name":"day","type":"long","value":"300","memory":"8","address":"0x55555557c6e8","count":"0"}
+{"name":"tat","type":"int","value":"345","memory":"4","address":"0x55555557c6d0","count":"0"}
+{"name":"blou","type":"int","value":"455","memory":"4","address":"0x55555557c6d4","count":"0"}
+{"name":"rata","type":"int","value":"5","memory":"4","address":"0x55555557c6d8","count":"0"}

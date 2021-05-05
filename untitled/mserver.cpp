@@ -652,14 +652,14 @@ int main(int argc, char const *argv[])
                     string string_send = jsonEnviar;
                     cout << string_send << endl;
                     ofstream myfile;
-                    myfile.open ("/home/kenichi/Documents/Github/C-IDE/untitled/example.txt",fstream::app);
+                    myfile.open ("./untitled/example.txt",fstream::app);
                     myfile << string_send + "\n";
                     myfile.close();
                 }
                 
             }
             else{
-                file.open ("/home/kenichi/Documents/Github/C-IDE/untitled/example.txt");
+                file.open ("./untitled/example.txt");
                 file << "";
                 file.close();
             }

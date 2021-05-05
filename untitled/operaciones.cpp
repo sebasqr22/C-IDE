@@ -876,6 +876,24 @@ public:
             }
         }
     }
+    void realizarOperacionesReference(QStringList lista){
+        int largo = lista.size();
+        QString curr;
+
+        for(int i=0; i<largo; i++){
+            curr = lista[i];
+            curr.remove("reference<");
+            curr.remove(">");
+            curr.remove("&");
+            curr.remove("int");
+            curr.remove("long");
+            curr.remove("double");
+            curr.remove("float");
+            curr.remove("char");
+            curr.remove(" ");
+            all << curr;
+        }
+    }
     /**
      * @brief setResults pone el valor a la QStringList "results"
      * @param lista Valor que se le asignara a "results"

@@ -31,6 +31,8 @@ QStringList codigo;
 QStringList badLine;
 logger Log;
 string jsonEnviar;
+QStringList recibidos;
+QStringList mostrarRam;
 
 //Preparacion del socket
 int sock = 0, valread;
@@ -153,15 +155,9 @@ void JSON_Adapter(QStringList lista){
             name = aux[0];
             value = aux[1];
         }
-        else if(curr.contains("struct")){
-            type = "long"; //corregir despues
-            memoria = 4;
-        }
         else{
             type = "reference";
             memoria = 4;
-            curr.remove("reference<");
-            curr.remove(">");
             aux = separadorJSON(curr);
             name = aux[0];
             value = aux[1];
@@ -494,6 +490,9 @@ void ide::verCorriendo(int pos){
     }
     ui->viendo->setText(codigo[pos]);
 }
+QString getLine(int numLine){
+    return codigo[numLine];
+}
 /**
  * @brief ide::imprimirMalas Muestra las líneas en que se encuentra un error en el código
  */
@@ -612,6 +611,94 @@ QStringList quitaEspacios(QStringList lista){
     return tmp;
 }
 /**
+ * @brief validaRefs Valida contenido de las referencias
+ * @param lista Lista con todas las referencias
+ * @return Bool true si todo esta correcto
+ */
+bool validaRefs(QStringList lista, QStringList listaVerificar){
+    int largo = lista.size();
+    bool correcto;
+    bool p2 = false;
+    bool tieneAn = false;
+    QString curr;
+    QString tipo;
+    QString variable;
+
+    for(int i=0; i<largo; i++){
+        curr = lista[i];
+        curr.remove("reference<");
+        int largoCurr = curr.size();
+        for(int j=0; j<largoCurr; j++){
+            if(p2 == false && curr[j] != ">"){
+                tipo += curr[j];
+            }
+            else if(curr[j] == ">"){
+                p2 = true;
+            }
+            else if(curr[j] == "&"){
+                tieneAn = true;
+            }
+            else{
+                variable += variable;
+            }
+        }
+        if(listaVerificar.contains(variable)){
+            int largoVer = listaVerificar.size();
+            QString curr2;
+            for(int y=0; y<largoVer; y++){
+                curr2 = listaVerificar[y];
+                if(curr2.contains(variable)){
+                    if(curr2.contains(tipo)){
+                        correcto = true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            }
+        }
+        else{
+            return false;
+        }
+    }
+    return correcto;
+}
+void avanzarRam(QString lineaCodigo){
+    qInfo() << "LINEA= " << lineaCodigo;
+    int largoLista = recibidos.size();
+    int largo = lineaCodigo.size();
+    QString nombre;
+    Document documentPet;
+    lineaCodigo.remove("int");
+    lineaCodigo.remove("long");
+    lineaCodigo.remove("char");
+    lineaCodigo.remove("float");
+    lineaCodigo.remove("double");
+    lineaCodigo.remove("reference<");
+    lineaCodigo.remove(">");
+
+    for(int j=0; j<largo; j++){
+        if(lineaCodigo[j] != "="){
+            nombre += lineaCodigo[j];
+        }
+        else{
+            break;
+        }
+    }
+    nombre.remove(" ");
+    qInfo() << "NOMBRE: " << nombre;
+
+    for(int i=0; i<largoLista; i++){
+        documentPet = json_recieve(recibidos[i].toStdString());
+        QString name = documentPet["name"].GetString();
+        qInfo() << "NAME = " << name;
+        if(nombre == name){
+            qInfo() << "PONIENDO EN LISTA RAM";
+            mostrarRam << recibidos[i];
+        }
+    }
+}
+/**
  * @brief ide::on_runBut_clicked Función que al tocar el botón RUN, lee el código y ejecuta las demás funciones
  */
 void ide::on_runBut_clicked()//basicamente esto es un adapter
@@ -665,8 +752,10 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             qInfo() << floats;
             qInfo() << doubles;
             qInfo() << prints;
-            qInfo() << refs;
             */
+            qInfo() << refs;
+
+            //validar refs completamente
 
             //comienza depuración
             ui->atras->setEnabled(true);
@@ -684,6 +773,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             opr.realizarOperacionesLong(longs);
             opr.realizarOperacionesDouble(doubles);
             opr.realizarOperacionesChar(chars);
+            opr.realizarOperacionesReference(refs);
 
             res << opr.getAll(); //se ponen los primeros resultados
 
@@ -722,7 +812,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 JSON_Adapter(res);//se prepara el JSON
 
                 string line;
-                  ifstream myfile ("/home/kenichi/Documents/Github/C-IDE/untitled/example.txt");
+                  ifstream myfile ("/home/sebas/Escritorio/P1.13/C-IDE/untitled/example.txt");
                   QStringList listaRecibidos;
                   if (myfile.is_open())
                   {
@@ -732,6 +822,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                       listaRecibidos << QString::fromStdString(line);
                     }
                     myfile.close();
+                    recibidos = listaRecibidos;
                   }
 
                   else {
@@ -748,13 +839,22 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 for(int l=0; l<largoPrints; l++){
                     ui->stdout->append(prints[l]);
                 }
+                mostrarRam << listaRecibidos[0];
+
                 //proceder a utilizar el ram live view
-                int largoRecibo = listaRecibidos.size();
-                QString curr;
+                //int largoRecibo = listaRecibidos.size();
+                QString curr = listaRecibidos[0];
                 QString name;
                 QString dir;
                 QString value;
                 QString ref;
+                documentPet = json_recieve(curr.toStdString());
+                name = documentPet["name"].GetString();
+                dir = documentPet["address"].GetString();
+                value = documentPet["value"].GetString();
+                ref = documentPet["count"].GetString();
+                ui->ramLiveView->append(dir + " | " + value + " | " + name + " | " + ref);
+                /*
                 for(int r = 0; r<largoRecibo; r++){
                     curr = listaRecibidos[r];
                     documentPet = json_recieve(curr.toStdString());
@@ -764,6 +864,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                     ref = documentPet["count"].GetString();
                     ui->ramLiveView->append(dir + " | " + value + " | " + name + " | " + ref);
                 }
+                */
             }
             else{
                 ui->log->append(Log.mostrar(2, "Debe revisar el valor de las variables"));
@@ -804,19 +905,47 @@ void ide::on_stop_clicked()
     ui->delante->setEnabled(false);
     ui->viendo->setEnabled(false);
     ui->stop->setEnabled(false);
+    ui->ramLiveView->setText("");
     depurLine = 0;
 }
+QString getText(QString str){
+    QString curr;
+    QString name;
+    QString dir;
+    QString value;
+    QString ref;
+    Document documentPet;
 
+    documentPet = json_recieve(str.toStdString());
+    name = documentPet["name"].GetString();
+    dir = documentPet["address"].GetString();
+    value = documentPet["value"].GetString();
+    ref = documentPet["count"].GetString();
+    return dir + " | " + value + " | " + name + " | " + ref;
+}
 void ide::on_atras_clicked()
 {
     depurLine --;
     verCorriendo(depurLine);
+    mostrarRam.removeAll(mostrarRam[depurLine+1]);
+    int largo = mostrarRam.size();
+    ui->ramLiveView->setText("");
+    for(int i=0; i<largo; i++){
+        ui->ramLiveView->append(getText(mostrarRam[i]));
+    }
 }
+
 
 void ide::on_delante_clicked()
 {
     depurLine ++;
     verCorriendo(depurLine);
+    avanzarRam(getLine(depurLine));
+    int largo = mostrarRam.size();
+    ui->ramLiveView->setText("");
+    for(int i=0; i<largo; i++){
+        ui->ramLiveView->append(getText(mostrarRam[i]));
+    }
 }
 
 void ide::on_clearBut_clicked()
