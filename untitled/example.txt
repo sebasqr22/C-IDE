@@ -1,3 +1,4 @@
-{"name":"tat","type":"int","value":"345","memory":"4","address":"0x55555557c6d0","count":"0"}
-{"name":"blou","type":"int","value":"455","memory":"4","address":"0x55555557c6d4","count":"0"}
-{"name":"rata","type":"int","value":"5","memory":"4","address":"0x55555557c6d8","count":"0"}
+{"name":"hola","type":"int","value":"45","memory":"4","address":"0x55555557c6d0","count":"4"}
+{"name":"dsf","type":"int","value":"455","memory":"4","address":"0x55555557c6d4","count":"4"}
+{"name":"bliu","type":"int","value":"98","memory":"4","address":"0x55555557c6d8","count":"4"}
+{"name":"tuMama","type":"float","value":"455.566","memory":"4","address":"0x55555557c6dc","count":"2"}

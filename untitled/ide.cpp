@@ -480,6 +480,17 @@ QStringList imprimir(QStringList lista, QStringList res){
  */
 void ide::verCorriendo(int pos){
     int largo = codigo.size();
+    if(pos == largo-1){
+        ui->delante->setEnabled(false);
+    }
+    else if(pos == 0){
+        ui->atras->setEnabled(false);
+    }
+    else{
+        ui->atras->setEnabled(true);
+        ui->delante->setEnabled(true);
+    }
+    /*
     if(pos > largo-1){
         pos = 0;
         depurLine =0;
@@ -487,7 +498,7 @@ void ide::verCorriendo(int pos){
     else if(pos < 0){
         pos = largo-1;
         depurLine = largo-1;
-    }
+    }*/
     ui->viendo->setText(codigo[pos]);
 }
 QString getLine(int numLine){
@@ -699,6 +710,13 @@ void avanzarRam(QString lineaCodigo){
     }
 }
 /**
+ * @brief limpiarRam Limpia la lista de datos a mostrar en modo debug
+ */
+void limpiarRam(){
+    QStringList listaVacia;
+    mostrarRam = listaVacia;
+}
+/**
  * @brief ide::on_runBut_clicked Función que al tocar el botón RUN, lee el código y ejecuta las demás funciones
  */
 void ide::on_runBut_clicked()//basicamente esto es un adapter
@@ -711,6 +729,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
     ui->viendo->setEnabled(false);
     ui->ramLiveView->setText("");
     removeAll();
+    limpiarRam();
     QString original;
 
 
@@ -823,6 +842,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                     }
                     myfile.close();
                     recibidos = listaRecibidos;
+                    ui->atras->setEnabled(false);
                   }
 
                   else {
