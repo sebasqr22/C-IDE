@@ -1047,7 +1047,7 @@ void ide::on_atras_clicked()
     }
 }
 
-
+// :)
 void ide::on_delante_clicked()
 {
     depurLine ++;
