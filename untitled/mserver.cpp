@@ -1,6 +1,5 @@
 /**
  * @file mserver.cpp
- * @title MServer 
  * @brief Clase servidor
 **/
 
@@ -20,7 +19,11 @@
 using namespace std;
 using namespace rapidjson;
 
-
+/**
+ * @brief json_recieve Hace los parse respectivos para JSON
+ * @param str Recibe un string
+ * @return Un Document con el parse
+ **/
 Document json_recieve(string str){
     const char* pchar = str.c_str();
     Document ptd;
@@ -28,6 +31,9 @@ Document json_recieve(string str){
     return ptd;
 }
 
+/**
+ * @brief clase de un nodo utilizado en lista o collector
+ **/
 // A linked list node
 class Node
 {
@@ -41,17 +47,29 @@ class Node
         Node* next; //puntero hacia el nodo siguiente en la lista
         Node* prev; //puntero hacia el nodo anterior en la lista
 };
-
+/**
+ * @brief clase lista utilizado para almacenar nodos de variables usadas
+ **/
 class List{
     public:
         Node* head; //El primer nodo de la lista
         /**
-         * @brief
-         * @param
+         * @brief Prepara el primer nodo de la lista
+         * @param new_head Recibe un puntero de un nodo
         **/
         void set_head(Node* new_head){ //asigna un nodo recibido como el primer nodo de la lista
             head = new_head;
         }
+
+        /**
+         * @brief Agrega un nodo al final de la lista
+         * @param new_name nombre que será guardado
+         * @param new_memory valor de memoria que será guardado
+         * @param new_offset valor de offset que será guardado 
+         * @param new_count valor de count que será guardado
+         * @param new_mark valor de marcador que será guardado
+         * @param new_references valor de reference que será guardado
+        **/
         void append(string new_name, int new_memory, int new_offset, int new_count, bool new_mark, int new_references) //dado los datos, añade un nodo con los datos recibidos al final de la lista
         {
             Node* new_node = new Node();  //se crea un nodo nuevo     
@@ -78,7 +96,11 @@ class List{
             new_node->prev = last;        
             return;
         }
-
+        /**
+         * @brief borra un nodo indicado de lista
+         * @param del nodo que será borrado de lista
+         * @return el nodo que fue borrado
+        **/
         Node* deleteNode(Node* del) //función para borrar un nodo dado de la lista, este nodo es luego retornado para luego ser agregado a collector
         {
             if (head == NULL || del == NULL) //caso particular
@@ -97,7 +119,10 @@ class List{
             //Se retorna el nodo que será borrado
             return del;
         }
-    
+
+        /**
+         * @brief imprime todos los elementos de la lista
+        **/
         void printList() //Función que imprime todos los nombres de los elementos en la lista
         {
             Node* node = head;
@@ -109,6 +134,11 @@ class List{
             }
         }
 
+        /**
+         * @brief función que revisa si algún nodo de la lista tiene el nombre especificado
+         * @param input_name el nombre que se desea ver si está en la lista o no
+         * @return un bool indicando si existe un nodo con el nombre especificado o no
+        **/
         bool check_list(string input_name){ //Función que revisa si el elemento dado existe en la lista
             Node* node = head;
             while (node != NULL)
@@ -126,6 +156,11 @@ class List{
             return false;
         }
 
+        /**
+         * @brief busca el offset almacenado en un nodo que tenga el nombre especificado
+         * @param input_name el nombre especificado para buscar su offset respectivo
+         * @return el offset del nodo con el nombre correcto
+        **/
         int find_offset(string input_name){ //Función que retorna el offset de un elemento indicado
             Node* node = head;
             while (node != NULL)
@@ -140,7 +175,12 @@ class List{
             return 0;
         }
 
-        int find_count(string input_name){ //Función que retorna el offset de un elemento indicado
+        /**
+         * @brief busca la cantidad de veces que se ha llamado una variable
+         * @param input_name el nombre especificado para buscar su conteo respectivo
+         * @return la cantidad de veces que se ha llamado la variable
+        **/
+        int find_count(string input_name){ //Función que retorna el references de un elemento indicado
             Node* node = head;
             while (node != NULL)
             {
@@ -154,6 +194,9 @@ class List{
             return 0;
         }
 
+        /**
+         * @brief le suma uno al count de todos los elementos en la lista que no estaban presentes en un run
+        **/
         void add_counts(){ //función que suma un count a todos los elementos que no estaban presentes en el run
             Node* node = head;
             while (node != NULL)
@@ -165,6 +208,9 @@ class List{
             }
         }
 
+        /**
+         * @brief resetea las marcas de todos los nodos a false
+        **/
         void reset_marks(){ //función que resetea todas las marcas, preparándo la lista para el siguiente run
             Node* node = head;
             while (node != NULL)
@@ -176,13 +222,29 @@ class List{
 
 };
 
+/**
+ * @brief clase collector utilizado para almacenar nodos de variables no usadas
+ */
 class Collector{
     public:
         Node* head; //El primer nodo del collector
         int length = 0; //el largo de collector
+        /**
+         * @brief Prepara el primer nodo de collector
+         * @param new_head Recibe un puntero de un nodo
+        **/
         void set_head(Node* new_head){ //asigna un nodo recibido como el primer nodo de la lista
             head = new_head;
         }
+        /**
+         * @brief Agrega un nodo al final de collector
+         * @param new_name nombre que será guardado
+         * @param new_memory valor de memoria que será guardado
+         * @param new_offset valor de offset que será guardado 
+         * @param new_count valor de count que será guardado
+         * @param new_mark valor de marcador que será guardado
+         * @param new_references valor de reference que será guardado
+        **/
         void append(string new_name, int new_memory, int new_offset, int new_count, bool new_mark, int new_references) //dado los datos, añade un nodo con los datos recibidos al final de collector
         {
             Node* new_node = new Node();  //se crea un nodo nuevo     
@@ -210,6 +272,11 @@ class Collector{
             return;
         }
 
+        /**
+         * @brief borra un nodo indicado de collector
+         * @param del nodo que será borrado de collector
+         * @return el nodo que fue borrado
+        **/
         Node* deleteNode(Node* del) //función para borrar un nodo dado del collector, este nodo es luego retornado para luego ser agregado a lista
         {
             if (head == NULL || del == NULL) //caso particular
@@ -229,6 +296,9 @@ class Collector{
             return del;
         }
     
+        /**
+         * @brief imprime todos los elementos de collector
+        **/
         void printList() //Función que imprime todos los nombres de los elementos en el collector
         {
             Node* node = head;
@@ -240,6 +310,10 @@ class Collector{
             }
         }
 
+        /**
+         * @brief verifica si existe algún nodo que almacene 1 byte en collector
+         * @return un bool indicando si existe un nodo que almacena 1 byte en él o no
+        **/
         bool verify_recycled_one(){ //verifica si hay algún nodo presente donde se puede almacenar una variable de 1 byte
             Node* node = head;
             while (node != NULL)
@@ -252,6 +326,10 @@ class Collector{
             return false;
         }
 
+        /**
+         * @brief verifica si existe algún nodo que almacene 4 bytes en collector
+         * @return un bool indicando si existe un nodo que almacena 4 bytes en él o no
+        **/
         bool verify_recycled_four(){ //verifica si hay algún nodo presente donde se puede almacenar una variable de 4 bytes
             Node* node = head;
             while (node != NULL)
@@ -264,6 +342,10 @@ class Collector{
             return false;
         }
 
+        /**
+         * @brief verifica si existe algún nodo que almacene 8 bytes en collector
+         * @return un bool indicando si existe un nodo que almacena 8 bytes en él o no
+        **/
         bool verify_recycled_eight(){ //verifica si hay algún nodo presente donde se puede almacenar una variable de 8 bytes
             Node* node = head;
             while (node != NULL)
@@ -277,14 +359,20 @@ class Collector{
         }
 };
 
+/**
+  * @brief función main donde el servidor escucha peticiones del cliente y prepara outputs que serán utilizados por cliente
+**/
 int main(int argc, char const *argv[])
 {   
+    //Se pide especificar cuánta memoria apartar en bytes y el puerto en donde se desea escuchar
     int port;
     size_t size;
     cout << "Please indicate the amount of bytes you would like to use" << endl;
     cin >> size;
     cout << "Please indicate which port you would like to listen to" << endl;
     cin >> port;
+
+    //se preparan las variables relevantes a los procesos del server
     char *ptr;
     int i = 0;
     ptr = (char*) malloc(size);
@@ -313,7 +401,7 @@ int main(int argc, char const *argv[])
 
     bool loop = true;
 
-    /* Start with the empty list */
+    //Se inicia con una lista vacía y un collector vacío
     Node* head_list = NULL;
     Node* head_collector = NULL;
     Node* tmp_node;
@@ -322,20 +410,24 @@ int main(int argc, char const *argv[])
     Collector collector;
     list.set_head(head_list);
     collector.set_head(head_collector);
+
+    //se limpia el file en donde se escribirá
     ofstream file;
     file.open ("./untitled/info.txt");
     file << "";
     file.close();
 
     cout << "Server is now listening" << endl;
-    // Creating socket file descriptor
+    //Luego se procede con las preparaciones del socket
+    
+    // Creando un "file descriptor" para socket
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
         perror("socket failed");
         exit(EXIT_FAILURE);
     }
     
-    // Forcefully attaching socket to the port 8080
+    // "attaching" el socket al puerto indicado inicialmente
     if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
                                                 &opt, sizeof(opt)))
     {
@@ -346,7 +438,6 @@ int main(int argc, char const *argv[])
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons( port );
     
-    // Forcefully attaching socket to the port 8080
     if (bind(server_fd, (struct sockaddr *)&address, 
                                 sizeof(address))<0)
     {
@@ -365,14 +456,17 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
     
+    //el server comienza su loop para escuchar al cliente
     while(loop == true){
     
-        valread = read( new_socket , buffer, 1024);
+        valread = read( new_socket , buffer, 1024); //el server se queda acá esperando una petición del cliente
         printf("%s\n",buffer );
-        string s = buffer;
+        string s = buffer; //se almacena la petición recibida en un string
         cout << s << endl;
-        if (s[0] != 'e'){
-            if (s[0] != 'i'){
+
+        //verificación de casos
+        if (s[0] != 'e'){ //caso cuando todavía no se ha recibido todo el contenido del run
+            if (s[0] != 'i'){ //caso cuando no se está escuchando ni el inicio ni el final del run
                 i = 0;
                 new_s = "";
                 while(s[i]!= '}'){
@@ -380,6 +474,7 @@ int main(int argc, char const *argv[])
                     i += 1;
                 }
                 new_s += '}';
+                //se procesa el JSON recibido en partes individuales
                 documentPet = json_recieve(new_s);
                 string name = documentPet["name"].GetString();
                 string type_value = documentPet["type"].GetString();
