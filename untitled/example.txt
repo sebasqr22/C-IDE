@@ -1,4 +1,5 @@
-{"name":"hola","type":"int","value":"45","memory":"4","address":"0x55555557c6d0","count":"4"}
-{"name":"dsf","type":"int","value":"455","memory":"4","address":"0x55555557c6d4","count":"4"}
-{"name":"bliu","type":"int","value":"98","memory":"4","address":"0x55555557c6d8","count":"4"}
-{"name":"tuMama","type":"float","value":"455.566","memory":"4","address":"0x55555557c6dc","count":"2"}
+{"name":"adios","type":"int","value":"90","memory":"4","address":"0x55555557c6e8","count":"1"}
+{"name":"pi","type":"float","value":"3.14","memory":"4","address":"0x55555557c6d0","count":"3"}
+{"name":"coke","type":"float","value":"4.90","memory":"4","address":"0x55555557c6e4","count":"2"}
+{"name":"way","type":"long","value":"4000.10","memory":"8","address":"0x55555557c6d4","count":"3"}
+{"name":"thunder","type":"double","value":"9000","memory":"8","address":"0x55555557c6dc","count":"3"}
