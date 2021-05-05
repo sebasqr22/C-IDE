@@ -734,6 +734,7 @@ void avanzarRam(QString lineaCodigo){
 void limpiarRam(){
     QStringList listaVacia;
     mostrarRam = listaVacia;
+    recibidos = listaVacia;
 }
 /**
  * @brief ide::on_runBut_clicked Función que al tocar el botón RUN, lee el código y ejecuta las demás funciones
