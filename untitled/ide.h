@@ -2,7 +2,6 @@
 #define IDE_H
 
 #include <QMainWindow>
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class ide; }
 QT_END_NAMESPACE
@@ -26,11 +25,10 @@ private slots:
 
     void verCorriendo(int pos);
 
-    void imprimirMalas();
+
+    void imprimirMalas(int tipo, int crit, QString msg);
 
     void on_clearBut_clicked();
-
-    void mensaje(int criticalidad, QString msg);
 
 private:
     Ui::ide *ui;

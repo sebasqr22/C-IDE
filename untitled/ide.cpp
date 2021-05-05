@@ -33,6 +33,7 @@ logger Log;
 string jsonEnviar;
 QStringList recibidos;
 QStringList mostrarRam;
+bool malosPrints = false;
 
 //Preparacion del socket
 int sock = 0, valread;
@@ -53,6 +54,7 @@ Document json_recieve(string str){
     return ptd;
 }
 
+
 /**
  * @brief ide::ide Constructor de la clase ide.cpp
  * @param parent
@@ -71,12 +73,30 @@ ide::~ide()
     delete ui;
 }
 /**
- * @brief ide::mensaje Envia un log al logger
- * @param criticalidad Nivel de error para el logger
- * @param msg Mensaje que mostrará el logger
+ * @brief ide::imprimirMalas Imprime lineas malas o logs
+ * @param tipo Tipo de impresion
+ * @param crit Nivel de criticalidad
+ * @param msg Mensaje para logger
  */
-void ide::mensaje(int criticalidad, QString msg){
-    ui->log->append(Log.mostrar(criticalidad, msg));
+void ide::imprimirMalas(int tipo, int crit, QString msg){
+    if(tipo == 1){
+        int largo = badLine.size();
+        ui->viendo->setText("");
+        ui->viendo->append("Se encontro errores en las lineas: ");
+        QString malas = "";
+        QString aux = "";
+        for(int i=0; i < largo; i++){
+            aux += "-";
+            aux += badLine[i];
+            aux+= "-";
+            malas += aux;
+            aux = "";
+        }
+        ui->viendo->append(malas);
+    }
+    else{
+        ui->log->append(Log.mostrar(crit, msg));
+    }
 }
 /**
  * @brief separadorJSON Permite obtener el valor y el nombre de las variables para crear el JSON
@@ -441,10 +461,13 @@ bool validarTipos(QStringList tmp){
 QStringList imprimir(QStringList lista, QStringList res){
     int largo = lista.size();
     int largoRes = res.size();
+    bool esta = false;
     QString tmp;
     QStringList listaAux;
+    int contadorMal = 0;
     for(int i=0; i<largo; i++){
          if(lista[i].contains('\"')){
+             esta = true;
              tmp = lista[i].remove("print(");
              tmp.remove(")");
              tmp.remove('\"');
@@ -456,6 +479,7 @@ QStringList imprimir(QStringList lista, QStringList res){
              for(int j=0; j<largoRes; j++){
                  if(res[j].contains(curr)){
                      int largoStr = res[j].size();
+                     esta = true;
                      bool listo = false;
                      QString valor;
                      for(int x=0; x<largoStr; x++){
@@ -470,6 +494,15 @@ QStringList imprimir(QStringList lista, QStringList res){
                  }
              }
          }
+         if(esta==false){
+             contadorMal++;
+         }
+         else{
+             esta = false;
+         }
+    }
+    if(contadorMal != 0){
+        malosPrints = true;
     }
     qInfo() << listaAux;
     return listaAux;
@@ -507,21 +540,7 @@ QString getLine(int numLine){
 /**
  * @brief ide::imprimirMalas Muestra las líneas en que se encuentra un error en el código
  */
-void ide::imprimirMalas(){
-    int largo = badLine.size();
-    ui->viendo->setText("");
-    ui->viendo->append("Se encontro errores en las lineas: ");
-    QString malas = "";
-    QString aux = "";
-    for(int i=0; i < largo; i++){
-        aux += "-";
-        aux += badLine[i];
-        aux+= "-";
-        malas += aux;
-        aux = "";
-    }
-    ui->viendo->append(malas);
-}
+
 /**
  * @brief removeAll Borra la info de la lista de lineas con error
  */
@@ -856,6 +875,10 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 //realizar prints
                 prints = imprimir(prints, res);
                 int largoPrints = prints.size();
+                if(malosPrints == true){
+                    imprimirMalas(2, 1, "Variables no encontradas en los prints");
+                    malosPrints = false;
+                }
                 for(int l=0; l<largoPrints; l++){
                     ui->stdout->append(prints[l]);
                 }
@@ -889,7 +912,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             else{
                 ui->log->append(Log.mostrar(2, "Debe revisar el valor de las variables"));
                 badLine = quitarRepetidos(badLine);
-                imprimirMalas();
+                imprimirMalas(1, 1, "");
                 ui->viendo->setEnabled(false);
                 ui->atras->setEnabled(false);
                 ui->delante->setEnabled(false);
@@ -902,7 +925,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
             //ui->viendo->setEnabled(true);
             badLine = quitarRepetidos(badLine);
             qInfo() << "Sin repetidos" << badLine;
-            imprimirMalas();
+            imprimirMalas(1, 1, "");
         }
     }
     else{
@@ -911,7 +934,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
         ui->log->append(Log.mostrar(2, "Debe revisar los puntos y comas"));
         badLine = quitarRepetidos(badLine);
         qInfo() << "Sin repetidos" << badLine;
-        imprimirMalas();
+        imprimirMalas(1, 1, "");
     }
     //int-long-char-float-double-{-reference<
 }
