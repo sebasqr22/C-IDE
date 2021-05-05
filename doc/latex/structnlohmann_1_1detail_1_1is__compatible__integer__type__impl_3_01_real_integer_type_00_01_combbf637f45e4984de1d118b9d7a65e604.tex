@@ -1,0 +1,40 @@
+\doxysection{nlohmann\+::detail\+::is\+\_\+compatible\+\_\+integer\+\_\+type\+\_\+impl$<$ Real\+Integer\+Type, Compatible\+Number\+Integer\+Type, enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+integral$<$ Real\+Integer\+Type $>$\+::value \&\&std\+::is\+\_\+integral$<$ Compatible\+Number\+Integer\+Type $>$\+::value \&\&!std\+::is\+\_\+same$<$ bool, Compatible\+Number\+Integer\+Type $>$\+::value $>$ $>$ Struct Template Reference}
+\label{structnlohmann_1_1detail_1_1is__compatible__integer__type__impl_3_01_real_integer_type_00_01_combbf637f45e4984de1d118b9d7a65e604}\index{nlohmann::detail::is\_compatible\_integer\_type\_impl$<$ RealIntegerType, CompatibleNumberIntegerType, enable\_if\_t$<$ std::is\_integral$<$ RealIntegerType $>$::value \&\&std::is\_integral$<$ CompatibleNumberIntegerType $>$::value \&\&"!std::is\_same$<$ bool, CompatibleNumberIntegerType $>$::value $>$ $>$@{nlohmann::detail::is\_compatible\_integer\_type\_impl$<$ RealIntegerType, CompatibleNumberIntegerType, enable\_if\_t$<$ std::is\_integral$<$ RealIntegerType $>$::value \&\&std::is\_integral$<$ CompatibleNumberIntegerType $>$::value \&\&"!std::is\_same$<$ bool, CompatibleNumberIntegerType $>$::value $>$ $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{structnlohmann_1_1detail_1_1is__compatible__integer__type__impl_3_01_real_integer_type_00_01_combbf637f45e4984de1d118b9d7a65e604_ab267aabfe36c5b9c305c5e5faf06ea36}} 
+using {\bfseries Real\+Limits} = std\+::numeric\+\_\+limits$<$ Real\+Integer\+Type $>$
+\item 
+\mbox{\label{structnlohmann_1_1detail_1_1is__compatible__integer__type__impl_3_01_real_integer_type_00_01_combbf637f45e4984de1d118b9d7a65e604_a24d97696ca33fba8096e452b1901a8e6}} 
+using {\bfseries Compatible\+Limits} = std\+::numeric\+\_\+limits$<$ Compatible\+Number\+Integer\+Type $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr auto {\bfseries value}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{structnlohmann_1_1detail_1_1is__compatible__integer__type__impl_3_01_real_integer_type_00_01_combbf637f45e4984de1d118b9d7a65e604_a8fd20d5e7d65d14b4e9f4ee181a3aded}} 
+\index{nlohmann::detail::is\_compatible\_integer\_type\_impl$<$ RealIntegerType, CompatibleNumberIntegerType, enable\_if\_t$<$ std::is\_integral$<$ RealIntegerType $>$::value \&\&std::is\_integral$<$ CompatibleNumberIntegerType $>$::value \&\&"!std::is\_same$<$ bool, CompatibleNumberIntegerType $>$::value $>$ $>$@{nlohmann::detail::is\_compatible\_integer\_type\_impl$<$ RealIntegerType, CompatibleNumberIntegerType, enable\_if\_t$<$ std::is\_integral$<$ RealIntegerType $>$::value \&\&std::is\_integral$<$ CompatibleNumberIntegerType $>$::value \&\&"!std::is\_same$<$ bool, CompatibleNumberIntegerType $>$::value $>$ $>$}!value@{value}}
+\index{value@{value}!nlohmann::detail::is\_compatible\_integer\_type\_impl$<$ RealIntegerType, CompatibleNumberIntegerType, enable\_if\_t$<$ std::is\_integral$<$ RealIntegerType $>$::value \&\&std::is\_integral$<$ CompatibleNumberIntegerType $>$::value \&\&"!std::is\_same$<$ bool, CompatibleNumberIntegerType $>$::value $>$ $>$@{nlohmann::detail::is\_compatible\_integer\_type\_impl$<$ RealIntegerType, CompatibleNumberIntegerType, enable\_if\_t$<$ std::is\_integral$<$ RealIntegerType $>$::value \&\&std::is\_integral$<$ CompatibleNumberIntegerType $>$::value \&\&"!std::is\_same$<$ bool, CompatibleNumberIntegerType $>$::value $>$ $>$}}
+\doxysubsubsection{value}
+{\footnotesize\ttfamily template$<$typename Real\+Integer\+Type , typename Compatible\+Number\+Integer\+Type $>$ \\
+constexpr auto \textbf{ nlohmann\+::detail\+::is\+\_\+compatible\+\_\+integer\+\_\+type\+\_\+impl}$<$ Real\+Integer\+Type, Compatible\+Number\+Integer\+Type, enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+integral$<$ Real\+Integer\+Type $>$\+::value \&\&std\+::is\+\_\+integral$<$ Compatible\+Number\+Integer\+Type $>$\+::value \&\&!std\+::is\+\_\+same$<$ bool, Compatible\+Number\+Integer\+Type $>$\+::value $>$ $>$\+::value\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{        std::is\_constructible<RealIntegerType,}
+\DoxyCodeLine{        CompatibleNumberIntegerType>::value \&\&}
+\DoxyCodeLine{        CompatibleLimits::is\_integer \&\&}
+\DoxyCodeLine{        RealLimits::is\_signed == CompatibleLimits::is\_signed}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}

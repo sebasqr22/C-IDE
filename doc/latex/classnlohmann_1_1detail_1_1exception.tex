@@ -1,0 +1,69 @@
+\doxysection{nlohmann\+::detail\+::exception Class Reference}
+\label{classnlohmann_1_1detail_1_1exception}\index{nlohmann::detail::exception@{nlohmann::detail::exception}}
+
+
+general exception of the \doxyref{basic\+\_\+json}{p.}{classnlohmann_1_1basic__json} class  
+
+
+
+
+{\ttfamily \#include $<$json.\+hpp$>$}
+
+
+
+Inheritance diagram for nlohmann\+::detail\+::exception\+:
+% FIG 0
+
+
+Collaboration diagram for nlohmann\+::detail\+::exception\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1exception_a2ecff34cee144f843644a252a07cdadc}} 
+JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL const char $\ast$ \textbf{ what} () const noexcept override
+\begin{DoxyCompactList}\small\item\em returns the explanatory string \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1exception_a0d4589a3fb54e81646d986c05efa3b9a}} 
+const int \textbf{ id}
+\begin{DoxyCompactList}\small\item\em the id of the exception \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1exception_ae323ad0d53bc724414c2233164e65657}} 
+{\bfseries exception} (int id\+\_\+, const char $\ast$what\+\_\+arg)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1exception_abf41a7e9178356314082284e6cfea278}} 
+static std\+::string {\bfseries name} (const std\+::string \&ename, int id\+\_\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+general exception of the \doxyref{basic\+\_\+json}{p.}{classnlohmann_1_1basic__json} class 
+
+This class is an extension of {\ttfamily std\+::exception} objects with a member {\itshape id} for exception ids. It is used as the base class for all exceptions thrown by the \doxyref{basic\+\_\+json}{p.}{classnlohmann_1_1basic__json} class. This class can hence be used as \char`\"{}wildcard\char`\"{} to catch exceptions.
+
+Subclasses\+:
+\begin{DoxyItemize}
+\item \doxyref{parse\+\_\+error}{p.}{classnlohmann_1_1detail_1_1parse__error} for exceptions indicating a parse error
+\item \doxyref{invalid\+\_\+iterator}{p.}{classnlohmann_1_1detail_1_1invalid__iterator} for exceptions indicating errors with iterators
+\item \doxyref{type\+\_\+error}{p.}{classnlohmann_1_1detail_1_1type__error} for exceptions indicating executing a member function with a wrong type
+\item \doxyref{out\+\_\+of\+\_\+range}{p.}{classnlohmann_1_1detail_1_1out__of__range} for exceptions indicating access out of the defined range
+\item \doxyref{other\+\_\+error}{p.}{classnlohmann_1_1detail_1_1other__error} for exceptions indicating other library errors
+\end{DoxyItemize}
+
+@liveexample\{The following code shows how arbitrary library exceptions can be caught.,exception\}
+
+\begin{DoxySince}{Since}
+version 3.\+0.\+0 
+\end{DoxySince}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}

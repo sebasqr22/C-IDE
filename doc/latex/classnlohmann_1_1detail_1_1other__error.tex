@@ -1,0 +1,70 @@
+\doxysection{nlohmann\+::detail\+::other\+\_\+error Class Reference}
+\label{classnlohmann_1_1detail_1_1other__error}\index{nlohmann::detail::other\_error@{nlohmann::detail::other\_error}}
+
+
+exception indicating other library errors  
+
+
+
+
+{\ttfamily \#include $<$json.\+hpp$>$}
+
+
+
+Inheritance diagram for nlohmann\+::detail\+::other\+\_\+error\+:
+% FIG 0
+
+
+Collaboration diagram for nlohmann\+::detail\+::other\+\_\+error\+:
+% FIG 1
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1other__error_a87e8ab894e8c85c0d97a0919782d3683}} 
+static \textbf{ other\+\_\+error} {\bfseries create} (int id\+\_\+, const std\+::string \&what\+\_\+arg)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+exception indicating other library errors 
+
+This exception is thrown in case of errors that cannot be classified with the other exception types.
+
+Exceptions have ids 5xx.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ name / id   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ example message   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ description    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ name / id   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ example message   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ description    }\\\cline{1-3}
+\endhead
+json.\+exception.\+other\+\_\+error.\+501   &unsuccessful\+: \{\char`\"{}op\char`\"{}\+:\char`\"{}test\char`\"{},\char`\"{}path\char`\"{}\+:\char`\"{}/baz\char`\"{}, \char`\"{}value\char`\"{}\+:\char`\"{}bar\char`\"{}\}   &A JSON Patch operation \textquotesingle{}test\textquotesingle{} failed. The unsuccessful operation is also printed.   \\\cline{1-3}
+\end{longtabu}
+
+
+\begin{DoxySeeAlso}{See also}
+-\/ \doxyref{exception}{p.}{classnlohmann_1_1detail_1_1exception} for the base class of the library exceptions 
+
+-\/ \doxyref{parse\+\_\+error}{p.}{classnlohmann_1_1detail_1_1parse__error} for exceptions indicating a parse error 
+
+-\/ \doxyref{invalid\+\_\+iterator}{p.}{classnlohmann_1_1detail_1_1invalid__iterator} for exceptions indicating errors with iterators 
+
+-\/ \doxyref{type\+\_\+error}{p.}{classnlohmann_1_1detail_1_1type__error} for exceptions indicating executing a member function with a wrong type 
+
+-\/ \doxyref{out\+\_\+of\+\_\+range}{p.}{classnlohmann_1_1detail_1_1out__of__range} for exceptions indicating access out of the defined range
+\end{DoxySeeAlso}
+@liveexample\{The following code shows how an {\ttfamily \doxyref{other\+\_\+error}{p.}{classnlohmann_1_1detail_1_1other__error}} exception can be caught.,\doxyref{other\+\_\+error}{p.}{classnlohmann_1_1detail_1_1other__error}\}
+
+\begin{DoxySince}{Since}
+version 3.\+0.\+0 
+\end{DoxySince}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}

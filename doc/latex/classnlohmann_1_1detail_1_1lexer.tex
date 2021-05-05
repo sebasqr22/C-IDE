@@ -1,0 +1,108 @@
+\doxysection{nlohmann\+::detail\+::lexer$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$ Class Template Reference}
+\label{classnlohmann_1_1detail_1_1lexer}\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+
+
+lexical analysis  
+
+
+
+
+{\ttfamily \#include $<$json.\+hpp$>$}
+
+
+
+Inheritance diagram for nlohmann\+::detail\+::lexer$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$\+:
+% FIG 0
+
+
+Collaboration diagram for nlohmann\+::detail\+::lexer$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$\+:
+% FIG 1
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_a986907dff5ceb4fa06aa8ff301822726}} 
+using {\bfseries token\+\_\+type} = typename \textbf{ lexer\+\_\+base}$<$ Basic\+Json\+Type $>$\+::\textbf{ token\+\_\+type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_a5498021440ac08dc6079a3597ae1e459}} 
+{\bfseries lexer} (Input\+Adapter\+Type \&\&\textbf{ adapter}, bool ignore\+\_\+comments\+\_\+=false)
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_ab75d61c4de687717648c7698850ddb9b}} 
+{\bfseries lexer} (const \textbf{ lexer} \&)=delete
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_ae95416c7ae8b36f0dd0ab349eaa754a2}} 
+{\bfseries lexer} (\textbf{ lexer} \&\&)=default
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_af7e7002d4bb66e9104d752791b8070f8}} 
+\textbf{ lexer} \& {\bfseries operator=} (\textbf{ lexer} \&)=delete
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_a1383bb59c5efd4f9370ca3ee4ad1a4ba}} 
+\textbf{ lexer} \& {\bfseries operator=} (\textbf{ lexer} \&\&)=default
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_a9535d0c72adbe9fe149853ebad5faee8}} 
+constexpr number\+\_\+integer\+\_\+t \textbf{ get\+\_\+number\+\_\+integer} () const noexcept
+\begin{DoxyCompactList}\small\item\em return integer value \end{DoxyCompactList}\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_abfc85ff04fcb1a5a8d8ea299a4c479e5}} 
+constexpr number\+\_\+unsigned\+\_\+t \textbf{ get\+\_\+number\+\_\+unsigned} () const noexcept
+\begin{DoxyCompactList}\small\item\em return unsigned integer value \end{DoxyCompactList}\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_adb1a71f6a3e65ed32c452a318967b61e}} 
+constexpr number\+\_\+float\+\_\+t \textbf{ get\+\_\+number\+\_\+float} () const noexcept
+\begin{DoxyCompactList}\small\item\em return floating-\/point value \end{DoxyCompactList}\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_a76875bb49a480763f6c48b8586f7e60e}} 
+string\+\_\+t \& \textbf{ get\+\_\+string} ()
+\begin{DoxyCompactList}\small\item\em return current string value (implicitly resets the token; useful only once) \end{DoxyCompactList}\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_a948c80b8bd8a3095b544e4655e1ca37e}} 
+constexpr \textbf{ position\+\_\+t} \textbf{ get\+\_\+position} () const noexcept
+\begin{DoxyCompactList}\small\item\em return position of last read token \end{DoxyCompactList}\item 
+std\+::string \textbf{ get\+\_\+token\+\_\+string} () const
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_a9848a0ed22f53ec29fcfd1fd04c0cd37}} 
+constexpr JSON\+\_\+\+HEDLEY\+\_\+\+RETURNS\+\_\+\+NON\+\_\+\+NULL const char $\ast$ \textbf{ get\+\_\+error\+\_\+message} () const noexcept
+\begin{DoxyCompactList}\small\item\em return syntax error message \end{DoxyCompactList}\item 
+bool \textbf{ skip\+\_\+bom} ()
+\begin{DoxyCompactList}\small\item\em skip the UTF-\/8 byte order mark \end{DoxyCompactList}\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_a449f3f3703dfbf8b757e12f002668604}} 
+void {\bfseries skip\+\_\+whitespace} ()
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_a40320a8fef5f1f03b60c8b2f2f40af4d}} 
+\textbf{ token\+\_\+type} {\bfseries scan} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Basic\+Json\+Type, typename Input\+Adapter\+Type$>$\newline
+class nlohmann\+::detail\+::lexer$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$}
+lexical analysis 
+
+This class organizes the lexical analysis during JSON deserialization. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{classnlohmann_1_1detail_1_1lexer_ae000b7571480e528dee4b281f63d5b15}} 
+\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!get\_token\_string@{get\_token\_string}}
+\index{get\_token\_string@{get\_token\_string}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{get\_token\_string()}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Input\+Adapter\+Type $>$ \\
+std\+::string \textbf{ nlohmann\+::detail\+::lexer}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$\+::get\+\_\+token\+\_\+string (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+return the last read token (for errors only). Will never contain EOF (an arbitrary value that is not a valid char value, often -\/1), because 255 may legitimately occur. May contain NUL, which should be escaped. \mbox{\label{classnlohmann_1_1detail_1_1lexer_a7cd7d55de2cd398660bc243c7229caf9}} 
+\index{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}!skip\_bom@{skip\_bom}}
+\index{skip\_bom@{skip\_bom}!nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$@{nlohmann::detail::lexer$<$ BasicJsonType, InputAdapterType $>$}}
+\doxysubsubsection{skip\_bom()}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Input\+Adapter\+Type $>$ \\
+bool \textbf{ nlohmann\+::detail\+::lexer}$<$ Basic\+Json\+Type, Input\+Adapter\+Type $>$\+::skip\+\_\+bom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+skip the UTF-\/8 byte order mark 
+
+\begin{DoxyReturn}{Returns}
+true iff there is no BOM or the correct BOM has been skipped 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}

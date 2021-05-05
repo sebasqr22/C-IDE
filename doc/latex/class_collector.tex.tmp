@@ -1,0 +1,168 @@
+\doxysection{Collector Class Reference}
+\label{class_collector}\index{Collector@{Collector}}
+
+
+clase collector utilizado para almacenar nodos de variables no usadas  
+
+
+
+
+Collaboration diagram for Collector\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ set\+\_\+head} (\textbf{ Node} $\ast$new\+\_\+head)
+\begin{DoxyCompactList}\small\item\em Prepara el primer nodo de collector. \end{DoxyCompactList}\item 
+void \textbf{ append} (string new\+\_\+name, int new\+\_\+memory, int new\+\_\+offset, int new\+\_\+count, bool new\+\_\+mark, int new\+\_\+references)
+\begin{DoxyCompactList}\small\item\em Agrega un nodo al final de collector. \end{DoxyCompactList}\item 
+\textbf{ Node} $\ast$ \textbf{ delete\+Node} (\textbf{ Node} $\ast$del)
+\begin{DoxyCompactList}\small\item\em borra un nodo indicado de collector \end{DoxyCompactList}\item 
+\mbox{\label{class_collector_ac415b568e686ccf385cb3b7ee7594edb}} 
+void \textbf{ print\+List} ()
+\begin{DoxyCompactList}\small\item\em imprime todos los elementos de collector \end{DoxyCompactList}\item 
+bool \textbf{ verify\+\_\+recycled\+\_\+one} ()
+\begin{DoxyCompactList}\small\item\em verifica si existe algún nodo que almacene 1 byte en collector \end{DoxyCompactList}\item 
+bool \textbf{ verify\+\_\+recycled\+\_\+four} ()
+\begin{DoxyCompactList}\small\item\em verifica si existe algún nodo que almacene 4 bytes en collector \end{DoxyCompactList}\item 
+bool \textbf{ verify\+\_\+recycled\+\_\+eight} ()
+\begin{DoxyCompactList}\small\item\em verifica si existe algún nodo que almacene 8 bytes en collector \end{DoxyCompactList}\item 
+\mbox{\label{class_collector_a83b23095ba50edf4b0630ccd0c128c15}} 
+void {\bfseries set\+\_\+head} (\textbf{ Node} $\ast$new\+\_\+head)
+\item 
+\mbox{\label{class_collector_a7f2c583b7bcedf7669c867b031c70c98}} 
+void {\bfseries append} (string new\+\_\+name, int new\+\_\+memory, int new\+\_\+offset)
+\item 
+\mbox{\label{class_collector_a0231cd5d23a2ee83a52f0c1441ec8d71}} 
+\textbf{ Node} $\ast$ {\bfseries delete\+Node} (\textbf{ Node} $\ast$del)
+\item 
+\mbox{\label{class_collector_ac415b568e686ccf385cb3b7ee7594edb}} 
+void {\bfseries print\+List} ()
+\item 
+\mbox{\label{class_collector_a67383dcd4dbb52dba27c5e5405ab0cc3}} 
+bool {\bfseries verify\+\_\+recycled\+\_\+one} ()
+\item 
+\mbox{\label{class_collector_ab5f6fa9fb9ec925f9f0c2558aafdc7b0}} 
+bool {\bfseries verify\+\_\+recycled\+\_\+four} ()
+\item 
+\mbox{\label{class_collector_ab33589d8a9f3c50a5297d079cc4c9bec}} 
+bool {\bfseries verify\+\_\+recycled\+\_\+eight} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_collector_af6b6644185c55c109b32b6b43230c4d0}} 
+\textbf{ Node} $\ast$ {\bfseries head}
+\item 
+\mbox{\label{class_collector_a6df467eaf644917cfcd115ca2b4643ba}} 
+int {\bfseries length} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+clase collector utilizado para almacenar nodos de variables no usadas 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_collector_ad044dd98d2a7fcc0c2afd82fa667a775}} 
+\index{Collector@{Collector}!append@{append}}
+\index{append@{append}!Collector@{Collector}}
+\doxysubsubsection{append()}
+{\footnotesize\ttfamily void Collector\+::append (\begin{DoxyParamCaption}\item[{string}]{new\+\_\+name,  }\item[{int}]{new\+\_\+memory,  }\item[{int}]{new\+\_\+offset,  }\item[{int}]{new\+\_\+count,  }\item[{bool}]{new\+\_\+mark,  }\item[{int}]{new\+\_\+references }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Agrega un nodo al final de collector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+name} & nombre que será guardado \\
+\hline
+{\em new\+\_\+memory} & valor de memoria que será guardado \\
+\hline
+{\em new\+\_\+offset} & valor de offset que será guardado \\
+\hline
+{\em new\+\_\+count} & valor de count que será guardado \\
+\hline
+{\em new\+\_\+mark} & valor de marcador que será guardado \\
+\hline
+{\em new\+\_\+references} & valor de reference que será guardado \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_collector_a0231cd5d23a2ee83a52f0c1441ec8d71}} 
+\index{Collector@{Collector}!deleteNode@{deleteNode}}
+\index{deleteNode@{deleteNode}!Collector@{Collector}}
+\doxysubsubsection{deleteNode()}
+{\footnotesize\ttfamily \textbf{ Node}$\ast$ Collector\+::delete\+Node (\begin{DoxyParamCaption}\item[{\textbf{ Node} $\ast$}]{del }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+borra un nodo indicado de collector 
+
+
+\begin{DoxyParams}{Parameters}
+{\em del} & nodo que será borrado de collector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el nodo que fue borrado 
+\end{DoxyReturn}
+\mbox{\label{class_collector_a83b23095ba50edf4b0630ccd0c128c15}} 
+\index{Collector@{Collector}!set\_head@{set\_head}}
+\index{set\_head@{set\_head}!Collector@{Collector}}
+\doxysubsubsection{set\_head()}
+{\footnotesize\ttfamily void Collector\+::set\+\_\+head (\begin{DoxyParamCaption}\item[{\textbf{ Node} $\ast$}]{new\+\_\+head }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Prepara el primer nodo de collector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+head} & Recibe un puntero de un nodo \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_collector_ab33589d8a9f3c50a5297d079cc4c9bec}} 
+\index{Collector@{Collector}!verify\_recycled\_eight@{verify\_recycled\_eight}}
+\index{verify\_recycled\_eight@{verify\_recycled\_eight}!Collector@{Collector}}
+\doxysubsubsection{verify\_recycled\_eight()}
+{\footnotesize\ttfamily bool Collector\+::verify\+\_\+recycled\+\_\+eight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+verifica si existe algún nodo que almacene 8 bytes en collector 
+
+\begin{DoxyReturn}{Returns}
+un bool indicando si existe un nodo que almacena 8 bytes en él o no 
+\end{DoxyReturn}
+\mbox{\label{class_collector_ab5f6fa9fb9ec925f9f0c2558aafdc7b0}} 
+\index{Collector@{Collector}!verify\_recycled\_four@{verify\_recycled\_four}}
+\index{verify\_recycled\_four@{verify\_recycled\_four}!Collector@{Collector}}
+\doxysubsubsection{verify\_recycled\_four()}
+{\footnotesize\ttfamily bool Collector\+::verify\+\_\+recycled\+\_\+four (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+verifica si existe algún nodo que almacene 4 bytes en collector 
+
+\begin{DoxyReturn}{Returns}
+un bool indicando si existe un nodo que almacena 4 bytes en él o no 
+\end{DoxyReturn}
+\mbox{\label{class_collector_a67383dcd4dbb52dba27c5e5405ab0cc3}} 
+\index{Collector@{Collector}!verify\_recycled\_one@{verify\_recycled\_one}}
+\index{verify\_recycled\_one@{verify\_recycled\_one}!Collector@{Collector}}
+\doxysubsubsection{verify\_recycled\_one()}
+{\footnotesize\ttfamily bool Collector\+::verify\+\_\+recycled\+\_\+one (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+verifica si existe algún nodo que almacene 1 byte en collector 
+
+\begin{DoxyReturn}{Returns}
+un bool indicando si existe un nodo que almacena 1 byte en él o no 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ mserver.\+cpp}\item 
+test2.\+cpp\end{DoxyCompactItemize}

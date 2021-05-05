@@ -1,0 +1,42 @@
+\doxysection{nlohmann\+::detail\+::internal\+\_\+iterator$<$ Basic\+Json\+Type $>$ Struct Template Reference}
+\label{structnlohmann_1_1detail_1_1internal__iterator}\index{nlohmann::detail::internal\_iterator$<$ BasicJsonType $>$@{nlohmann::detail::internal\_iterator$<$ BasicJsonType $>$}}
+
+
+an iterator value  
+
+
+
+
+{\ttfamily \#include $<$json.\+hpp$>$}
+
+
+
+Collaboration diagram for nlohmann\+::detail\+::internal\+\_\+iterator$<$ Basic\+Json\+Type $>$\+:
+% FIG 0
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{structnlohmann_1_1detail_1_1internal__iterator_a8cb0af3498061426c1d0a65ad6220408}} 
+Basic\+Json\+Type\+::object\+\_\+t\+::iterator \textbf{ object\+\_\+iterator} \{\}
+\begin{DoxyCompactList}\small\item\em iterator for JSON objects \end{DoxyCompactList}\item 
+\mbox{\label{structnlohmann_1_1detail_1_1internal__iterator_a8294a6e6f01b58e1cce8fbae66a50b5d}} 
+Basic\+Json\+Type\+::array\+\_\+t\+::iterator \textbf{ array\+\_\+iterator} \{\}
+\begin{DoxyCompactList}\small\item\em iterator for JSON arrays \end{DoxyCompactList}\item 
+\mbox{\label{structnlohmann_1_1detail_1_1internal__iterator_a2b3bb45f968210e42c282017eeeb63a8}} 
+\textbf{ primitive\+\_\+iterator\+\_\+t} \textbf{ primitive\+\_\+iterator} \{\}
+\begin{DoxyCompactList}\small\item\em generic iterator for all other types \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Basic\+Json\+Type$>$\newline
+struct nlohmann\+::detail\+::internal\+\_\+iterator$<$ Basic\+Json\+Type $>$}
+an iterator value 
+
+\begin{DoxyNote}{Note}
+This structure could easily be a union, but MSVC currently does not allow unions members with complex constructors, see {\texttt{ https\+://github.\+com/nlohmann/json/pull/105}}. 
+\end{DoxyNote}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}

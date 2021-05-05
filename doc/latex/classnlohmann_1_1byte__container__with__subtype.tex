@@ -1,0 +1,191 @@
+\doxysection{nlohmann\+::byte\+\_\+container\+\_\+with\+\_\+subtype$<$ Binary\+Type $>$ Class Template Reference}
+\label{classnlohmann_1_1byte__container__with__subtype}\index{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$@{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$}}
+
+
+an internal type for a backed binary type  
+
+
+
+
+{\ttfamily \#include $<$json.\+hpp$>$}
+
+
+
+Inheritance diagram for nlohmann\+::byte\+\_\+container\+\_\+with\+\_\+subtype$<$ Binary\+Type $>$\+:
+% FIG 0
+
+
+Collaboration diagram for nlohmann\+::byte\+\_\+container\+\_\+with\+\_\+subtype$<$ Binary\+Type $>$\+:
+% FIG 1
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_a4d27e8633c5a5e3b49dd4ccb06515713}} 
+using \textbf{ container\+\_\+type} = Binary\+Type
+\begin{DoxyCompactList}\small\item\em the type of the underlying container \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_a640b6dd55847e86dbb936f97b946170e}} 
+{\bfseries byte\+\_\+container\+\_\+with\+\_\+subtype} (const \textbf{ container\+\_\+type} \&b) noexcept(noexcept(\textbf{ container\+\_\+type}(b)))
+\item 
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_a73dcae1798eab1b496936bfae7b4b9c0}} 
+{\bfseries byte\+\_\+container\+\_\+with\+\_\+subtype} (\textbf{ container\+\_\+type} \&\&b) noexcept(noexcept(\textbf{ container\+\_\+type}(std\+::move(b))))
+\item 
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_ac267e4fe960124976452bb46d7fe6792}} 
+{\bfseries byte\+\_\+container\+\_\+with\+\_\+subtype} (const \textbf{ container\+\_\+type} \&b, std\+::uint8\+\_\+t \textbf{ subtype}) noexcept(noexcept(\textbf{ container\+\_\+type}(b)))
+\item 
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_a7e3da6b709fc1ee661d298e74a29c06b}} 
+{\bfseries byte\+\_\+container\+\_\+with\+\_\+subtype} (\textbf{ container\+\_\+type} \&\&b, std\+::uint8\+\_\+t \textbf{ subtype}) noexcept(noexcept(\textbf{ container\+\_\+type}(std\+::move(b))))
+\item 
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_aee67fde9d3d571a07d5bb35df21c0555}} 
+bool {\bfseries operator==} (const \textbf{ byte\+\_\+container\+\_\+with\+\_\+subtype} \&rhs) const
+\item 
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_a760bf39cc5477bc663d8bb3c44aabf6a}} 
+bool {\bfseries operator!=} (const \textbf{ byte\+\_\+container\+\_\+with\+\_\+subtype} \&rhs) const
+\item 
+void \textbf{ set\+\_\+subtype} (std\+::uint8\+\_\+t \textbf{ subtype}) noexcept
+\begin{DoxyCompactList}\small\item\em sets the binary subtype \end{DoxyCompactList}\item 
+constexpr std\+::uint8\+\_\+t \textbf{ subtype} () const noexcept
+\begin{DoxyCompactList}\small\item\em return the binary subtype \end{DoxyCompactList}\item 
+constexpr bool \textbf{ has\+\_\+subtype} () const noexcept
+\begin{DoxyCompactList}\small\item\em return whether the value has a subtype \end{DoxyCompactList}\item 
+void \textbf{ clear\+\_\+subtype} () noexcept
+\begin{DoxyCompactList}\small\item\em clears the binary subtype \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Binary\+Type$>$\newline
+class nlohmann\+::byte\+\_\+container\+\_\+with\+\_\+subtype$<$ Binary\+Type $>$}
+an internal type for a backed binary type 
+
+This type extends the template parameter {\itshape Binary\+Type} provided to {\ttfamily \doxyref{basic\+\_\+json}{p.}{classnlohmann_1_1basic__json}} with a subtype used by BSON and Message\+Pack. This type exists so that the user does not have to specify a type themselves with a specific naming scheme in order to override the binary type.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Binary\+Type} & container to store bytes ({\ttfamily std\+::vector$<$std\+::uint8\+\_\+t$>$} by default)\\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxySince}{Since}
+version 3.\+8.\+0 
+\end{DoxySince}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_a7b122b28ff2b8680557ca44ac9748e49}} 
+\index{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$@{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$}!clear\_subtype@{clear\_subtype}}
+\index{clear\_subtype@{clear\_subtype}!nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$@{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$}}
+\doxysubsubsection{clear\_subtype()}
+{\footnotesize\ttfamily template$<$typename Binary\+Type $>$ \\
+void \textbf{ nlohmann\+::byte\+\_\+container\+\_\+with\+\_\+subtype}$<$ Binary\+Type $>$\+::clear\+\_\+subtype (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+clears the binary subtype 
+
+Clears the binary subtype and flags the value as not having a subtype, which has implications for serialization; for instance Message\+Pack will prefer the bin family over the ext family.
+
+@complexity Constant.
+
+@exceptionsafety No-\/throw guarantee\+: this member function never throws exceptions.
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} -- return the binary \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} 
+
+\doxyref{set\+\_\+subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_aa1653b01b420607b359a3e8815b516c2} -- sets the binary \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} 
+
+\doxyref{has\+\_\+subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_a9fc42fb07003bf7048c2f1fc79478e02} -- returns whether or not the binary value has a \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0}
+\end{DoxySeeAlso}
+\begin{DoxySince}{Since}
+version 3.\+8.\+0 
+\end{DoxySince}
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_a9fc42fb07003bf7048c2f1fc79478e02}} 
+\index{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$@{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$}!has\_subtype@{has\_subtype}}
+\index{has\_subtype@{has\_subtype}!nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$@{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$}}
+\doxysubsubsection{has\_subtype()}
+{\footnotesize\ttfamily template$<$typename Binary\+Type $>$ \\
+constexpr bool \textbf{ nlohmann\+::byte\+\_\+container\+\_\+with\+\_\+subtype}$<$ Binary\+Type $>$\+::has\+\_\+subtype (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+return whether the value has a subtype 
+
+\begin{DoxyReturn}{Returns}
+whether the value has a subtype
+\end{DoxyReturn}
+@complexity Constant.
+
+@exceptionsafety No-\/throw guarantee\+: this member function never throws exceptions.
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} -- return the binary \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} 
+
+\doxyref{set\+\_\+subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_aa1653b01b420607b359a3e8815b516c2} -- sets the binary \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} 
+
+\doxyref{clear\+\_\+subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_a7b122b28ff2b8680557ca44ac9748e49} -- clears the binary \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0}
+\end{DoxySeeAlso}
+\begin{DoxySince}{Since}
+version 3.\+8.\+0 
+\end{DoxySince}
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_aa1653b01b420607b359a3e8815b516c2}} 
+\index{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$@{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$}!set\_subtype@{set\_subtype}}
+\index{set\_subtype@{set\_subtype}!nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$@{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$}}
+\doxysubsubsection{set\_subtype()}
+{\footnotesize\ttfamily template$<$typename Binary\+Type $>$ \\
+void \textbf{ nlohmann\+::byte\+\_\+container\+\_\+with\+\_\+subtype}$<$ Binary\+Type $>$\+::set\+\_\+subtype (\begin{DoxyParamCaption}\item[{std\+::uint8\+\_\+t}]{subtype }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+sets the binary subtype 
+
+Sets the binary subtype of the value, also flags a binary JSON value as having a subtype, which has implications for serialization.
+
+@complexity Constant.
+
+@exceptionsafety No-\/throw guarantee\+: this member function never throws exceptions.
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} -- return the binary \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} 
+
+\doxyref{clear\+\_\+subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_a7b122b28ff2b8680557ca44ac9748e49} -- clears the binary \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} 
+
+\doxyref{has\+\_\+subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_a9fc42fb07003bf7048c2f1fc79478e02} -- returns whether or not the binary value has a \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0}
+\end{DoxySeeAlso}
+\begin{DoxySince}{Since}
+version 3.\+8.\+0 
+\end{DoxySince}
+\mbox{\label{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0}} 
+\index{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$@{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$}!subtype@{subtype}}
+\index{subtype@{subtype}!nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$@{nlohmann::byte\_container\_with\_subtype$<$ BinaryType $>$}}
+\doxysubsubsection{subtype()}
+{\footnotesize\ttfamily template$<$typename Binary\+Type $>$ \\
+constexpr std\+::uint8\+\_\+t \textbf{ nlohmann\+::byte\+\_\+container\+\_\+with\+\_\+subtype}$<$ Binary\+Type $>$\+::subtype (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}, {\ttfamily [noexcept]}}
+
+
+
+return the binary subtype 
+
+Returns the numerical subtype of the value if it has a subtype. If it does not have a subtype, this function will return size\+\_\+t(-\/1) as a sentinel value.
+
+\begin{DoxyReturn}{Returns}
+the numerical subtype of the binary value
+\end{DoxyReturn}
+@complexity Constant.
+
+@exceptionsafety No-\/throw guarantee\+: this member function never throws exceptions.
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{set\+\_\+subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_aa1653b01b420607b359a3e8815b516c2} -- sets the binary \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} 
+
+\doxyref{clear\+\_\+subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_a7b122b28ff2b8680557ca44ac9748e49} -- clears the binary \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0} 
+
+\doxyref{has\+\_\+subtype()}{p.}{classnlohmann_1_1byte__container__with__subtype_a9fc42fb07003bf7048c2f1fc79478e02} -- returns whether or not the binary value has a \doxyref{subtype}{p.}{classnlohmann_1_1byte__container__with__subtype_ac3ca9d09e55342f9588404e1dc2222f0}
+\end{DoxySeeAlso}
+\begin{DoxySince}{Since}
+version 3.\+8.\+0 
+\end{DoxySince}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}

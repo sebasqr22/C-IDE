@@ -1,0 +1,37 @@
+\doxysection{nlohmann\+::detail\+::is\+\_\+compatible\+\_\+object\+\_\+type\+\_\+impl$<$ Basic\+Json\+Type, Compatible\+Object\+Type, enable\+\_\+if\+\_\+t$<$ is\+\_\+detected$<$ mapped\+\_\+type\+\_\+t, Compatible\+Object\+Type $>$\+::value \&\&is\+\_\+detected$<$ key\+\_\+type\+\_\+t, Compatible\+Object\+Type $>$\+::value $>$ $>$ Struct Template Reference}
+\label{structnlohmann_1_1detail_1_1is__compatible__object__type__impl_3_01_basic_json_type_00_01_compat5b5eeaa8fc54c99a69d765462ac539f5}\index{nlohmann::detail::is\_compatible\_object\_type\_impl$<$ BasicJsonType, CompatibleObjectType, enable\_if\_t$<$ is\_detected$<$ mapped\_type\_t, CompatibleObjectType $>$::value \&\&is\_detected$<$ key\_type\_t, CompatibleObjectType $>$::value $>$ $>$@{nlohmann::detail::is\_compatible\_object\_type\_impl$<$ BasicJsonType, CompatibleObjectType, enable\_if\_t$<$ is\_detected$<$ mapped\_type\_t, CompatibleObjectType $>$::value \&\&is\_detected$<$ key\_type\_t, CompatibleObjectType $>$::value $>$ $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{structnlohmann_1_1detail_1_1is__compatible__object__type__impl_3_01_basic_json_type_00_01_compat5b5eeaa8fc54c99a69d765462ac539f5_ab019855b17c1a0cb16fda6731f338afc}} 
+using {\bfseries object\+\_\+t} = typename Basic\+Json\+Type\+::object\+\_\+t
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool {\bfseries value}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{structnlohmann_1_1detail_1_1is__compatible__object__type__impl_3_01_basic_json_type_00_01_compat5b5eeaa8fc54c99a69d765462ac539f5_a74b723d759119148c44a5e0899956a72}} 
+\index{nlohmann::detail::is\_compatible\_object\_type\_impl$<$ BasicJsonType, CompatibleObjectType, enable\_if\_t$<$ is\_detected$<$ mapped\_type\_t, CompatibleObjectType $>$::value \&\&is\_detected$<$ key\_type\_t, CompatibleObjectType $>$::value $>$ $>$@{nlohmann::detail::is\_compatible\_object\_type\_impl$<$ BasicJsonType, CompatibleObjectType, enable\_if\_t$<$ is\_detected$<$ mapped\_type\_t, CompatibleObjectType $>$::value \&\&is\_detected$<$ key\_type\_t, CompatibleObjectType $>$::value $>$ $>$}!value@{value}}
+\index{value@{value}!nlohmann::detail::is\_compatible\_object\_type\_impl$<$ BasicJsonType, CompatibleObjectType, enable\_if\_t$<$ is\_detected$<$ mapped\_type\_t, CompatibleObjectType $>$::value \&\&is\_detected$<$ key\_type\_t, CompatibleObjectType $>$::value $>$ $>$@{nlohmann::detail::is\_compatible\_object\_type\_impl$<$ BasicJsonType, CompatibleObjectType, enable\_if\_t$<$ is\_detected$<$ mapped\_type\_t, CompatibleObjectType $>$::value \&\&is\_detected$<$ key\_type\_t, CompatibleObjectType $>$::value $>$ $>$}}
+\doxysubsubsection{value}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename Compatible\+Object\+Type $>$ \\
+constexpr bool \textbf{ nlohmann\+::detail\+::is\+\_\+compatible\+\_\+object\+\_\+type\+\_\+impl}$<$ Basic\+Json\+Type, Compatible\+Object\+Type, enable\+\_\+if\+\_\+t$<$ is\+\_\+detected$<$ mapped\+\_\+type\+\_\+t, Compatible\+Object\+Type $>$\+::value \&\&is\+\_\+detected$<$ key\+\_\+type\+\_\+t, Compatible\+Object\+Type $>$\+::value $>$ $>$\+::value\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{        std::is\_constructible<\textcolor{keyword}{typename} object\_t::key\_type,}
+\DoxyCodeLine{        \textcolor{keyword}{typename} CompatibleObjectType::key\_type>::value \&\&}
+\DoxyCodeLine{        std::is\_constructible<\textcolor{keyword}{typename} object\_t::mapped\_type,}
+\DoxyCodeLine{        \textcolor{keyword}{typename} CompatibleObjectType::mapped\_type>::value}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}

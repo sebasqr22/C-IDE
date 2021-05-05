@@ -1,0 +1,41 @@
+\doxysection{nlohmann\+::detail\+::input\+\_\+stream\+\_\+adapter Class Reference}
+\label{classnlohmann_1_1detail_1_1input__stream__adapter}\index{nlohmann::detail::input\_stream\_adapter@{nlohmann::detail::input\_stream\_adapter}}
+
+
+{\ttfamily \#include $<$json.\+hpp$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1input__stream__adapter_a72f0713587f6bb3f3fbaae7d34c0ca39}} 
+using {\bfseries char\+\_\+type} = char
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1input__stream__adapter_af487152e4606d013eb4ec6a90eaf82ea}} 
+{\bfseries input\+\_\+stream\+\_\+adapter} (std\+::istream \&i)
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1input__stream__adapter_a5190fe4d0c5ff2e3b348b28ee3bb2218}} 
+{\bfseries input\+\_\+stream\+\_\+adapter} (const \textbf{ input\+\_\+stream\+\_\+adapter} \&)=delete
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1input__stream__adapter_aeac5048221929b8f7558d1698dd0fb3a}} 
+\textbf{ input\+\_\+stream\+\_\+adapter} \& {\bfseries operator=} (\textbf{ input\+\_\+stream\+\_\+adapter} \&)=delete
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1input__stream__adapter_a088eead93cd71f1e3613d1876e3c95da}} 
+\textbf{ input\+\_\+stream\+\_\+adapter} \& {\bfseries operator=} (\textbf{ input\+\_\+stream\+\_\+adapter} \&\&rhs)=delete
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1input__stream__adapter_a0be44ef098e88e8453eb4c31c9b14421}} 
+{\bfseries input\+\_\+stream\+\_\+adapter} (\textbf{ input\+\_\+stream\+\_\+adapter} \&\&rhs) noexcept
+\item 
+\mbox{\label{classnlohmann_1_1detail_1_1input__stream__adapter_ac6c760c5df3a85b5800b4271c09e8671}} 
+std\+::char\+\_\+traits$<$ char $>$\+::int\+\_\+type {\bfseries get\+\_\+character} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Input adapter for a (caching) istream. Ignores a UFT Byte Order Mark at beginning of input. Does not support changing the underlying std\+::streambuf in mid-\/input. Maintains underlying std\+::istream and std\+::streambuf to support subsequent use of standard std\+::istream operations to process any input characters following those used in parsing the JSON input. Clears the std\+::istream flags; any input errors (e.\+g., EOF) will be detected by the first subsequent call for input from the std\+::istream. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}

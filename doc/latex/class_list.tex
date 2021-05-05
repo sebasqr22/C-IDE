@@ -1,0 +1,186 @@
+\doxysection{List Class Reference}
+\label{class_list}\index{List@{List}}
+
+
+clase lista utilizado para almacenar nodos de variables usadas  
+
+
+
+
+Collaboration diagram for List\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ set\+\_\+head} (\textbf{ Node} $\ast$new\+\_\+head)
+\begin{DoxyCompactList}\small\item\em Prepara el primer nodo de la lista. \end{DoxyCompactList}\item 
+void \textbf{ append} (string new\+\_\+name, int new\+\_\+memory, int new\+\_\+offset, int new\+\_\+count, bool new\+\_\+mark, int new\+\_\+references)
+\begin{DoxyCompactList}\small\item\em Agrega un nodo al final de la lista. \end{DoxyCompactList}\item 
+\textbf{ Node} $\ast$ \textbf{ delete\+Node} (\textbf{ Node} $\ast$del)
+\begin{DoxyCompactList}\small\item\em borra un nodo indicado de lista \end{DoxyCompactList}\item 
+\mbox{\label{class_list_a1bb66c2777061ab3b8260746a8c3961e}} 
+void \textbf{ print\+List} ()
+\begin{DoxyCompactList}\small\item\em imprime todos los elementos de la lista \end{DoxyCompactList}\item 
+bool \textbf{ check\+\_\+list} (string input\+\_\+name)
+\begin{DoxyCompactList}\small\item\em función que revisa si algún nodo de la lista tiene el nombre especificado \end{DoxyCompactList}\item 
+int \textbf{ find\+\_\+offset} (string input\+\_\+name)
+\begin{DoxyCompactList}\small\item\em busca el offset almacenado en un nodo que tenga el nombre especificado \end{DoxyCompactList}\item 
+int \textbf{ find\+\_\+count} (string input\+\_\+name)
+\begin{DoxyCompactList}\small\item\em busca la cantidad de veces que se ha llamado una variable \end{DoxyCompactList}\item 
+\mbox{\label{class_list_a5d6ce422b31aa2665f9083a1053b5ded}} 
+void \textbf{ add\+\_\+counts} ()
+\begin{DoxyCompactList}\small\item\em le suma uno al count de todos los elementos en la lista que no estaban presentes en un run \end{DoxyCompactList}\item 
+\mbox{\label{class_list_a85b6cb70a0d48a236b0ce3e3a99cd5e2}} 
+void \textbf{ reset\+\_\+marks} ()
+\begin{DoxyCompactList}\small\item\em resetea las marcas de todos los nodos a false \end{DoxyCompactList}\item 
+\mbox{\label{class_list_a3e324bd64300ace3a226119634b1b9f5}} 
+void {\bfseries set\+\_\+head} (\textbf{ Node} $\ast$new\+\_\+head)
+\item 
+\mbox{\label{class_list_abc4d0d96548f3b314b94e53acef52cc9}} 
+void {\bfseries append} (string new\+\_\+name, int new\+\_\+memory, int new\+\_\+offset)
+\item 
+\mbox{\label{class_list_ad68d800538f9b701e6964f8873588b78}} 
+\textbf{ Node} $\ast$ {\bfseries delete\+Node} (\textbf{ Node} $\ast$del)
+\item 
+\mbox{\label{class_list_a1bb66c2777061ab3b8260746a8c3961e}} 
+void {\bfseries print\+List} ()
+\item 
+\mbox{\label{class_list_a675c3d1b0a3937e2a5c5d71ffc06324e}} 
+bool {\bfseries check\+\_\+list} (string input\+\_\+name)
+\item 
+\mbox{\label{class_list_a5d6ce422b31aa2665f9083a1053b5ded}} 
+void {\bfseries add\+\_\+counts} ()
+\item 
+\mbox{\label{class_list_a85b6cb70a0d48a236b0ce3e3a99cd5e2}} 
+void {\bfseries reset\+\_\+marks} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_list_ab7558270db66971c9d9a0dbe79f2a2fa}} 
+\textbf{ Node} $\ast$ {\bfseries head}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+clase lista utilizado para almacenar nodos de variables usadas 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_list_aefccb2ea3f920cebfd2be20d36694752}} 
+\index{List@{List}!append@{append}}
+\index{append@{append}!List@{List}}
+\doxysubsubsection{append()}
+{\footnotesize\ttfamily void List\+::append (\begin{DoxyParamCaption}\item[{string}]{new\+\_\+name,  }\item[{int}]{new\+\_\+memory,  }\item[{int}]{new\+\_\+offset,  }\item[{int}]{new\+\_\+count,  }\item[{bool}]{new\+\_\+mark,  }\item[{int}]{new\+\_\+references }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Agrega un nodo al final de la lista. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+name} & nombre que será guardado \\
+\hline
+{\em new\+\_\+memory} & valor de memoria que será guardado \\
+\hline
+{\em new\+\_\+offset} & valor de offset que será guardado \\
+\hline
+{\em new\+\_\+count} & valor de count que será guardado \\
+\hline
+{\em new\+\_\+mark} & valor de marcador que será guardado \\
+\hline
+{\em new\+\_\+references} & valor de reference que será guardado \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_list_a675c3d1b0a3937e2a5c5d71ffc06324e}} 
+\index{List@{List}!check\_list@{check\_list}}
+\index{check\_list@{check\_list}!List@{List}}
+\doxysubsubsection{check\_list()}
+{\footnotesize\ttfamily bool List\+::check\+\_\+list (\begin{DoxyParamCaption}\item[{string}]{input\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+función que revisa si algún nodo de la lista tiene el nombre especificado 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+name} & el nombre que se desea ver si está en la lista o no \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+un bool indicando si existe un nodo con el nombre especificado o no 
+\end{DoxyReturn}
+\mbox{\label{class_list_ad68d800538f9b701e6964f8873588b78}} 
+\index{List@{List}!deleteNode@{deleteNode}}
+\index{deleteNode@{deleteNode}!List@{List}}
+\doxysubsubsection{deleteNode()}
+{\footnotesize\ttfamily \textbf{ Node}$\ast$ List\+::delete\+Node (\begin{DoxyParamCaption}\item[{\textbf{ Node} $\ast$}]{del }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+borra un nodo indicado de lista 
+
+
+\begin{DoxyParams}{Parameters}
+{\em del} & nodo que será borrado de lista \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el nodo que fue borrado 
+\end{DoxyReturn}
+\mbox{\label{class_list_ad5d758add250c6fd3254391957617f25}} 
+\index{List@{List}!find\_count@{find\_count}}
+\index{find\_count@{find\_count}!List@{List}}
+\doxysubsubsection{find\_count()}
+{\footnotesize\ttfamily int List\+::find\+\_\+count (\begin{DoxyParamCaption}\item[{string}]{input\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+busca la cantidad de veces que se ha llamado una variable 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+name} & el nombre especificado para buscar su conteo respectivo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la cantidad de veces que se ha llamado la variable 
+\end{DoxyReturn}
+\mbox{\label{class_list_a5dce4530913c9b12e6d22db1d3a26da6}} 
+\index{List@{List}!find\_offset@{find\_offset}}
+\index{find\_offset@{find\_offset}!List@{List}}
+\doxysubsubsection{find\_offset()}
+{\footnotesize\ttfamily int List\+::find\+\_\+offset (\begin{DoxyParamCaption}\item[{string}]{input\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+busca el offset almacenado en un nodo que tenga el nombre especificado 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+name} & el nombre especificado para buscar su offset respectivo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el offset del nodo con el nombre correcto 
+\end{DoxyReturn}
+\mbox{\label{class_list_a3e324bd64300ace3a226119634b1b9f5}} 
+\index{List@{List}!set\_head@{set\_head}}
+\index{set\_head@{set\_head}!List@{List}}
+\doxysubsubsection{set\_head()}
+{\footnotesize\ttfamily void List\+::set\+\_\+head (\begin{DoxyParamCaption}\item[{\textbf{ Node} $\ast$}]{new\+\_\+head }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Prepara el primer nodo de la lista. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+head} & Recibe un puntero de un nodo \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\textbf{ mserver.\+cpp}\item 
+test2.\+cpp\end{DoxyCompactItemize}

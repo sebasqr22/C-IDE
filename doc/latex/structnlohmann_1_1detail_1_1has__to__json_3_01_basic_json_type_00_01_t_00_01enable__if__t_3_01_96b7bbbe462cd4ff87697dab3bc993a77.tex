@@ -1,0 +1,35 @@
+\doxysection{nlohmann\+::detail\+::has\+\_\+to\+\_\+json$<$ Basic\+Json\+Type, T, enable\+\_\+if\+\_\+t$<$ !is\+\_\+basic\+\_\+json$<$ T $>$\+::value $>$ $>$ Struct Template Reference}
+\label{structnlohmann_1_1detail_1_1has__to__json_3_01_basic_json_type_00_01_t_00_01enable__if__t_3_01_96b7bbbe462cd4ff87697dab3bc993a77}\index{nlohmann::detail::has\_to\_json$<$ BasicJsonType, T, enable\_if\_t$<$ "!is\_basic\_json$<$ T $>$::value $>$ $>$@{nlohmann::detail::has\_to\_json$<$ BasicJsonType, T, enable\_if\_t$<$ "!is\_basic\_json$<$ T $>$::value $>$ $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{structnlohmann_1_1detail_1_1has__to__json_3_01_basic_json_type_00_01_t_00_01enable__if__t_3_01_96b7bbbe462cd4ff87697dab3bc993a77_a7af8dd95a01e7ca32f10075c9934b107}} 
+using {\bfseries serializer} = typename Basic\+Json\+Type\+::template json\+\_\+serializer$<$ T, void $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr bool {\bfseries value}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{structnlohmann_1_1detail_1_1has__to__json_3_01_basic_json_type_00_01_t_00_01enable__if__t_3_01_96b7bbbe462cd4ff87697dab3bc993a77_a25600efc3dbab20cebe1a90f97505d6a}} 
+\index{nlohmann::detail::has\_to\_json$<$ BasicJsonType, T, enable\_if\_t$<$ "!is\_basic\_json$<$ T $>$::value $>$ $>$@{nlohmann::detail::has\_to\_json$<$ BasicJsonType, T, enable\_if\_t$<$ "!is\_basic\_json$<$ T $>$::value $>$ $>$}!value@{value}}
+\index{value@{value}!nlohmann::detail::has\_to\_json$<$ BasicJsonType, T, enable\_if\_t$<$ "!is\_basic\_json$<$ T $>$::value $>$ $>$@{nlohmann::detail::has\_to\_json$<$ BasicJsonType, T, enable\_if\_t$<$ "!is\_basic\_json$<$ T $>$::value $>$ $>$}}
+\doxysubsubsection{value}
+{\footnotesize\ttfamily template$<$typename Basic\+Json\+Type , typename T $>$ \\
+constexpr bool \textbf{ nlohmann\+::detail\+::has\+\_\+to\+\_\+json}$<$ Basic\+Json\+Type, T, enable\+\_\+if\+\_\+t$<$ !\textbf{ is\+\_\+basic\+\_\+json}$<$ T $>$\+::value $>$ $>$\+::value\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{        is\_detected\_exact<void, to\_json\_function, serializer, BasicJsonType\&,}
+\DoxyCodeLine{        T>::value}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+json.\+hpp\end{DoxyCompactItemize}

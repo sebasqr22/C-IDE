@@ -1,0 +1,408 @@
+\doxysection{ide.\+cpp File Reference}
+\label{ide_8cpp}\index{ide.cpp@{ide.cpp}}
+
+
+Clase que contiene los pricipales métodos de para ser usados con la clase \doxyref{main.\+cpp}{p.}{main_8cpp}.  
+
+
+{\ttfamily \#include \char`\"{}ide.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ui\+\_\+ide.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$QDebug$>$}\newline
+{\ttfamily \#include $<$QMessage\+Box$>$}\newline
+{\ttfamily \#include \char`\"{}creador\+Listas.\+cpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}operaciones.\+cpp\char`\"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}logger.\+cpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}operaciones\+Estructs.\+cpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rapidjson/document.\+h\char`\"{}}\newline
+Include dependency graph for ide.\+cpp\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Document \textbf{ json\+\_\+recieve} (string str)
+\begin{DoxyCompactList}\small\item\em json\+\_\+recieve Hace los parse respectivos para JSON \end{DoxyCompactList}\item 
+QString\+List \textbf{ separador\+JSON} (QString str)
+\begin{DoxyCompactList}\small\item\em separador\+JSON Permite obtener el valor y el nombre de las variables para crear el JSON \end{DoxyCompactList}\item 
+void \textbf{ JSON\+\_\+\+Adapter} (QString\+List lista)
+\begin{DoxyCompactList}\small\item\em JSON\+\_\+\+Adapter Metodo para acomdar las variables en formato JSON y ser enviadas al servidor. \end{DoxyCompactList}\item 
+int \textbf{ crear\+Socket} ()
+\begin{DoxyCompactList}\small\item\em crear\+Socket Metodo que genera el socket entre el ide y el servidor \end{DoxyCompactList}\item 
+bool \textbf{ validar\+Comas} (QString aux)
+\begin{DoxyCompactList}\small\item\em validar\+Comas Metodo para validar si los puntos y comas estan puestos de forma correcta \end{DoxyCompactList}\item 
+QString\+List \textbf{ adapter} (QString tmp)
+\begin{DoxyCompactList}\small\item\em adapter Obtiene el codigo escrito y lo transforma a un formato legible por el software \end{DoxyCompactList}\item 
+QString \textbf{ agrega} (QString aux, int veces)
+\begin{DoxyCompactList}\small\item\em agrega Crea un QString con partes de otro QString, se repite n veces \end{DoxyCompactList}\item 
+int \textbf{ valida\+Resto} (QString\+List tmp, int largo, QString analizando)
+\begin{DoxyCompactList}\small\item\em valida\+Resto Metodo para validar que todo menos las estructuras tengan buen formato \end{DoxyCompactList}\item 
+bool \textbf{ validar\+Tipos} (QString\+List tmp)
+\begin{DoxyCompactList}\small\item\em validar\+Tipos Método para validar el formato del código de C! \end{DoxyCompactList}\item 
+QString\+List \textbf{ imprimir} (QString\+List lista, QString\+List res)
+\begin{DoxyCompactList}\small\item\em imprimir Método para hacer uso de los prints de C! \end{DoxyCompactList}\item 
+\mbox{\label{ide_8cpp_ac6a1de3e5585e5fb2d621897b68994cc}} 
+QString {\bfseries get\+Line} (int num\+Line)
+\item 
+void \textbf{ remove\+All} ()
+\begin{DoxyCompactList}\small\item\em ide\+::imprimir\+Malas Muestra las líneas en que se encuentra un error en el código \end{DoxyCompactList}\item 
+QString\+List \textbf{ quitar\+Repetidos} (QString\+List lista)
+\begin{DoxyCompactList}\small\item\em quitar\+Repetidos Método para quitar elementos repetidos de una lista \end{DoxyCompactList}\item 
+QString\+List \textbf{ cambio\+Formato\+Structs} (QString\+List lista)
+\begin{DoxyCompactList}\small\item\em cambio\+Formato\+Structs Método para crear el formato correcto para las estructuras \end{DoxyCompactList}\item 
+bool \textbf{ hay\+Nulos} (QString\+List lista)
+\begin{DoxyCompactList}\small\item\em hay\+Nulos Verifica si hay variables sin valor \end{DoxyCompactList}\item 
+\mbox{\label{ide_8cpp_a5e79d1440fa61e90f73f231523c3c85c}} 
+QString\+List {\bfseries quita\+Espacios} (QString\+List lista)
+\item 
+bool \textbf{ valida\+Refs} (QString\+List lista, QString\+List lista\+Verificar)
+\begin{DoxyCompactList}\small\item\em valida\+Refs Valida contenido de las referencias \end{DoxyCompactList}\item 
+\mbox{\label{ide_8cpp_a387ee3e84c600415908e30b8ac9ec81f}} 
+QString\+List {\bfseries ordenar\+Ram} (QString\+List codigo, QString\+List a\+Ordenar)
+\item 
+void \textbf{ avanzar\+Ram} (QString linea\+Codigo)
+\begin{DoxyCompactList}\small\item\em avanzar\+Ram Imprimir elementos de la lista \end{DoxyCompactList}\item 
+\mbox{\label{ide_8cpp_a5ff1c36712cf018466aa224853ffa7cd}} 
+void \textbf{ limpiar\+Ram} ()
+\begin{DoxyCompactList}\small\item\em limpiar\+Ram Limpia la lista de datos a mostrar en modo debug \end{DoxyCompactList}\item 
+\mbox{\label{ide_8cpp_a51089b74d8c3fd6191c7435b69770912}} 
+QString {\bfseries get\+Text} (QString str)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{ide_8cpp_a5f7121a913d96aa7bad7c3b59381a4d5}} 
+bool {\bfseries corriendo} = false
+\item 
+\mbox{\label{ide_8cpp_abdc3b0f540bb738fc41bfd819f4622fa}} 
+int {\bfseries depur\+Line} = 0
+\item 
+\mbox{\label{ide_8cpp_a8e36b1eab6d989c7cd230fb264441669}} 
+QString\+List {\bfseries codigo}
+\item 
+\mbox{\label{ide_8cpp_ac81a14b405334fc261cefa7461024d46}} 
+QString\+List {\bfseries bad\+Line}
+\item 
+\mbox{\label{ide_8cpp_add614186ce2cab21ed979a4b6d99370e}} 
+\textbf{ logger} {\bfseries Log}
+\item 
+\mbox{\label{ide_8cpp_aa915a24d212e76aac2046c393019701c}} 
+string {\bfseries json\+Enviar}
+\item 
+\mbox{\label{ide_8cpp_a81d12b386a9c02fa6ce32ec3bbe44b2d}} 
+QString\+List {\bfseries recibidos}
+\item 
+\mbox{\label{ide_8cpp_a115ec2acf86fa69e97100d2bc1b595b7}} 
+QString\+List {\bfseries mostrar\+Ram}
+\item 
+\mbox{\label{ide_8cpp_af4f14e47378a5e989f034d0c0269aaf7}} 
+bool {\bfseries malos\+Prints} = false
+\item 
+\mbox{\label{ide_8cpp_a5903d0b282fc5eae503de618f896b5e1}} 
+int {\bfseries sock} = 0
+\item 
+\mbox{\label{ide_8cpp_add7ecd41088692bcddf064539b23d1e6}} 
+int {\bfseries valread}
+\item 
+\mbox{\label{ide_8cpp_ac724fe70ae8af2d1406927ee7b574a1b}} 
+struct sockaddr\+\_\+in {\bfseries serv\+\_\+addr}
+\item 
+\mbox{\label{ide_8cpp_a63c89c04d1feae07ca35558055155ffb}} 
+int {\bfseries port} = 8080
+\item 
+\mbox{\label{ide_8cpp_a28d4d3d8445e73a696b2d6f7eadabd96}} 
+char {\bfseries buffer} [1024] = \{0\}
+\item 
+\mbox{\label{ide_8cpp_a27eca5bb0de6b64d8885e1943293ef2e}} 
+bool {\bfseries socket\+\_\+exists} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Clase que contiene los pricipales métodos de para ser usados con la clase \doxyref{main.\+cpp}{p.}{main_8cpp}. 
+
+@title IDE 
+
+\doxysubsection{Function Documentation}
+\mbox{\label{ide_8cpp_a87ac5be5ab2d1888841a8ef7667f5007}} 
+\index{ide.cpp@{ide.cpp}!adapter@{adapter}}
+\index{adapter@{adapter}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{adapter()}
+{\footnotesize\ttfamily QString\+List adapter (\begin{DoxyParamCaption}\item[{QString}]{tmp }\end{DoxyParamCaption})}
+
+
+
+adapter Obtiene el codigo escrito y lo transforma a un formato legible por el software 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tmp} & String de una linea de codigo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Lista con la informacion en formato correcto 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_a514d08cfb6bb2d5ee7bc4aadbf768d0a}} 
+\index{ide.cpp@{ide.cpp}!agrega@{agrega}}
+\index{agrega@{agrega}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{agrega()}
+{\footnotesize\ttfamily QString agrega (\begin{DoxyParamCaption}\item[{QString}]{aux,  }\item[{int}]{veces }\end{DoxyParamCaption})}
+
+
+
+agrega Crea un QString con partes de otro QString, se repite n veces 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aux} & QString con la informacion necesaria \\
+\hline
+{\em veces} & Cantidad de veces que se repetira el proceso \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+QString con la informacion generada 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_a854ce33e05ba3cd0f6df081c6264af2c}} 
+\index{ide.cpp@{ide.cpp}!avanzarRam@{avanzarRam}}
+\index{avanzarRam@{avanzarRam}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{avanzarRam()}
+{\footnotesize\ttfamily void avanzar\+Ram (\begin{DoxyParamCaption}\item[{QString}]{linea\+Codigo }\end{DoxyParamCaption})}
+
+
+
+avanzar\+Ram Imprimir elementos de la lista 
+
+
+\begin{DoxyParams}{Parameters}
+{\em linea\+Codigo} & String con linea de codigo \\
+\hline
+\end{DoxyParams}
+\mbox{\label{ide_8cpp_af9c454d14793000fa4b67bab45136dbb}} 
+\index{ide.cpp@{ide.cpp}!cambioFormatoStructs@{cambioFormatoStructs}}
+\index{cambioFormatoStructs@{cambioFormatoStructs}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{cambioFormatoStructs()}
+{\footnotesize\ttfamily QString\+List cambio\+Formato\+Structs (\begin{DoxyParamCaption}\item[{QString\+List}]{lista }\end{DoxyParamCaption})}
+
+
+
+cambio\+Formato\+Structs Método para crear el formato correcto para las estructuras 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lista} & Recibe lista con las estructuras respectivas \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_a9f7fc99a494ec5fa7201908983768dc7}} 
+\index{ide.cpp@{ide.cpp}!crearSocket@{crearSocket}}
+\index{crearSocket@{crearSocket}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{crearSocket()}
+{\footnotesize\ttfamily int crear\+Socket (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+crear\+Socket Metodo que genera el socket entre el ide y el servidor 
+
+\begin{DoxyReturn}{Returns}
+numero entero en caso de error 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_a863e26a8c46435c332da666145107677}} 
+\index{ide.cpp@{ide.cpp}!hayNulos@{hayNulos}}
+\index{hayNulos@{hayNulos}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{hayNulos()}
+{\footnotesize\ttfamily bool hay\+Nulos (\begin{DoxyParamCaption}\item[{QString\+List}]{lista }\end{DoxyParamCaption})}
+
+
+
+hay\+Nulos Verifica si hay variables sin valor 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lista} & Lista de resultados post-\/operaciones \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Valor de verdad, en caso de variables sin valor \char`\"{}true\char`\"{} 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_abe26fb7f296a6eadfb33504f3a727de0}} 
+\index{ide.cpp@{ide.cpp}!imprimir@{imprimir}}
+\index{imprimir@{imprimir}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{imprimir()}
+{\footnotesize\ttfamily QString\+List imprimir (\begin{DoxyParamCaption}\item[{QString\+List}]{lista,  }\item[{QString\+List}]{res }\end{DoxyParamCaption})}
+
+
+
+imprimir Método para hacer uso de los prints de C! 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lista} & Lista con los prints del código generado en C! \\
+\hline
+{\em res} & Lista con todas las variables y sus valores \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Lista con los prints y valores correctos 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_af11a93c1ea7a90738aec444e173d2eaf}} 
+\index{ide.cpp@{ide.cpp}!JSON\_Adapter@{JSON\_Adapter}}
+\index{JSON\_Adapter@{JSON\_Adapter}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{JSON\_Adapter()}
+{\footnotesize\ttfamily void JSON\+\_\+\+Adapter (\begin{DoxyParamCaption}\item[{QString\+List}]{lista }\end{DoxyParamCaption})}
+
+
+
+JSON\+\_\+\+Adapter Metodo para acomdar las variables en formato JSON y ser enviadas al servidor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lista} & Lista con las variables \\
+\hline
+\end{DoxyParams}
+\mbox{\label{ide_8cpp_abf33c0afdc8a7c7fa3f0cfc9b3aef8d9}} 
+\index{ide.cpp@{ide.cpp}!json\_recieve@{json\_recieve}}
+\index{json\_recieve@{json\_recieve}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{json\_recieve()}
+{\footnotesize\ttfamily Document json\+\_\+recieve (\begin{DoxyParamCaption}\item[{string}]{str }\end{DoxyParamCaption})}
+
+
+
+json\+\_\+recieve Hace los parse respectivos para JSON 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & Recibe un string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Un Document con el parse 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_a81669c7cb3bb27f498e6d968a69d4ed5}} 
+\index{ide.cpp@{ide.cpp}!quitarRepetidos@{quitarRepetidos}}
+\index{quitarRepetidos@{quitarRepetidos}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{quitarRepetidos()}
+{\footnotesize\ttfamily QString\+List quitar\+Repetidos (\begin{DoxyParamCaption}\item[{QString\+List}]{lista }\end{DoxyParamCaption})}
+
+
+
+quitar\+Repetidos Método para quitar elementos repetidos de una lista 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lista} & Lista a la que se le quitará los elementos repetidos \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Lista sin elementos repetidos 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_a9b0a5a3ad9972ab0e8eb0b54873aac6b}} 
+\index{ide.cpp@{ide.cpp}!removeAll@{removeAll}}
+\index{removeAll@{removeAll}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{removeAll()}
+{\footnotesize\ttfamily void remove\+All (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ide\+::imprimir\+Malas Muestra las líneas en que se encuentra un error en el código 
+
+remove\+All Borra la info de la lista de lineas con error \mbox{\label{ide_8cpp_a23b826dba8f5099e4f8d3e89669aa756}} 
+\index{ide.cpp@{ide.cpp}!separadorJSON@{separadorJSON}}
+\index{separadorJSON@{separadorJSON}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{separadorJSON()}
+{\footnotesize\ttfamily QString\+List separador\+JSON (\begin{DoxyParamCaption}\item[{QString}]{str }\end{DoxyParamCaption})}
+
+
+
+separador\+JSON Permite obtener el valor y el nombre de las variables para crear el JSON 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & Recibe un string de una variable \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+QString\+List con nombre y valor de una variable 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_ad730fa8089622d9b6394f2d12397a01e}} 
+\index{ide.cpp@{ide.cpp}!validarComas@{validarComas}}
+\index{validarComas@{validarComas}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{validarComas()}
+{\footnotesize\ttfamily bool validar\+Comas (\begin{DoxyParamCaption}\item[{QString}]{aux }\end{DoxyParamCaption})}
+
+
+
+validar\+Comas Metodo para validar si los puntos y comas estan puestos de forma correcta 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aux} & String con informacion de una linea de codigo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Booleano con informacion sobre validacion 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_a80609f30ebbd5f2575a4396516a4973c}} 
+\index{ide.cpp@{ide.cpp}!validaRefs@{validaRefs}}
+\index{validaRefs@{validaRefs}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{validaRefs()}
+{\footnotesize\ttfamily bool valida\+Refs (\begin{DoxyParamCaption}\item[{QString\+List}]{lista,  }\item[{QString\+List}]{lista\+Verificar }\end{DoxyParamCaption})}
+
+
+
+valida\+Refs Valida contenido de las referencias 
+
+
+\begin{DoxyParams}{Parameters}
+{\em lista} & Lista con todas las referencias \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Bool true si todo esta correcto 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_a78d9ac8cf987c84f012c24421110e77f}} 
+\index{ide.cpp@{ide.cpp}!validaResto@{validaResto}}
+\index{validaResto@{validaResto}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{validaResto()}
+{\footnotesize\ttfamily int valida\+Resto (\begin{DoxyParamCaption}\item[{QString\+List}]{tmp,  }\item[{int}]{largo,  }\item[{QString}]{analizando }\end{DoxyParamCaption})}
+
+
+
+valida\+Resto Metodo para validar que todo menos las estructuras tengan buen formato 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tmp} & QString\+List con la informacion a validar \\
+\hline
+{\em largo} & Largo de la lista \char`\"{}tmp\char`\"{} \\
+\hline
+{\em analizando} & QString que se analizará \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Número entero con cantidad de datos correctos 
+\end{DoxyReturn}
+\mbox{\label{ide_8cpp_a4cf62032f4487caa61f96d6b2221ff6d}} 
+\index{ide.cpp@{ide.cpp}!validarTipos@{validarTipos}}
+\index{validarTipos@{validarTipos}!ide.cpp@{ide.cpp}}
+\doxysubsubsection{validarTipos()}
+{\footnotesize\ttfamily bool validar\+Tipos (\begin{DoxyParamCaption}\item[{QString\+List}]{tmp }\end{DoxyParamCaption})}
+
+
+
+validar\+Tipos Método para validar el formato del código de C! 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tmp} & Lista con el código generado \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Booleano que indica si el formato es correcto o no 
+\end{DoxyReturn}
