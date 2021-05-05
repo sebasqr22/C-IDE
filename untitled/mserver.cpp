@@ -323,7 +323,7 @@ int main(int argc, char const *argv[])
     list.set_head(head_list);
     collector.set_head(head_collector);
     ofstream file;
-    file.open ("./untitled/example.txt");
+    file.open ("./untitled/info.txt");
     file << "";
     file.close();
 
@@ -386,9 +386,11 @@ int main(int argc, char const *argv[])
                 string value_in_string = documentPet["value"].GetString();
                 string memory_value = documentPet["memory"].GetString();
                 string address_str;
+                string pointer_address_str;
                 int ref_count_int;
                 string ref_count_string;
                 ostringstream get_address;
+                ostringstream get_pointer_address;
                 stringstream ss;
                 cout <<"TODO: "<< name << type_value << value_in_string << memory_value << endl;
                 int type_value_aux;
@@ -420,7 +422,7 @@ int main(int argc, char const *argv[])
                                             *tmp_int_ptr = numerical_int_value;  
                                             cout << (int*)(ptr + offset) << endl;
                                             cout << *(int*)(ptr + offset) << endl; 
-                                            list.append(name,4,offset,0,true,0);                                          
+                                            list.append(name,4,offset,0,true,1);                                          
                                             list.printList();  
                                             offset += stoi(memory_value);  
                                         }
@@ -429,7 +431,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 4){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,4,tmp_node->offset,0,true,0); 
+                                                    list.append(name,4,tmp_node->offset,0,true,1); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -449,7 +451,7 @@ int main(int argc, char const *argv[])
                                             *tmp_long_ptr = numerical_long_value;  
                                             cout << (long*)(ptr + offset) << endl;
                                             cout << *(long*)(ptr + offset) << endl;  
-                                            list.append(name,8,offset,0,true,0);
+                                            list.append(name,8,offset,0,true,1);
                                             list.printList();                                            
                                             offset += stoi(memory_value);    
                                         }
@@ -458,7 +460,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 8){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,8,tmp_node->offset,0,true,0); 
+                                                    list.append(name,8,tmp_node->offset,0,true,1); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -474,7 +476,7 @@ int main(int argc, char const *argv[])
                                             *tmp_char_ptr = value_in_string[0];  
                                             cout << (int*)(ptr + offset) << endl;
                                             cout << *(ptr + offset) << endl;     
-                                            list.append(name,1,offset,0,true,0);
+                                            list.append(name,1,offset,0,true,1);
                                             list.printList();                         
                                             offset += stoi(memory_value);          
                                         }         
@@ -483,7 +485,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 1){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,1,tmp_node->offset,0,true,0); 
+                                                    list.append(name,1,tmp_node->offset,0,true,1); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -501,7 +503,7 @@ int main(int argc, char const *argv[])
                                             *tmp_float_ptr = numerical_float_value;
                                             cout << (float*)(ptr + offset) << endl;
                                             cout << *(float*)(ptr + offset) << endl; 
-                                            list.append(name,4,offset,0,true,0);
+                                            list.append(name,4,offset,0,true,1);
                                             list.printList();                                 
                                             offset += stoi(memory_value);    
                                         }
@@ -510,7 +512,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 4){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,4,tmp_node->offset,0,true,0); 
+                                                    list.append(name,4,tmp_node->offset,0,true,1); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -530,7 +532,7 @@ int main(int argc, char const *argv[])
                                             *tmp_double_ptr = numerical_double_value;    
                                             cout << (double*)(ptr + offset) << endl;
                                             cout << *(double*)(ptr + offset) << endl; 
-                                            list.append(name,8,offset,0,true,0);
+                                            list.append(name,8,offset,0,true,1);
                                             list.printList();                            
                                             offset += stoi(memory_value);      
                                         } 
@@ -539,7 +541,7 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 8){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,8,tmp_node->offset,0,true,0); 
+                                                    list.append(name,8,tmp_node->offset,0,true,1); 
                                                 }
                                                 current_node = current_node->next;
                                             }
@@ -553,11 +555,9 @@ int main(int argc, char const *argv[])
                                     case 6:
                                         if(collector.verify_recycled_four() == false){ 
                                             tmp_ref_ptr = (int*)(ptr+offset);   
-                                            //tmp_ref_ptr_value = (int*)(ptr + (list.find_offset(value_in_string)));                       
-                                            //*tmp_ref_ptr = to_string(tmp_ref_ptr_value);  
-                                            cout << (int*)(ptr + offset) << endl;
-                                            cout << *(ptr + offset) << endl;     
-                                            list.append(name,4,offset,0,true,0);
+                                            tmp_ref_ptr_value = (int*)(ptr + (list.find_offset(value_in_string)));  
+                                                               
+                                            list.append(name,4,offset,0,true,1);
                                             list.printList();                         
                                             offset += stoi(memory_value);          
                                         }         
@@ -566,15 +566,18 @@ int main(int argc, char const *argv[])
                                             while (current_node != NULL){
                                                 if (current_node->memory_value == 4){ 
                                                     tmp_node = collector.deleteNode(current_node);
-                                                    list.append(name,4,tmp_node->offset,0,true,0); 
+                                                    list.append(name,4,tmp_node->offset,0,true,1); 
                                                 }
                                                 current_node = current_node->next;
                                             }
-                                            //tmp_ref_ptr = (ptr + tmp_node->offset);                            
-                                            //*tmp_ref_ptr = value_in_string[0];   
+                                            tmp_ref_ptr = (int*)(ptr + tmp_node->offset);                            
+                                            tmp_ref_ptr_value = (int*)(ptr + (list.find_offset(value_in_string))); 
                                         }   
                                         get_address << (int*)(tmp_ref_ptr);
-                                        address_str = get_address.str();                   
+                                        address_str = get_address.str();  
+                                        get_pointer_address << (int*)(tmp_ref_ptr_value);    
+                                        pointer_address_str = get_pointer_address.str();
+                                        value_in_string = pointer_address_str;                   
                                         break;
                                         
                             } 
@@ -582,11 +585,11 @@ int main(int argc, char const *argv[])
                                 cout << "error, there is no memory left"<< endl;
                             }
                                     
-                    jsonEnviar = R"({"name":")"+ name + R"(","type":")" + type_value + R"(","value":")" + value_in_string + R"(","memory":")" + memory_value + R"(","address":")" + address_str + R"(","count":")" + "0" + "\"}";
+                    jsonEnviar = R"({"name":")"+ name + R"(","type":")" + type_value + R"(","value":")" + value_in_string + R"(","memory":")" + memory_value + R"(","address":")" + address_str + R"(","count":")" + "1" + "\"}";
                     string string_send = jsonEnviar;
                     cout << string_send << endl;
                     ofstream myfile;
-                    myfile.open ("./untitled/example.txt",fstream::app);
+                    myfile.open ("./untitled/info.txt",fstream::app);
                     myfile << string_send + "\n";
                     myfile.close();
                 }
@@ -594,7 +597,7 @@ int main(int argc, char const *argv[])
                     switch(type_value_aux){
                             case 1:     
                                 ss << value_in_string;
-                                ss >> numerical_int_value;                                                                                             int *tmp_int_ptr;                                      
+                                ss >> numerical_int_value;                                                                                                                                 
                                 tmp_int_ptr = (int*)(ptr + list.find_offset(name));                            
                                 *tmp_int_ptr = numerical_int_value;  
                                 get_address << tmp_int_ptr;
@@ -624,8 +627,7 @@ int main(int argc, char const *argv[])
                                 ss << value_in_string;
                                 ss >> numerical_float_value;                                 
                                 tmp_float_ptr = (float*)(ptr + list.find_offset(name));                            
-                                *tmp_float_ptr = numerical_float_value;                                
-                                offset += stoi(memory_value);                  
+                                *tmp_float_ptr = numerical_float_value;                                                
                                 get_address << tmp_float_ptr;
                                 address_str = get_address.str();
                                 ref_count_int = list.find_count(name);
@@ -635,8 +637,7 @@ int main(int argc, char const *argv[])
                                 ss << value_in_string;
                                 ss >> numerical_double_value;                                
                                 tmp_double_ptr = (double*)(ptr + list.find_offset(name));                            
-                                *tmp_double_ptr = numerical_double_value;                               
-                                offset += stoi(memory_value);                  
+                                *tmp_double_ptr = numerical_double_value;                                                
                                 get_address << tmp_double_ptr;
                                 address_str = get_address.str();  
                                 ref_count_int = list.find_count(name);
@@ -644,7 +645,15 @@ int main(int argc, char const *argv[])
                                 break;
                                 
                             case 6:
-                                //caso ref
+                                tmp_ref_ptr = (int*)(ptr+list.find_offset(name));   
+                                tmp_ref_ptr_value = (int*)(ptr + (list.find_offset(value_in_string)));                                    
+                                get_address << (int*)(tmp_ref_ptr);
+                                address_str = get_address.str();  
+                                get_pointer_address << (int*)(tmp_ref_ptr_value);    
+                                pointer_address_str = get_pointer_address.str();
+                                value_in_string = pointer_address_str;        
+                                ref_count_int = list.find_count(name);
+                                ref_count_string = to_string(ref_count_int);
                                 break;
                                 
                             } 
@@ -652,14 +661,14 @@ int main(int argc, char const *argv[])
                     string string_send = jsonEnviar;
                     cout << string_send << endl;
                     ofstream myfile;
-                    myfile.open ("./untitled/example.txt",fstream::app);
+                    myfile.open ("./untitled/info.txt",fstream::app);
                     myfile << string_send + "\n";
                     myfile.close();
                 }
                 
             }
             else{
-                file.open ("./untitled/example.txt");
+                file.open ("./untitled/info.txt");
                 file << "";
                 file.close();
             }

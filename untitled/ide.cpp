@@ -851,7 +851,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                 JSON_Adapter(res);//se prepara el JSON
 
                 string line;
-                  ifstream myfile ("/home/sebas/Escritorio/P1.13/C-IDE/untitled/example.txt");
+                  ifstream myfile ("./untitled/info.txt");
                   QStringList listaRecibidos;
                   if (myfile.is_open())
                   {
