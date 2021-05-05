@@ -889,6 +889,7 @@ void ide::on_runBut_clicked()//basicamente esto es un adapter
                     opr2.realizarOperacionesLong(longsS);
                     opr2.realizarOperacionesDouble(doublesS);
                     opr2.realizarOperacionesChar(charsS);
+                    opr2.realizarOperacionesReference(refsS);
 
                     res << opr2.getAll();
 

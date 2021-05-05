@@ -876,6 +876,10 @@ public:
             }
         }
     }
+    /**
+     * @brief Realizar calculos para reference
+     * @param Lista con las variables
+    **/
     void realizarOperacionesReference(QStringList lista){
         int largo = lista.size();
         QString curr;

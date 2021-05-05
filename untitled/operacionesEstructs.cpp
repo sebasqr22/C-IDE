@@ -1,3 +1,9 @@
+/**
+  *@file operacionesEstructs.cpp
+  * @title operacionesEstructs
+  * @brief Clase que realiza las operaciones de todos los tipos de datos para las estucturas
+*/
+
 #include <QString>
 #include <QStringList>
 #include <QApplication>
@@ -11,6 +17,13 @@ private:
     bool pp2;
     QStringList all;
     QStringList results;
+    /**
+     * @brief operacionInt Realiza las operaciones para los ints
+     * @param num1 Primer numero entero
+     * @param num2 Segundo numero entero
+     * @param simb Tipo de operacion a realizar
+     * @return Resultado de la operacion
+     */
     int operacionInt(int num1, int num2, QString simb){
         if(simb == "+"){
             return num1 + num2;
@@ -26,6 +39,13 @@ private:
         }
 
     }
+    /**
+     * @brief operacionDouble Realiza las operaciones para los doubles
+     * @param num1 Primer numero entero
+     * @param num2 Segundo numero entero
+     * @param simb Tipo de operacion a realizar
+     * @return Resultado de la operacion
+     */
     double operacionDouble(double num1, double num2, QString simb){
         if(simb == "+"){
             return num1 + num2;
@@ -41,6 +61,13 @@ private:
         }
 
     }
+    /**
+     * @brief operacionLong Realiza las operaciones para los longs
+     * @param num1 Primer numero entero
+     * @param num2 Segundo numero entero
+     * @param simb Tipo de operacion a realizar
+     * @return Resultado de la operacion
+     */
     long operacionLong(long num1, long num2, QString simb){
             if(simb == "+"){
                 return num1 + num2;
@@ -55,6 +82,13 @@ private:
                 return num1 / num2;
             }
      }
+    /**
+     * @brief operacionFloat Realiza las operaciones para los floats
+     * @param num1 Primer numero entero
+     * @param num2 Segundo numero entero
+     * @param simb Tipo de operacion a realizar
+     * @return Resultado de la operacion
+     */
     float operacionFloat(float num1, float num2, QString simb){
         if(simb == "+"){
             return num1 + num2;
@@ -70,7 +104,12 @@ private:
         }
 
     }
-
+    /**
+     * @brief separar Metodo para separar las partes de una variable int
+     * @param str Variable a separar
+     * @param simb Operacion a realizar
+     * @return Variable con resultado
+     */
     QString separar(QString str, QString simb){
         int largo = str.size();
         QString p1;
@@ -100,6 +139,12 @@ private:
         int resultado = operacionInt(num1.toInt(), num2.toInt(), simb);
         return p1+QString::number(resultado);
     }
+    /**
+     * @brief separarDouble Metodo para separar las partes de una variable double
+     * @param str Variable a separar
+     * @param simb Operacion a realizar
+     * @return Variable con resultado
+     */
     QString separarDouble(QString str, QString simb){
         int largo = str.size();
         QString p1;
@@ -129,6 +174,12 @@ private:
         double resultado = operacionDouble(num1.toDouble(), num2.toDouble(), simb);
         return p1+QString::number(resultado);
     }
+    /**
+     * @brief separarLong Metodo para separar las partes de una variable long
+     * @param str Variable a separar
+     * @param simb Operacion a realizar
+     * @return Variable con resultado
+     */
     QString separarLong(QString str, QString simb){
         int largo = str.size();
         QString p1;
@@ -158,6 +209,12 @@ private:
         long resultado = operacionLong(num1.toLong(), num2.toLong(), simb);
         return p1+QString::number(resultado);
       }
+    /**
+     * @brief separarFloats Metodo para separar las partes de una variable floats
+     * @param str Variable a separar
+     * @param simb Operacion a realizar
+     * @return Variable con resultado
+     */
     QString separarFloats(QString str, QString simb){
         int largo = str.size();
         QString p1;
@@ -187,6 +244,11 @@ private:
         float resultado = operacionFloat(num1.toFloat(), num2.toFloat(), simb);
         return p1+QString::number(resultado);
     }
+    /**
+     * @brief separacionEspe metodo para encontrar el valor de una variable asignada de otro objeto
+     * @param str Variable a encontrar el valor
+     * @return variable con valor respectivo
+     */
     QString separacionEspe(QString str){
         int largoList = results.size();
         int largo = str.size();
@@ -226,6 +288,10 @@ private:
         }
         return p1 + aux;
     }
+    /**
+     * @brief verificarEspeInt Verificacione de las partes de una variable de tipo int
+     * @param str Variable a analizar
+     */
     void verificarEspeInt(QString str){
         QStringList nums;
         QString p1;
@@ -258,6 +324,10 @@ private:
         }
 
     }
+    /**
+     * @brief verificarEspeLong Verificacione de las partes de una variable de tipo long
+     * @param str Variable a analizar
+     */
     void verificarEspeLong(QString str){
         QStringList nums;
         QString p1;
@@ -290,6 +360,10 @@ private:
         }
 
     }
+    /**
+     * @brief verificarEspeDouble Verificacione de las partes de una variable de tipo double
+     * @param str Variable a analizar
+     */
     void verificarEspeDouble(QString str){
         QStringList nums;
         QString p1;
@@ -322,6 +396,10 @@ private:
         }
 
     }
+    /**
+     * @brief verificarEspeFloat Verificacione de las partes de una variable de tipo float
+     * @param str Variable a analizar
+     */
     void verificarEspeFloat(QString str){
         QStringList nums;
         QString p1;
@@ -354,6 +432,11 @@ private:
         }
 
     }
+    /**
+     * @brief encontrar Busca el valor de una variable en la lista all
+     * @param str Variable a buscar
+     * @return valor de la variable
+     */
     QString encontrar(QString str){
         int largo = results.size();
         QString val;
@@ -381,6 +464,11 @@ private:
         }
         return val;
     }
+    /**
+     * @brief verificaOperacion identifica operacion a realizar en el tipo de dato int
+     * @param str Variable a anlizar
+     * @param opr Operacion a realizar
+     */
     void verificaOperacion(QString str, QString opr){
         QString p1; //termino1
         QString p2; //termino2
@@ -434,6 +522,11 @@ private:
             }
         }
     }
+    /**
+     * @brief verificaOperacionFloat identifica operacion a realizar en el tipo de dato float
+     * @param str Variable a anlizar
+     * @param opr Operacion a realizar
+     */
     void verificaOperacionFloat(QString str, QString opr){
         QString p1; //termino1
         QString p2; //termino2
@@ -487,6 +580,11 @@ private:
             }
         }
     }
+    /**
+     * @brief verificaOperacionLong identifica operacion a realizar en el tipo de dato long
+     * @param str Variable a anlizar
+     * @param opr Operacion a realizar
+     */
     void verificaOperacionLong(QString str, QString opr){
         QString p1; //termino1
         QString p2; //termino2
@@ -540,6 +638,11 @@ private:
             }
         }
     }
+    /**
+     * @brief verificaOperacionDouble identifica operacion a realizar en el tipo de dato double
+     * @param str Variable a anlizar
+     * @param opr Operacion a realizar
+     */
     void verificaOperacionDouble(QString str, QString opr){
         QString p1; //termino1
         QString p2; //termino2
@@ -593,6 +696,10 @@ private:
             }
         }
     }
+    /**
+     * @brief econtrarChar Metodo para encontar una variable de tipo char
+     * @param str Variable a encontar
+     */
     void econtrarChar(QString str){
         int largo = all.size();
         int largoStr = str.size();
@@ -636,6 +743,10 @@ private:
     }
 
 public:
+/**
+     * @brief realizarOperacionesInt realiza las operaciones de los tipos de datos int
+     * @param lista Lista con las variables a analizar
+     */
     void realizarOperacionesInt(QStringList lista){
         int largo = lista.size();
         QString curr;
@@ -661,6 +772,10 @@ public:
             }
         }
     }
+    /**
+     * @brief realizarOperacionesFloats realiza las operaciones de los tipos de datos float
+     * @param lista Lista con las variables a analizar
+     */
     void realizarOperacionesFloats(QStringList lista){
         int largo = lista.size();
         QString curr;
@@ -686,6 +801,10 @@ public:
             }
         }
     }
+    /**
+     * @brief realizarOperacionesLong realiza las operaciones de los tipos de datos long
+     * @param lista Lista con las variables a analizar
+     */
     void realizarOperacionesLong(QStringList lista){
         int largo = lista.size();
         QString curr;
@@ -711,6 +830,10 @@ public:
             }
         }
     }
+    /**
+     * @brief realizarOperacionesDouble realiza las operaciones de los tipos de datos double
+     * @param lista Lista con las variables a analizar
+     */
     void realizarOperacionesDouble(QStringList lista){
         int largo = lista.size();
         QString curr;
@@ -736,6 +859,10 @@ public:
             }
         }
     }
+    /**
+     * @brief realizarOperacionesChar realiza las operaciones de los tipos de datos char
+     * @param lista Lista con las variables a analizar
+     */
     void realizarOperacionesChar(QStringList lista){
         int largo = lista.size();
         QString curr;
@@ -751,9 +878,39 @@ public:
             }
         }
     }
+    /**
+     * @brief Realizar calculos para reference
+     * @param Lista con las variables
+    **/
+    void realizarOperacionesReference(QStringList lista){
+        int largo = lista.size();
+        QString curr;
+
+        for(int i=0; i<largo; i++){
+            curr = lista[i];
+            curr.remove("reference<");
+            curr.remove(">");
+            curr.remove("&");
+            curr.remove("int");
+            curr.remove("long");
+            curr.remove("double");
+            curr.remove("float");
+            curr.remove("char");
+            curr.remove(" ");
+            all << curr;
+        }
+    }
+    /**
+     * @brief setResults pone el valor a la QStringList "results"
+     * @param lista Valor que se le asignara a "results"
+     */
     void setResults(QStringList lista){
         results = lista;
     }
+    /**
+     * @brief getAll retorna todas las variables analizadas
+     * @return variables analizadas
+     */
     QStringList getAll(){
         return all;
     }
